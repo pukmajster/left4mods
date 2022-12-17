@@ -184,10 +184,13 @@ async function buildManifest(existingManifest?: IModManifest) {
   // 4. Write the manifest to disk
   // ----------------------------------------------------------------
 
-  // TODO: remove indent for final version?
-  const f = fs.writeFileSync(MANIFEST_PATH, JSON.stringify(tempManifest, null, 4))
+  // Merge the existing manifest with the new one
+  let finalManifest: IModManifest = { ...tempManifest, ...existingManifest }
 
-  return tempManifest
+  // TODO: remove indent for final version?
+  const f = fs.writeFileSync(MANIFEST_PATH, JSON.stringify(finalManifest, null, 4))
+
+  return finalManifest
 }
 
 async function readExistingManifest() {
