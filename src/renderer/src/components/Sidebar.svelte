@@ -185,6 +185,7 @@
   .panel-hovers {
     display: flex;
     flex-direction: column;
+    gap: 2px;
     /* transform: rotate(-90deg);
     transform-origin: center; */
   }
