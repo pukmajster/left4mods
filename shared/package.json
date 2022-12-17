@@ -1,0 +1,10 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "A local package for shared types between main and the renderer",
+  "types": "index.d.ts",
+  "main": "",
+  "scripts": {},
+  "author": "",
+  "license": "ISC"
+}
