@@ -82,9 +82,9 @@ export const filteredMods = derived(
   }
 )
 
-export const sortedFiltedMods = derived(
-  [filteredMods, sortingType],
-  ([$filteredMods, $sortingType]) => {
+export const sortedFilteredMods = derived(
+  [filteredMods, sortingType, perPageCount],
+  ([$filteredMods, $sortingType, $perPageCount]) => {
     let tempStorage: IMod[] = $filteredMods
 
     if ($sortingType == ('name_asc' as SortingType)) {
@@ -112,5 +112,14 @@ export const sortedFiltedMods = derived(
     }
 
     return tempStorage
+  }
+)
+
+export const paginatedSortedFilteredMods = derived(
+  [sortedFilteredMods, perPageCount],
+  ([$sortedFilteredMods, $perPageCount]) => {
+    let tempStorage: IMod[] = $sortedFilteredMods
+
+    return tempStorage.slice(0, parseInt($perPageCount))
   }
 )

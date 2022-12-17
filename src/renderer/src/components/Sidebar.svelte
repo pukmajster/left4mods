@@ -1,5 +1,6 @@
 <script lang="ts">
   import {
+    paginatedSortedFilteredMods,
     searchTerm,
     selectedGrenades,
     selectedGuns,
@@ -7,7 +8,8 @@
     selectedMelees,
     selectedMisc,
     selectedSurvivors,
-    selectedUtils
+    selectedUtils,
+    sortedFilteredMods
   } from '../stores/library'
 
   import categories from '../constants/categories'
@@ -26,7 +28,11 @@
     <input bind:value={$searchTerm} />
     <br />
 
-    Mods installed: {Object.keys(modManifest).length}
+    <p>Mods installed: {Object.keys($modManifest).length}</p>
+    <p>Mods by filter: {Object.keys($sortedFilteredMods).length}</p>
+    <p>Mods shown: {Object.keys($paginatedSortedFilteredMods).length}</p>
+
+    <div style="height: 7px" />
 
     <div class="filter-panels">
       <div class="panel-hovers">
