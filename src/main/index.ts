@@ -1,7 +1,8 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { release } from 'os'
 import * as path from 'path'
+import { requestManifest } from './manifest_v2'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -13,6 +14,10 @@ if (!app.requestSingleInstanceLock()) {
   app.quit()
   process.exit(0)
 }
+
+ipcMain.handle('manifest:request', async (e, forceNewBuild: boolean = false) => {
+  return requestManifest(forceNewBuild)
+})
 
 function createWindow(): void {
   // Create the browser window.

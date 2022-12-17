@@ -1,20 +1,33 @@
 export type ModId = string
 export type ModFile = string
 
-export interface ModManifest {
-  [id: ModId]: Mod
+declare global {
+  interface Window {
+    api: BridgedAPI
+  }
+}
+
+export interface BridgedAPI {
+  requestManifest: (forceNewBuild: boolean) => Promise<IModManifest>
+}
+
+export interface IModManifest {
+  [id: ModId]: IMod
 }
 
 export interface Profile {
-  collections: ModCollection[]
+  collections?: IModCollection[]
+  preferences: {
+    gameDir: string
+  }
 }
 
-export interface ModCollection {
+export interface IModCollection {
   name: string
   mods: ModId[]
 }
 
-export interface Mod {
+export interface IMod {
   id: ModId
   addontitle?: string
   addonversion?: string
