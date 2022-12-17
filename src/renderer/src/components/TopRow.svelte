@@ -1,6 +1,6 @@
 <script lang="ts">
   import { perPageCount, selectedMods, sortingType, typeToShow } from '../stores/library'
-  import { modManifest } from '../temp'
+  import { modManifest } from '../stores/manifest'
 
   function unselectAll() {
     selectedMods.set([])
@@ -14,11 +14,11 @@
 <div class="container">
   <div class="top-filters">
     <select bind:value={$perPageCount}>
-      <option value={30}>30</option>
-      <option value={50}>50</option>
-      <option value={100}>100</option>
-      <option value={300}>300</option>
-      <option value={999}>All</option>
+      <option value={'30'}>30</option>
+      <option value={'50'}>50</option>
+      <option value={'100'}>100</option>
+      <option value={'300'}>300</option>
+      <option value={'999'}>All</option>
     </select>
 
     <select bind:value={$sortingType}>
@@ -55,5 +55,7 @@
   .container {
     display: flex;
     justify-content: space-between;
+
+    padding: 1em;
   }
 </style>

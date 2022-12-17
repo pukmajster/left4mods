@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { IModManifest } from 'shared'
   import {
     searchTerm,
     selectedGrenades,
@@ -12,9 +11,7 @@
   } from '../stores/library'
 
   import categories from '../constants/categories'
-  import { modManifest } from '../temp'
-
-  let mods: IModManifest = modManifest
+  import { modManifest } from '../stores/manifest'
 
   let visibleFilterPanel = 'guns'
 
@@ -29,7 +26,7 @@
     <input bind:value={$searchTerm} />
     <br />
 
-    Mods installed: {Object.keys(mods).length}
+    Mods installed: {Object.keys(modManifest).length}
 
     <div class="filter-panels">
       <div class="panel-hovers">
@@ -220,5 +217,10 @@
 
   option {
     padding: 4px;
+  }
+
+  option:checked {
+    color: rgb(234, 249, 255);
+    background-color: black;
   }
 </style>

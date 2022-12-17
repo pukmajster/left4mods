@@ -6,8 +6,6 @@
     <button>settings</button>
     <button>refresh manifest</button>
   </div>
-
-  <div>help</div>
 </div>
 
 <style>

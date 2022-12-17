@@ -1,6 +1,6 @@
-import type { ModManifest } from 'shared'
+import type { IModManifest } from 'shared'
 
-export const modManifest: ModManifest = {
+export const modManifestTemp: IModManifest = {
   '121090376': {
     files: [
       'materials/skybox/urbannightstorm_ldrup.vtf',
