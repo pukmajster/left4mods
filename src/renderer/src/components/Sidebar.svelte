@@ -67,7 +67,7 @@
           on:click={() => setVisiblePanel('infected')}><span>infected</span></button
         >
         <button
-          class:active={$selectedMisc.length > 0 && selectedMisc[0] != ''}
+          class:active={$selectedMisc.length > 0 && $selectedMisc[0] != ''}
           class:selected={visibleFilterPanel == 'misc'}
           on:click={() => setVisiblePanel('misc')}><span>misc</span></button
         >
