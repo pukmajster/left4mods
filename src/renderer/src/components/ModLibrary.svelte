@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { sortedFilteredMods } from '../stores/library'
+  import { paginatedSortedFilteredMods } from '../stores/library'
   import ModCard from './ModCard.svelte'
   import Sidebar from './Sidebar.svelte'
   import TopRow from './TopRow.svelte'
@@ -11,7 +11,7 @@
     <TopRow />
     <div class="mods-inner">
       <div class="mods-list">
-        {#each $sortedFilteredMods as mod}
+        {#each $paginatedSortedFilteredMods as mod}
           <ModCard {mod} />
         {/each}
       </div>

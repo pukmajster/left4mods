@@ -1,13 +1,18 @@
 <script lang="ts">
-  import { perPageCount, selectedMods, sortingType, typeToShow } from '../stores/library'
-  import { modManifest } from '../stores/manifest'
+  import {
+    paginatedSortedFilteredMods,
+    perPageCount,
+    selectedMods,
+    sortingType,
+    typeToShow
+  } from '../stores/library'
 
   function unselectAll() {
     selectedMods.set([])
   }
 
   function selectAll() {
-    selectedMods.set(Object.keys(modManifest))
+    selectedMods.set($paginatedSortedFilteredMods.map((mod) => mod.id))
   }
 </script>
 
