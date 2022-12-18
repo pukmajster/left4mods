@@ -59,6 +59,11 @@ export function disableModInCurrentPresetSafe(modId: ModId) {
   if (isModEnabledInCurrentPreset(modId)) disableModInCurrentPresetUnsafe(modId)
 }
 
+export function toggleModInCurrentPresetSafe(modId: ModId) {
+  if (isModEnabledInCurrentPreset(modId)) disableModInCurrentPresetUnsafe(modId)
+  else enableModInCurrentPresetUnsafe(modId)
+}
+
 export function batchEnableModsInCurrentPreset(modIds: ModId[]) {
   modIds.forEach((modId) => enableModInCurrentPresetSafe(modId))
 }

@@ -11,6 +11,7 @@ export const sortingType = writable<SortingType>('name_asc')
 export const perPageCount = writable('50')
 
 export const showConflictingView = writable(false)
+export const onlyShowModsNotInAnyCollection = writable(false)
 
 export const searchTerm = writable('')
 export const selectedGuns = writable<string[]>([])
@@ -54,7 +55,10 @@ export const filteredMods = derived(
     selectedMisc,
     modManifest,
     typeToShow,
-    enabledMods
+    enabledMods,
+    onlyShowModsNotInAnyCollection,
+    collections,
+    selectedCollectionName
   ],
   ([
     $searchTerm,
@@ -67,7 +71,10 @@ export const filteredMods = derived(
     $selectedMisc,
     $modManifest,
     $typeToShow,
-    $enabledMods
+    $enabledMods,
+    $onlyShowModsNotInAnyCollection,
+    $collections,
+    $selectedCollectionName
   ]) => {
     let tempStorage: IMod[] = []
 
@@ -111,6 +118,10 @@ export const filteredMods = derived(
         if (thisMod.categories == undefined) return
         let sharedCats = arraysShareValues(allFilters, thisMod.categories)
         if (!sharedCats) return
+      }
+
+      if ($onlyShowModsNotInAnyCollection && $selectedCollectionName == '') {
+        if ($collections.find((collection) => collection.mods.includes(thisMod.id))) return
       }
 
       tempStorage.push(thisMod)

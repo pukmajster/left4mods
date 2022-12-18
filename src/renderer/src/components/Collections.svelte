@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onlyShowModsNotInAnyCollection } from '../stores/library'
   import { collections, selectedCollectionName } from '../stores/profile'
 
   let newCollectionName = ''
@@ -38,6 +39,16 @@
 
   <button on:click={createNewCollection}>create</button>
   <input bind:value={newCollectionName} />
+  <div>
+    <input
+      id="onlyShowModsNotInAnyCollection"
+      type="checkbox"
+      disabled={$selectedCollectionName !== ''}
+      bind:checked={$onlyShowModsNotInAnyCollection}
+    />
+
+    <label for="onlyShowModsNotInAnyCollection"> Only show mods not in any collection</label>
+  </div>
   <div style="height: 1em;" />
 </div>
 

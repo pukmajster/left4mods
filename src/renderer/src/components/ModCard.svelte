@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { IMod } from 'shared'
   import { enabledMods, groupedEnabledMods, selectedMods } from '../stores/library'
-  import { activePreset, presets } from '../stores/profile'
+  import { toggleModInCurrentPresetSafe } from '../stores/profile'
 
   export let mod: IMod
 
@@ -55,21 +55,7 @@
   )
 
   function toggleModEnable() {
-    presets.update((value) => {
-      let tempPresets = [...value]
-
-      if (!enabled)
-        tempPresets.find((preset) => preset.name == $activePreset).enabledMods.push(mod.id)
-      else {
-        let tempEnabledMods = tempPresets
-          .find((preset) => preset.name == $activePreset)
-          .enabledMods.filter((id) => id != mod.id)
-
-        tempPresets.find((preset) => preset.name == $activePreset).enabledMods = tempEnabledMods
-      }
-
-      return tempPresets
-    })
+    toggleModInCurrentPresetSafe(mod.id)
   }
 </script>
 
