@@ -80,7 +80,7 @@
 
   .mods-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(182px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
     grid-auto-rows: minmax(min-content, max-content);
     align-items: stretch;
 
@@ -103,7 +103,7 @@
   .conflicting-mods-group {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(182px, 1fr));
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
     grid-auto-rows: minmax(min-content, max-content);
     align-items: stretch;
     gap: 12px;
