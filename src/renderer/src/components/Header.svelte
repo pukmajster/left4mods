@@ -1,5 +1,6 @@
 <script lang="ts">
   import { requestManifest } from '../api/api'
+  import { modManifest } from '../stores/manifest'
   import { showPreferences, toggleShowPreferences } from '../stores/preferences'
   import Preferences from './Preferences.svelte'
   import Presets from './Presets.svelte'
@@ -10,7 +11,7 @@
     isBuildingManifest = true
 
     try {
-      await requestManifest(forceNewBuild)
+      modManifest.set(await requestManifest(forceNewBuild))
     } catch (e) {
       console.log(e)
     } finally {
