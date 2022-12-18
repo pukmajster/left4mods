@@ -218,8 +218,8 @@ async function readExistingManifest() {
     let data: IModManifest = JSON.parse(await fsp.readFile(MANIFEST_PATH, 'utf8'))
     return await buildManifest(data)
   } catch (e) {
-    return {}
     console.log(e as Error)
+    return {}
   }
 }
 

@@ -43,6 +43,8 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    minWidth: 840,
+    minHeight: 670,
     show: false,
     title: 'L4d2 Launcher',
     autoHideMenuBar: true,

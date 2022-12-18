@@ -2,6 +2,7 @@
   import { requestManifest } from '../api/api'
   import { showPreferences, toggleShowPreferences } from '../stores/preferences'
   import Preferences from './Preferences.svelte'
+  import Presets from './Presets.svelte'
 
   let isBuildingManifest = false
 
@@ -29,6 +30,8 @@
     >
   </div>
 
+  <Presets />
+
   {#if $showPreferences}
     <Preferences />
   {/if}
@@ -38,5 +41,6 @@
   .container {
     display: flex;
     justify-content: space-between;
+    padding: 1em;
   }
 </style>

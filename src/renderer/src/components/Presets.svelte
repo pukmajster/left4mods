@@ -33,13 +33,19 @@
         <option value={preset.name}>{preset.name}</option>
       {/each}
     </select>
-  </div>
 
-  <button on:click={createNewPreset}>create</button>
-  <input bind:value={newPresetName} />
+    <div>
+      <button on:click={createNewPreset}>create</button>
+      <input bind:value={newPresetName} />
+    </div>
+  </div>
 </div>
 
 <style>
+  .container {
+    display: flex;
+  }
+
   select {
     width: 100%;
   }

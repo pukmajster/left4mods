@@ -158,6 +158,7 @@
 
     backdrop-filter: blur(20px);
     background-color: #262847c7;
+    background-color: #0b0c1be2;
 
     z-index: 9999;
   }

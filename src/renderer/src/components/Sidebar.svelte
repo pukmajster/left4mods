@@ -17,7 +17,6 @@
   import { modManifest } from '../stores/manifest'
   import ActionButtons from './ActionButtons.svelte'
   import Collections from './Collections.svelte'
-  import Presets from './Presets.svelte'
   let visibleFilterPanel = 'guns'
 
   function setVisiblePanel(panel: string) {
@@ -30,10 +29,12 @@
     <input placeholder="Search" bind:value={$searchTerm} />
     <br />
 
-    <p>Mods installed: {Object.keys($modManifest).length}</p>
-    <p>Mods enabled: {$enabledMods.length}</p>
-    <p>Mods by filter: {Object.keys($sortedFilteredMods).length}</p>
-    <p>Mods shown: {Object.keys($paginatedSortedFilteredMods).length}</p>
+    <div class="stats">
+      <p>Mods installed: {Object.keys($modManifest).length}</p>
+      <p>Mods enabled: {$enabledMods.length}</p>
+      <p>Mods by filter: {Object.keys($sortedFilteredMods).length}</p>
+      <p>Mods shown: {Object.keys($paginatedSortedFilteredMods).length}</p>
+    </div>
 
     <div style="height: 7px" />
 
@@ -160,11 +161,11 @@
     </div>
 
     <div style="height: 1em" />
-    <div style="height: 1px; background-color: gray" />
-    <div style="height: 1em" />
 
     <Collections />
-    <Presets />
+
+    <div style="height: 1px; background-color: gray" />
+    <div style="height: 1em" />
 
     <ActionButtons />
   </div>
@@ -185,7 +186,7 @@
 
   .filter-panels select {
     display: none;
-    height: 480px;
+    height: 466px;
     width: 100%;
     overflow: hidden;
   }
@@ -241,5 +242,9 @@
   option:checked {
     color: rgb(234, 249, 255);
     background-color: black;
+  }
+
+  .stats {
+    font-size: 13px;
   }
 </style>
