@@ -1,4 +1,6 @@
 const VPK = require('vpk')
+import fetch from 'electron-fetch'
+import FormData from 'form-data'
 import * as fs from 'fs'
 import { IMod, IModManifest, ModId } from 'shared'
 const path = require('path')
@@ -46,6 +48,7 @@ async function buildManifest(existingManifest?: IModManifest) {
 
   if (existingManifest) {
     idsInAddonsDir = Object.keys(existingManifest)
+    console.log('Found ' + idsInAddonsDir.length + ' mods in the manifest')
   }
 
   try {
@@ -151,33 +154,43 @@ async function buildManifest(existingManifest?: IModManifest) {
   // 3. Fetch missing mod titles from the Steam Workshop
   // ----------------------------------------------------------------
 
-  const fd = new FormData()
-  let i = 0
-  fd.set('itemcount', `${modIdsWithoutValidAddonInfo.length}`)
-  for (let id of modIdsWithoutValidAddonInfo) {
-    fd.set(`publishedfileids[${i}]`, id)
-    i++
-  }
-
-  console.log('Fetching mod titles from Steam Workshop...')
-
-  try {
-    let res = await fetch(
-      'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1',
-      {
-        body: fd,
-        method: 'POST'
-      }
-    )
-
-    let data: IOnlineAddoninfoResponse = await res.json()
-
-    for (let publishedFile of data.response.publishedfiledetails) {
-      console.log(publishedFile)
-      tempManifest[publishedFile.publishedfileid].addontitle = publishedFile.title
+  if (modIdsWithoutValidAddonInfo.length > 0) {
+    const fd = new FormData()
+    let i = 0
+    fd.append('itemcount', `${modIdsWithoutValidAddonInfo.length}`)
+    for (let id of modIdsWithoutValidAddonInfo) {
+      fd.append(`publishedfileids[${i}]`, id)
+      i++
     }
-  } catch (e) {
-    console.log('failed to retrieve online mod info')
+
+    console.log('Fetching mod titles from Steam Workshop...')
+
+    try {
+      let res = await fetch(
+        'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1',
+        {
+          // @ts-ignore
+          body: fd,
+          method: 'POST'
+        }
+      )
+
+      //let blob = await res.buffer()
+      //fs.writeFileSync('test.html', blob)
+
+      let data: IOnlineAddoninfoResponse = await res.json()
+
+      for (let publishedFile of data.response.publishedfiledetails) {
+        console.log(publishedFile)
+        tempManifest[publishedFile.publishedfileid].addontitle = publishedFile.title
+      }
+    } catch (e) {
+      console.log(e as Error)
+
+      console.log('failed to retrieve online mod info')
+    }
+  } else {
+    console.log('No missing mod titles to fetch')
   }
 
   // ----------------------------------------------------------------
@@ -196,8 +209,9 @@ async function buildManifest(existingManifest?: IModManifest) {
 async function readExistingManifest() {
   try {
     let data: IModManifest = JSON.parse(await fsp.readFile(MANIFEST_PATH, 'utf8'))
-    buildManifest(data)
+    return await buildManifest(data)
   } catch (e) {
+    return {}
     console.log(e as Error)
   }
 }
@@ -206,11 +220,11 @@ export async function requestManifest(forceNewBuild: boolean = false) {
   try {
     await fsp.access(MANIFEST_PATH)
 
-    if (forceNewBuild) readExistingManifest()
-    else buildManifest({})
+    if (forceNewBuild) return await buildManifest({})
+    else return await readExistingManifest()
   } catch (e) {
     console.log('there is no existing manifest')
-    buildManifest({})
+    return await buildManifest({})
   }
 }
 

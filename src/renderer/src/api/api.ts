@@ -1,4 +1,4 @@
-export async function requestManifest(forceNewBuild: boolean) {
+export async function requestManifest(forceNewBuild: boolean = false) {
   console.log('manifest')
 
   try {
