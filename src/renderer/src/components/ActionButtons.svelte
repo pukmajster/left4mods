@@ -27,9 +27,9 @@
   }
 </script>
 
-<button on:click={_writeAddonList} disabled={writingAddonList} class="launch-button write"
+<!-- <button on:click={_writeAddonList} disabled={writingAddonList} class="launch-button write"
   >{writingAddonList ? 'Writing...' : 'Write addonlist'}</button
->
+> -->
 <button on:click={launchGame} class="launch-button">Launch L4D2</button>
 
 <style>

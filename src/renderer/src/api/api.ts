@@ -38,15 +38,12 @@ export async function writeAddonList(gameDir: string, manifest: IModManifest, pr
   let enabledMods = preset.enabledMods
 
   for (let mod in manifest) {
-    console.log('writing mod: ' + mod)
-
     let modId = manifest[mod].id
     let enabled = enabledMods.includes(modId) ? '1' : '0'
     outputVdfString += `\t"workshop\\${modId}.vpk"\t\t\t"${enabled}"\n`
   }
 
   outputVdfString += '}'
-  console.log(outputVdfString)
 
   let res = await window.api.writeAddonList(gameDir, outputVdfString)
   return res
