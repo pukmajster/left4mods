@@ -9,6 +9,7 @@ declare global {
 
 export interface BridgedAPI {
   requestManifest: (forceNewBuild: boolean) => Promise<IModManifest>
+  openLinkInBrowser: (url: string) => void
 }
 
 export interface IModManifest {

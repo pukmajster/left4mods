@@ -19,6 +19,10 @@ ipcMain.handle('manifest:request', async (e, forceNewBuild: boolean = false) => 
   return requestManifest(forceNewBuild)
 })
 
+ipcMain.handle('external:openLinkInBrowser', async (e, url: string) => {
+  return shell.openExternal(url)
+})
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({

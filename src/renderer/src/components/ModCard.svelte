@@ -29,10 +29,20 @@
     })
   }
 
+  function openModInBrowser() {
+    window.api.openLinkInBrowser(`https://steamcommunity.com/sharedfiles/filedetails/?id=${mod.id}`)
+  }
+
   $: selected = $selectedMods.includes(mod.id)
 </script>
 
-<div class="mod" class:selected on:click={handleCtrlClick} on:mouseenter={handleShiftMouseEnter}>
+<div
+  class="mod"
+  class:selected
+  on:click={handleCtrlClick}
+  on:mouseenter={handleShiftMouseEnter}
+  on:contextmenu={openModInBrowser}
+>
   <img
     alt="mod"
     src={`file:///home/kry/.local/share/Steam/steamapps/common/Left%204%20Dead%202/left4dead2/addons/workshop/${mod.id}.jpg`}

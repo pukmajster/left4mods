@@ -1,5 +1,5 @@
 import { electronAPI } from '@electron-toolkit/preload'
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge, ipcRenderer, shell } from 'electron'
 import { BridgedAPI } from 'shared'
 
 console.log('preload')
@@ -7,7 +7,13 @@ console.log('preload')
 // Custom APIs for renderer
 const api: BridgedAPI = {
   requestManifest: (forceNewBuild: boolean = false) =>
-    ipcRenderer.invoke('manifest:request', forceNewBuild)
+    ipcRenderer.invoke('manifest:request', forceNewBuild),
+  openLinkInBrowser: (url: string) => openLinkInBrowser(url)
+}
+
+function openLinkInBrowser(url: string) {
+  console.log(' ------------ ' + url + ' ------------------')
+  shell.openExternal(url)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
@@ -25,5 +31,4 @@ if (process.contextIsolated) {
   // @ts-ignore (define in dts)
   window.electron = electronAPI
   window.api = api
-  console.log('exposed! :D')
 }

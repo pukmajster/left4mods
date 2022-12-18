@@ -44,8 +44,6 @@ async function buildManifest(existingManifest?: IModManifest) {
   let newIds: ModId[] = []
   let newIdCount = 0
 
-  let modIdsWithoutValidAddonInfo: ModId[] = []
-
   if (existingManifest) {
     idsInAddonsDir = Object.keys(existingManifest)
     console.log('Found ' + idsInAddonsDir.length + ' mods in the manifest')
@@ -132,7 +130,6 @@ async function buildManifest(existingManifest?: IModManifest) {
             }
           }
         } catch (e) {
-          modIdsWithoutValidAddonInfo.push(id)
           console.log('error parsing addoninfo for mod ' + id)
           modInfo['error'] = 'Error parsing addoninfo.txt'
         }
@@ -150,9 +147,23 @@ async function buildManifest(existingManifest?: IModManifest) {
     return {}
   }
 
+  // Merge the existing manifest with the new one
+  let mergedManifest: IModManifest = { ...tempManifest, ...existingManifest }
+
   // ----------------------------------------------------------------
   // 3. Fetch missing mod titles from the Steam Workshop
   // ----------------------------------------------------------------
+
+  let modIdsWithoutValidAddonInfo: ModId[] = []
+
+  // Check for mods that are missing a title
+  for (let mod in mergedManifest) {
+    if (!mergedManifest[mod].addontitle) {
+      console.log('Missing mod title for mod ' + mod)
+
+      modIdsWithoutValidAddonInfo.push(mod)
+    }
+  }
 
   if (modIdsWithoutValidAddonInfo.length > 0) {
     const fd = new FormData()
@@ -174,15 +185,12 @@ async function buildManifest(existingManifest?: IModManifest) {
           method: 'POST'
         }
       )
-
-      //let blob = await res.buffer()
-      //fs.writeFileSync('test.html', blob)
-
       let data: IOnlineAddoninfoResponse = await res.json()
 
       for (let publishedFile of data.response.publishedfiledetails) {
-        console.log(publishedFile)
-        tempManifest[publishedFile.publishedfileid].addontitle = publishedFile.title
+        let id = publishedFile.publishedfileid.toString()
+        if (modIdsWithoutValidAddonInfo.includes(id))
+          mergedManifest[id].addontitle = publishedFile.title
       }
     } catch (e) {
       console.log(e as Error)
@@ -197,13 +205,10 @@ async function buildManifest(existingManifest?: IModManifest) {
   // 4. Write the manifest to disk
   // ----------------------------------------------------------------
 
-  // Merge the existing manifest with the new one
-  let finalManifest: IModManifest = { ...tempManifest, ...existingManifest }
-
   // TODO: remove indent for final version?
-  const f = fs.writeFileSync(MANIFEST_PATH, JSON.stringify(finalManifest, null, 4))
+  const f = fs.writeFileSync(MANIFEST_PATH, JSON.stringify(mergedManifest, null, 4))
 
-  return finalManifest
+  return mergedManifest
 }
 
 async function readExistingManifest() {
