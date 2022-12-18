@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { IMod } from 'shared'
-  import { enabledMods, selectedMods } from '../stores/library'
+  import { enabledMods, groupedEnabledMods, selectedMods } from '../stores/library'
   import { activePreset, presets } from '../stores/profile'
 
   export let mod: IMod
@@ -50,6 +50,10 @@
   $: selected = $selectedMods.includes(mod.id)
   $: enabled = $enabledMods.includes(mod.id)
 
+  $: isGroupEnabled = $groupedEnabledMods.some((group) =>
+    group.some((conflictingMod) => conflictingMod.id == mod.id)
+  )
+
   function toggleModEnable() {
     console.log('toggling mod')
 
@@ -77,6 +81,7 @@
   class="mod"
   class:selected
   class:enabled
+  class:conflicting={isGroupEnabled}
   on:click={handleClick}
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
@@ -104,6 +109,7 @@
 <style>
   .mod {
     --mod-enabled-color: rgb(25, 165, 25);
+    --mod-conflicting-color: #ff5151f9;
 
     display: flex;
     flex-direction: column;
@@ -113,7 +119,7 @@
 
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
-    border-bottom: 4px solid transparent;
+    border-bottom: 6px solid transparent;
     /* background-color: #262847; */
   }
 
@@ -136,7 +142,12 @@
 
   .mod.enabled {
     color: var(--mod-enabled-color);
-    border-bottom: 4px solid var(--mod-enabled-color);
+    border-bottom: 6px solid var(--mod-enabled-color);
+  }
+
+  .mod.enabled.conflicting {
+    color: var(--mod-conflicting-color);
+    border-bottom: 6px solid var(--mod-conflicting-color);
   }
 
   .hoverbox {

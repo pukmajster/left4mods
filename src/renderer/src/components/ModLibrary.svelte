@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { paginatedSortedFilteredMods } from '../stores/library'
+  import { groupedEnabledMods, paginatedSortedFilteredMods, typeToShow } from '../stores/library'
   import ModCard from './ModCard.svelte'
   import Sidebar from './Sidebar.svelte'
   import TopRow from './TopRow.svelte'
+
+  $: console.log($groupedEnabledMods)
 </script>
 
 <ul class="library">
@@ -10,11 +12,24 @@
   <div class="mods-wrapper">
     <TopRow />
     <div class="mods-inner">
-      <div class="mods-list">
-        {#each $paginatedSortedFilteredMods as mod}
-          <ModCard {mod} />
-        {/each}
-      </div>
+      {#if $typeToShow == 'conflicting'}
+        <div class="conflicting-mods">
+          {#each $groupedEnabledMods as group, i}
+            <h2>{i}</h2>
+            <div class="conflicting-mods-group">
+              {#each group as mod}
+                <ModCard {mod} />
+              {/each}
+            </div>
+          {/each}
+        </div>
+      {:else}
+        <div class="mods-list">
+          {#each $paginatedSortedFilteredMods as mod}
+            <ModCard {mod} />
+          {/each}
+        </div>
+      {/if}
     </div>
   </div>
 </ul>
@@ -64,5 +79,19 @@
 
   .mods-list:last-child {
     padding-bottom: 4em;
+  }
+
+  .conflicting-mods {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .conflicting-mods-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(182px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-auto-rows: minmax(min-content, max-content);
+    align-items: stretch;
   }
 </style>

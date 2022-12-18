@@ -8,7 +8,7 @@ type SortingType = 'name_asc' | 'name_desc' | 'time_oldest' | 'time_newest'
 type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'conflicting' | 'corrupt'
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('name_asc')
-export const perPageCount = writable('30')
+export const perPageCount = writable('50')
 
 export const searchTerm = writable('')
 export const selectedGuns = writable<string[]>([])
@@ -50,7 +50,9 @@ export const filteredMods = derived(
     selectedSurvivors,
     selectedInfected,
     selectedMisc,
-    modManifest
+    modManifest,
+    typeToShow,
+    enabledMods
   ],
   ([
     $searchTerm,
@@ -61,7 +63,9 @@ export const filteredMods = derived(
     $selectedSurvivors,
     $selectedInfected,
     $selectedMisc,
-    $modManifest
+    $modManifest,
+    $typeToShow,
+    $enabledMods
   ]) => {
     let tempStorage: IMod[] = []
 
@@ -82,6 +86,22 @@ export const filteredMods = derived(
         //profileAllOnlineAddoninfos[keyName]?.title ??
         $modManifest[keyName].id
       let thisMod = $modManifest[keyName] as IMod
+
+      // Check for mod type
+      switch ($typeToShow) {
+        case 'any':
+          break
+        case 'enabled':
+          if (!$enabledMods.includes(thisMod.id)) return
+          break
+        case 'disabled':
+          if ($enabledMods.includes(thisMod.id)) return
+          break
+
+        case 'corrupt':
+          if (thisMod.addontitle) return
+          break
+      }
 
       // Make sure the mod's title fits the search term
       if ($searchTerm) {
@@ -141,5 +161,34 @@ export const paginatedSortedFilteredMods = derived(
     let tempStorage: IMod[] = $sortedFilteredMods
 
     return tempStorage.slice(0, parseInt($perPageCount))
+  }
+)
+
+// Group enabled mods that share indentical files
+export const groupedEnabledMods = derived(
+  [enabledMods, modManifest],
+  ([$enabledMods, $modManifest]) => {
+    let tempStorage: IMod[][] = []
+
+    $enabledMods.map((modId) => {
+      let thisMod = $modManifest[modId] as IMod
+
+      let foundGroup = false
+
+      tempStorage.map((group) => {
+        if (arraysShareValues(group[0].files, thisMod.files)) {
+          group.push(thisMod)
+          foundGroup = true
+        }
+      })
+
+      if (!foundGroup) {
+        tempStorage.push([thisMod])
+      }
+    })
+
+    tempStorage = tempStorage.filter((group) => group.length > 1)
+
+    return tempStorage
   }
 )
