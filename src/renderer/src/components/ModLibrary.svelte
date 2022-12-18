@@ -21,6 +21,12 @@
           <p>Please select a preset or create a new one.</p>
         </div>
       {:else if $showConflictingView}
+        {#if $groupedEnabledMods.length == 0}
+          <div class="no-conflicting-mods">
+            <h1>No conflicting mods</h1>
+            <p>There are no conflicting mods in your preset.</p>
+          </div>
+        {/if}
         <div class="conflicting-mods">
           {#each $groupedEnabledMods as group, i}
             <h2>Conflicting mods #{i + 1}</h2>
@@ -69,19 +75,18 @@
     flex-direction: column;
     overflow-y: scroll;
     flex: 1;
+    height: 300px;
   }
 
   .mods-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(182px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(182px, 1fr));
     grid-auto-rows: minmax(min-content, max-content);
     align-items: stretch;
 
     gap: 12px;
     padding: 1em;
     padding-left: 0.5em;
-
-    height: 600px;
   }
 
   .mods-list:last-child {

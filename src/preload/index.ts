@@ -10,7 +10,9 @@ const api: BridgedAPI = {
     ipcRenderer.invoke('manifest:request', forceNewBuild),
   openLinkInBrowser: (url: string) => openLinkInBrowser(url),
   writeProfile: (profileData: IUserProfile) => ipcRenderer.invoke('profile:write', profileData),
-  readProfile: () => ipcRenderer.invoke('profile:read')
+  readProfile: () => ipcRenderer.invoke('profile:read'),
+  writeAddonList: (gameDir: string, addonInfo: string) =>
+    ipcRenderer.invoke('addonlist:write', gameDir, addonInfo)
 }
 
 function openLinkInBrowser(url: string) {

@@ -1,5 +1,6 @@
 <script lang="ts">
   import {
+    enabledMods,
     paginatedSortedFilteredMods,
     searchTerm,
     selectedGrenades,
@@ -14,6 +15,7 @@
 
   import categories from '../constants/categories'
   import { modManifest } from '../stores/manifest'
+  import ActionButtons from './ActionButtons.svelte'
   import Collections from './Collections.svelte'
   import Presets from './Presets.svelte'
   let visibleFilterPanel = 'guns'
@@ -25,11 +27,11 @@
 
 <div class="sidebar">
   <div class="sidebar-inner">
-    Search
-    <input bind:value={$searchTerm} />
+    <input placeholder="Search" bind:value={$searchTerm} />
     <br />
 
     <p>Mods installed: {Object.keys($modManifest).length}</p>
+    <p>Mods enabled: {$enabledMods.length}</p>
     <p>Mods by filter: {Object.keys($sortedFilteredMods).length}</p>
     <p>Mods shown: {Object.keys($paginatedSortedFilteredMods).length}</p>
 
@@ -163,6 +165,8 @@
 
     <Collections />
     <Presets />
+
+    <ActionButtons />
   </div>
 </div>
 

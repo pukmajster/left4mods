@@ -3,6 +3,7 @@ import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { release } from 'os'
 import * as path from 'path'
 import { IUserProfile } from 'shared'
+import { writeAddonList } from './addoninfo'
 import { requestManifest } from './manifest_v2'
 import { readProfile, writeProfile } from './profile'
 
@@ -31,6 +32,10 @@ ipcMain.handle('profile:write', async (e, profileData: IUserProfile) => {
 
 ipcMain.handle('profile:read', async (e) => {
   return readProfile()
+})
+
+ipcMain.handle('addonlist:write', async (e, gameDir: string, addonInfo: string) => {
+  return writeAddonList(gameDir, addonInfo)
 })
 
 function createWindow(): void {

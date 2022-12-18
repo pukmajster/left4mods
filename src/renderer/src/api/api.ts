@@ -1,4 +1,4 @@
-import type { IUserProfile } from 'shared'
+import type { IModManifest, IPreset, IUserProfile } from 'shared'
 
 export async function requestManifest(forceNewBuild: boolean = false) {
   console.log('manifest')
@@ -31,4 +31,23 @@ export async function writeProfile(profile: IUserProfile) {
     let err = e as Error
     console.log(err)
   }
+}
+
+export async function writeAddonList(gameDir: string, manifest: IModManifest, preset: IPreset) {
+  let outputVdfString = `"AddonList"\n{\n`
+  let enabledMods = preset.enabledMods
+
+  for (let mod in manifest) {
+    console.log('writing mod: ' + mod)
+
+    let modId = manifest[mod].id
+    let enabled = enabledMods.includes(modId) ? '1' : '0'
+    outputVdfString += `\t"workshop\\${modId}.vpk"\t\t\t"${enabled}"\n`
+  }
+
+  outputVdfString += '}'
+  console.log(outputVdfString)
+
+  let res = await window.api.writeAddonList(gameDir, outputVdfString)
+  return res
 }

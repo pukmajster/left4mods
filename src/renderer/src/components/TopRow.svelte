@@ -5,6 +5,7 @@
     selectedMods,
     showConflictingView,
     sortingType,
+    totalConflictingMods,
     typeToShow
   } from '../stores/library'
 
@@ -27,7 +28,7 @@
       {#if $showConflictingView}
         Show all
       {:else}
-        Show conflicting
+        Show {$totalConflictingMods} conflicting
       {/if}
     </button>
   </div>

@@ -194,3 +194,13 @@ export const groupedEnabledMods = derived(
     return tempStorage
   }
 )
+
+export const totalConflictingMods = derived([groupedEnabledMods], ([$groupedEnabledMods]) => {
+  let tempStorage = 0
+
+  $groupedEnabledMods.map((group) => {
+    tempStorage += group.length
+  })
+
+  return tempStorage
+})

@@ -12,6 +12,7 @@ export interface BridgedAPI {
   openLinkInBrowser: (url: string) => void
   writeProfile: (profileData: IUserProfile) => void
   readProfile: () => Promise<IUserProfile>
+  writeAddonInfo: (gameDir: string, addonInfo: string) => Promise<boolean>
 }
 
 export interface IModManifest {
