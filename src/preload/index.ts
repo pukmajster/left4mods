@@ -1,6 +1,6 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer, shell } from 'electron'
-import { BridgedAPI } from 'shared'
+import { BridgedAPI, IUserProfile } from 'shared'
 
 console.log('preload')
 
@@ -8,7 +8,9 @@ console.log('preload')
 const api: BridgedAPI = {
   requestManifest: (forceNewBuild: boolean = false) =>
     ipcRenderer.invoke('manifest:request', forceNewBuild),
-  openLinkInBrowser: (url: string) => openLinkInBrowser(url)
+  openLinkInBrowser: (url: string) => openLinkInBrowser(url),
+  writeProfile: (profileData: IUserProfile) => ipcRenderer.invoke('profile:write', profileData),
+  readProfile: () => ipcRenderer.invoke('profile:read')
 }
 
 function openLinkInBrowser(url: string) {

@@ -10,17 +10,26 @@ declare global {
 export interface BridgedAPI {
   requestManifest: (forceNewBuild: boolean) => Promise<IModManifest>
   openLinkInBrowser: (url: string) => void
+  writeProfile: (profileData: IUserProfile) => void
+  readProfile: () => Promise<IUserProfile>
 }
 
 export interface IModManifest {
   [id: ModId]: IMod
 }
 
-export interface Profile {
-  collections?: IModCollection[]
+export interface IUserProfile {
+  collections: IModCollection[]
+  presets: IPreset[]
+  activePreset: string
   preferences: {
     gameDir: string
   }
+}
+
+export interface IPreset {
+  name: string
+  enabledMods: ModId[]
 }
 
 export interface IModCollection {
@@ -55,5 +64,5 @@ export interface IMod {
   addoncontent_weaponmodel?: string
   error?: string
   categories?: string[]
-  timeModified?: string
+  timemodified?: string
 }

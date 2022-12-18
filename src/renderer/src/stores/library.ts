@@ -2,6 +2,7 @@ import type { IMod, ModId } from 'shared'
 import { derived, writable } from 'svelte/store'
 import { arraysShareValues } from '../utils'
 import { modManifest } from './manifest'
+import { activePreset, presets } from './profile'
 
 type SortingType = 'name_asc' | 'name_desc' | 'time_oldest' | 'time_newest'
 type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'conflicting' | 'corrupt'
@@ -17,6 +18,25 @@ export const selectedUtils = writable<string[]>([])
 export const selectedSurvivors = writable<string[]>([])
 export const selectedInfected = writable<string[]>([])
 export const selectedMisc = writable<string[]>([])
+
+export const enabledMods = derived(
+  [modManifest, presets, activePreset],
+  ([$modManifest, $presets, $activePreset]) => {
+    let tempStorage: ModId[] = []
+
+    let activePreset = $presets.find((preset) => preset.name == $activePreset)
+
+    if (!activePreset) return tempStorage
+
+    activePreset.enabledMods.map((modId) => {
+      if ($modManifest[modId]) {
+        tempStorage.push(modId)
+      }
+    })
+
+    return tempStorage
+  }
+)
 
 export const selectedMods = writable<ModId[]>([])
 
@@ -83,8 +103,8 @@ export const filteredMods = derived(
 )
 
 export const sortedFilteredMods = derived(
-  [filteredMods, sortingType, perPageCount],
-  ([$filteredMods, $sortingType, $perPageCount]) => {
+  [filteredMods, sortingType],
+  ([$filteredMods, $sortingType]) => {
     let tempStorage: IMod[] = $filteredMods
 
     if ($sortingType == ('name_asc' as SortingType)) {
@@ -101,13 +121,13 @@ export const sortedFilteredMods = derived(
 
     if ($sortingType == 'time_oldest') {
       tempStorage = tempStorage.sort(
-        (a: IMod, b: IMod) => Date.parse(a.timeModified) - Date.parse(b.timeModified)
+        (a: IMod, b: IMod) => Date.parse(a.timemodified) - Date.parse(b.timemodified)
       )
     }
 
     if ($sortingType == 'time_newest') {
       tempStorage = tempStorage.sort(
-        (a: IMod, b: IMod) => Date.parse(b.timeModified) - Date.parse(a.timeModified)
+        (a: IMod, b: IMod) => Date.parse(b.timemodified) - Date.parse(a.timemodified)
       )
     }
 

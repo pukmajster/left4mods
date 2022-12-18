@@ -1,11 +1,15 @@
 <script lang="ts">
   import type { IMod } from 'shared'
-  import { selectedMods } from '../stores/library'
+  import { enabledMods, selectedMods } from '../stores/library'
+  import { activePreset, presets } from '../stores/profile'
 
   export let mod: IMod
 
-  function handleCtrlClick(e: MouseEvent) {
-    if (!e.ctrlKey) return
+  function handleClick(e: MouseEvent) {
+    if (!e.ctrlKey) {
+      toggleModEnable()
+      return
+    }
 
     selectedMods.update((mods) => {
       if (mods.includes(mod.id)) {
@@ -34,12 +38,36 @@
   }
 
   $: selected = $selectedMods.includes(mod.id)
+  $: enabled = $enabledMods.includes(mod.id)
+
+  function toggleModEnable() {
+    console.log('toggling mod')
+
+    presets.update((value) => {
+      let tempPresets = [...value]
+      console.log(tempPresets)
+
+      if (!enabled)
+        tempPresets.find((preset) => preset.name == $activePreset).enabledMods.push(mod.id)
+      else {
+        let tempEnabledMods = tempPresets
+          .find((preset) => preset.name == $activePreset)
+          .enabledMods.filter((id) => id != mod.id)
+
+        tempPresets.find((preset) => preset.name == $activePreset).enabledMods = tempEnabledMods
+      }
+
+      console.log('new', tempPresets)
+      return tempPresets
+    })
+  }
 </script>
 
 <div
   class="mod"
   class:selected
-  on:click={handleCtrlClick}
+  class:enabled
+  on:click={handleClick}
   on:mouseenter={handleShiftMouseEnter}
   on:contextmenu={openModInBrowser}
 >
@@ -78,5 +106,9 @@
   .mod.selected {
     background-color: #cfcfcf;
     color: black;
+  }
+
+  .mod.enabled {
+    color: green;
   }
 </style>

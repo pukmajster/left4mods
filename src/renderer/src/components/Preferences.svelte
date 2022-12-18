@@ -1,14 +1,19 @@
 <script lang="ts">
   import { toggleShowPreferences } from '../stores/preferences'
+  import { gameDir } from '../stores/profile'
 
-  let gameDir =
-    'file:///home/kry/.local/share/Steam/steamapps/common/Left%204%20Dead%202/left4dead2/'
+  let tempGameDir = $gameDir
+
+  function save() {
+    gameDir.set(tempGameDir)
+    toggleShowPreferences()
+  }
 </script>
 
 <div class="overlay">
   <div class="preferences">
-    <input bind:value={gameDir} />
-    <button on:click={toggleShowPreferences}> close </button>
+    <input bind:value={tempGameDir} />
+    <button on:click={save}> save </button>
   </div>
 </div>
 

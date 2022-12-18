@@ -14,7 +14,8 @@
 
   import categories from '../constants/categories'
   import { modManifest } from '../stores/manifest'
-
+  import Collections from './Collections.svelte'
+  import Presets from './Presets.svelte'
   let visibleFilterPanel = 'guns'
 
   function setVisiblePanel(panel: string) {
@@ -155,6 +156,13 @@
         {/each}
       </select>
     </div>
+
+    <div style="height: 1em" />
+    <div style="height: 1px; background-color: gray" />
+    <div style="height: 1em" />
+
+    <Collections />
+    <Presets />
   </div>
 </div>
 

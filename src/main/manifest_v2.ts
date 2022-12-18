@@ -8,6 +8,8 @@ const vdf = require('node-vdf')
 const { app } = require('electron')
 const fsp = fs.promises
 
+// TODO: Find a way to update the manifest for updated mods without completely getting rid of the current manifest
+
 export interface IPublishedFileDetails {
   publishedfileid: string
   creator?: string

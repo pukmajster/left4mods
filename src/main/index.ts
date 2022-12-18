@@ -2,7 +2,9 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { release } from 'os'
 import * as path from 'path'
+import { IUserProfile } from 'shared'
 import { requestManifest } from './manifest_v2'
+import { readProfile, writeProfile } from './profile'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -21,6 +23,14 @@ ipcMain.handle('manifest:request', async (e, forceNewBuild: boolean = false) => 
 
 ipcMain.handle('external:openLinkInBrowser', async (e, url: string) => {
   return shell.openExternal(url)
+})
+
+ipcMain.handle('profile:write', async (e, profileData: IUserProfile) => {
+  return writeProfile(profileData)
+})
+
+ipcMain.handle('profile:read', async (e) => {
+  return readProfile()
 })
 
 function createWindow(): void {
