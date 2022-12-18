@@ -8,6 +8,13 @@
     totalConflictingMods,
     typeToShow
   } from '../stores/library'
+  import {
+    batchAddModsToCollection,
+    batchDisableModsInCurrentPreset,
+    batchEnableModsInCurrentPreset,
+    batchRemoveModsFromCollection,
+    collections
+  } from '../stores/profile'
 
   function unselectAll() {
     selectedMods.set([])
@@ -20,6 +27,33 @@
   function toggleView() {
     $showConflictingView = !$showConflictingView
   }
+
+  function _batchEnableSelectedMods() {
+    batchEnableModsInCurrentPreset($selectedMods)
+    clearSelection()
+  }
+
+  function _batchDisableSelectedMods() {
+    batchDisableModsInCurrentPreset($selectedMods)
+    clearSelection()
+  }
+
+  function _batchAddModsToCollection() {
+    batchAddModsToCollection($selectedMods, batchCollectionName)
+    clearSelection()
+  }
+
+  function _batchRemoveModsToCollection() {
+    batchRemoveModsFromCollection($selectedMods, batchCollectionName)
+    clearSelection()
+  }
+
+  function clearSelection() {
+    selectedMods.set([])
+    batchCollectionName = ''
+  }
+
+  let batchCollectionName = ''
 </script>
 
 <div class="container">
@@ -54,20 +88,30 @@
         <option value="any">Any</option>
         <option value="enabled">Enabled</option>
         <option value="disabled">Disabled</option>
-        <option value="corrupt">Corrupt addoninfo</option>
       </select>
     </div>
   {/if}
 
   <div class="actions">
     <span>selected: {$selectedMods.length}</span>
-    <button on:click={unselectAll}>unselect all</button>
-    <button on:click={selectAll}>select visible</button>
+    <div>
+      <button on:click={unselectAll}>unselect all</button>
+      <button on:click={selectAll}>select visible</button>
+    </div>
 
     {#if $selectedMods.length > 0}
       <div>
-        <button>enable selected</button>
-        <button>disable selected</button>
+        <button on:click={_batchEnableSelectedMods}>enable selected</button>
+        <button on:click={_batchDisableSelectedMods}>disable selected</button>
+        <div>
+          <select bind:value={batchCollectionName}>
+            {#each $collections as collection}
+              <option value={collection.name}>{collection.name}</option>
+            {/each}
+          </select>
+          <button on:click={_batchAddModsToCollection}>add selected to collection</button>
+          <button on:click={_batchRemoveModsToCollection}>remove selected from collection</button>
+        </div>
       </div>
     {/if}
   </div>

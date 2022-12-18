@@ -2,10 +2,10 @@ import type { IMod, ModId } from 'shared'
 import { derived, writable } from 'svelte/store'
 import { arraysShareValues } from '../utils'
 import { modManifest } from './manifest'
-import { activePreset, presets } from './profile'
+import { activePreset, collections, presets, selectedCollectionName } from './profile'
 
 type SortingType = 'name_asc' | 'name_desc' | 'time_oldest' | 'time_newest'
-type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'corrupt'
+type TypeOfMod = 'any' | 'enabled' | 'disabled'
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('name_asc')
 export const perPageCount = writable('50')
@@ -99,10 +99,6 @@ export const filteredMods = derived(
         case 'disabled':
           if ($enabledMods.includes(thisMod.id)) return
           break
-
-        case 'corrupt':
-          if (thisMod.addontitle) return
-          break
       }
 
       // Make sure the mod's title fits the search term
@@ -125,9 +121,17 @@ export const filteredMods = derived(
 )
 
 export const sortedFilteredMods = derived(
-  [filteredMods, sortingType],
-  ([$filteredMods, $sortingType]) => {
+  [filteredMods, sortingType, selectedCollectionName, collections],
+  ([$filteredMods, $sortingType, $selectedCollectionName, $collections]) => {
     let tempStorage: IMod[] = $filteredMods
+
+    if ($selectedCollectionName != '') {
+      let modsInCollection = $collections.find(
+        (collection) => collection.name == $selectedCollectionName
+      )?.mods
+
+      tempStorage = tempStorage.filter((mod) => modsInCollection?.includes(mod.id))
+    }
 
     if ($sortingType == ('name_asc' as SortingType)) {
       tempStorage = tempStorage.sort((a: IMod, b: IMod) =>

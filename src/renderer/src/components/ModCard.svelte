@@ -132,8 +132,9 @@
   }
 
   .mod.selected {
-    outline: 4px solid #7b7bfa;
-    color: black;
+    outline: 8px solid #e7d5d5;
+    transform: scale(0.8);
+    border-radius: 2px;
   }
 
   .mod.enabled {

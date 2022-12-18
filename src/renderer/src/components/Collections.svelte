@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { collections } from '../stores/profile'
+  import { collections, selectedCollectionName } from '../stores/profile'
 
   let newCollectionName = ''
 
@@ -28,7 +28,7 @@
 <div class="container">
   <p>Collections</p>
   <div>
-    <select placeholder="collection">
+    <select bind:value={$selectedCollectionName} placeholder="collection">
       <option value="">None</option>
       {#each $collections as collection}
         <option value={collection.name}>{collection.name}</option>
