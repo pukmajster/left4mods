@@ -5,10 +5,12 @@ import { modManifest } from './manifest'
 import { activePreset, presets } from './profile'
 
 type SortingType = 'name_asc' | 'name_desc' | 'time_oldest' | 'time_newest'
-type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'conflicting' | 'corrupt'
+type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'corrupt'
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('name_asc')
 export const perPageCount = writable('50')
+
+export const showConflictingView = writable(false)
 
 export const searchTerm = writable('')
 export const selectedGuns = writable<string[]>([])

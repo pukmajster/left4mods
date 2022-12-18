@@ -55,11 +55,8 @@
   )
 
   function toggleModEnable() {
-    console.log('toggling mod')
-
     presets.update((value) => {
       let tempPresets = [...value]
-      console.log(tempPresets)
 
       if (!enabled)
         tempPresets.find((preset) => preset.name == $activePreset).enabledMods.push(mod.id)
@@ -71,7 +68,6 @@
         tempPresets.find((preset) => preset.name == $activePreset).enabledMods = tempEnabledMods
       }
 
-      console.log('new', tempPresets)
       return tempPresets
     })
   }
@@ -114,7 +110,6 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
     margin-bottom: 5px;
 
     transition: transform 0.12s ease-in-out;
@@ -128,7 +123,8 @@
   }
 
   .title {
-    font-size: 12px;
+    font-size: 14px;
+    margin-bottom: 4px;
   }
 
   img {
@@ -136,7 +132,7 @@
   }
 
   .mod.selected {
-    background-color: #cfcfcf;
+    outline: 4px solid #7b7bfa;
     color: black;
   }
 
@@ -151,10 +147,12 @@
   }
 
   .hoverbox {
+    pointer-events: none;
     position: absolute;
     left: 0;
-    bottom: 0;
-    right: -2px;
+    /*bottom: 0;*/
+    top: 100%;
+    right: 0px;
     padding: 0.45em;
     padding-top: 0.3em;
 

@@ -10,12 +10,10 @@
 
   onMount(async () => {
     let data = await window.api.requestManifest(false)
-    console.log(data)
     modManifest.set(data)
 
     try {
       let profile = await window.api.readProfile()
-      console.log(profile)
 
       collections.set(profile.collections ?? [])
       gameDir.set(profile.preferences.gameDir ?? '')
@@ -38,8 +36,6 @@
           gameDir: $gameDir
         }
       }
-
-      console.log('profileData', profileData)
 
       window.api.writeProfile(profileData)
     }
