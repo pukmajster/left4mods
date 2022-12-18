@@ -5,7 +5,7 @@
 
   async function launchGame() {
     await _writeAddonList()
-    window.api.openLinkInBrowser('steam://run/550')
+    window.api.openLinkInBrowser('steam://run/550/"-novid +exec autoexec.cfg"')
   }
 
   let writingAddonList = false
