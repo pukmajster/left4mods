@@ -61,4 +61,8 @@
 
     height: 600px;
   }
+
+  .mods-list:last-child {
+    padding-bottom: 4em;
+  }
 </style>
