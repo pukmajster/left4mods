@@ -18,13 +18,13 @@
   }
 
   function clearCategorySelection() {
-    selectedGuns.set([])
-    selectedMelees.set([])
-    selectedGrenades.set([])
-    selectedUtils.set([])
-    selectedSurvivors.set([])
-    selectedInfected.set([])
-    selectedMisc.set([])
+    selectedGuns.set('')
+    selectedMelees.set('')
+    selectedGrenades.set('')
+    selectedUtils.set('')
+    selectedSurvivors.set('')
+    selectedInfected.set('')
+    selectedMisc.set('')
   }
 </script>
 

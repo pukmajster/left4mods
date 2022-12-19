@@ -14,13 +14,21 @@ export const showConflictingView = writable(false)
 export const onlyShowModsNotInAnyCollection = writable(false)
 
 export const searchTerm = writable('')
-export const selectedGuns = writable<string[]>([])
-export const selectedMelees = writable<string[]>([])
-export const selectedGrenades = writable<string[]>([])
-export const selectedUtils = writable<string[]>([])
-export const selectedSurvivors = writable<string[]>([])
-export const selectedInfected = writable<string[]>([])
-export const selectedMisc = writable<string[]>([])
+export const selectedGuns = writable<string>('')
+export const selectedMelees = writable<string>('')
+export const selectedGrenades = writable<string>('')
+export const selectedUtils = writable<string>('')
+export const selectedSurvivors = writable<string>('')
+export const selectedInfected = writable<string>('')
+export const selectedMisc = writable<string>('')
+
+export const selectedGuns_multi = writable<string[]>([])
+export const selectedMelees_multi = writable<string[]>([])
+export const selectedGrenades_multi = writable<string[]>([])
+export const selectedUtils_multi = writable<string[]>([])
+export const selectedSurvivors_multi = writable<string[]>([])
+export const selectedInfected_multi = writable<string[]>([])
+export const selectedMisc_multi = writable<string[]>([])
 
 export const visibleFilterPanel = writable('guns')
 
@@ -82,16 +90,15 @@ export const filteredMods = derived(
   ]) => {
     let tempStorage: IMod[] = []
 
-    let allFilters = $selectedGuns
-      .concat(
-        $selectedMelees,
-        $selectedGrenades,
-        $selectedSurvivors,
-        $selectedInfected,
-        $selectedUtils,
-        $selectedMisc
-      )
-      .filter((filter) => filter != '')
+    let allFilters = [
+      $selectedGuns,
+      $selectedMelees,
+      $selectedGrenades,
+      $selectedSurvivors,
+      $selectedInfected,
+      $selectedUtils,
+      $selectedMisc
+    ].filter((filter) => filter != '')
 
     Object.keys($modManifest).map((keyName: string) => {
       let modName =

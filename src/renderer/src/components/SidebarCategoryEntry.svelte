@@ -9,10 +9,16 @@
 <div>
   {#if isVisible}
     <h5 class="uppercase font-semibold">{categoryName}</h5>
+
     <div class="flex flex-col gap-1">
+      <label class="flex gap-2 items-center ">
+        <input type="radio" bind:group={$store} value={''} />
+        NO FILTER
+      </label>
+
       {#each categoryEntries as entry}
         <label class="flex gap-2 items-center ">
-          <input type="checkbox" bind:group={$store} value={entry} />
+          <input type="radio" bind:group={$store} value={entry} />
           {entry}
         </label>
       {/each}
