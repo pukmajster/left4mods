@@ -42,7 +42,7 @@
 <div class="modal-example-form {cBase}">
   <h5 class="font-bold">Pick Preset</h5>
   <select bind:value={$activePreset} placeholder="preset" class="">
-    <option value="">None</option>
+    <option hidden value="">None</option>
     {#each $presets as preset}
       <option value={preset.id}>{preset.label}</option>
     {/each}
