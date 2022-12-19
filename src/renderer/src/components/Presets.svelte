@@ -1,6 +1,7 @@
 <script lang="ts">
   import { modalStore } from '@skeletonlabs/skeleton'
   import type { ModalComponent, ModalSettings } from '@skeletonlabs/skeleton/'
+  import { Folder } from 'lucide-svelte'
   import { activePreset } from '../stores/profile'
   import PresetsModal from './modals/PresetsModal.svelte'
 
@@ -22,8 +23,8 @@
   }
 </script>
 
-<button on:click={triggerCustomModal} class="btn btn-ghost-accent btn-sm"
-  >Preset: {$activePreset}
+<button on:click={triggerCustomModal} class="btn btn-ghost-accent btn-sm">
+  <Folder size={16} /> <span>Preset: {$activePreset}</span>
 </button>
 
 <style>

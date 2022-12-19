@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Play } from 'lucide-svelte'
   import { writeAddonList } from '../api/api'
   import { modManifest } from '../stores/manifest'
   import { activePreset, gameDir, presets } from '../stores/profile'
@@ -30,4 +31,6 @@
 <!-- <button on:click={_writeAddonList} disabled={writingAddonList} class="launch-button write"
   >{writingAddonList ? 'Writing...' : 'Write addonlist'}</button
 > -->
-<button on:click={launchGame} class="btn btn-sm btn-ghost-accent">Launch L4D2</button>
+<button on:click={launchGame} class="btn btn-sm btn-ghost-accent">
+  <Play size={16} /> <span>Launch L4D2</span></button
+>

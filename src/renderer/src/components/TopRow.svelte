@@ -11,7 +11,9 @@
   import {
     batchAddModsToCollection,
     batchDisableModsInCurrentPreset,
-    batchEnableModsInCurrentPreset
+    batchEnableModsInCurrentPreset,
+    batchRemoveModsFromCollection,
+    selectedCollectionName
   } from '../stores/profile'
 
   function unselectAll() {
@@ -38,6 +40,12 @@
       batchAddModsToCollection($selectedMods, collectionName)
       clearSelection()
     })
+  }
+
+  function _batchRemoveModsFromCollection() {
+    if (!$selectedCollectionName) return
+    batchRemoveModsFromCollection($selectedMods, $selectedCollectionName)
+    clearSelection()
   }
 
   function clearSelection() {
@@ -79,12 +87,17 @@
               {/each}
             </select> -->
 
-          <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-accent"
-            >add selected to collection</button
-          >
-          <!-- <button on:click={_batchRemoveModsToCollection} class="btn btn-sm btn-filled-accent"
-            >remove selected from collection</button
-          > -->
+          {#if $selectedCollectionName == ''}
+            <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-accent"
+              >add selected to collection</button
+            >
+          {/if}
+
+          {#if $selectedCollectionName != ''}
+            <button on:click={_batchRemoveModsFromCollection} class="btn btn-sm btn-filled-accent"
+              >remove selected from collection</button
+            >
+          {/if}
         </div>
       {/if}
     </div>

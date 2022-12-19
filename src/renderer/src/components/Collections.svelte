@@ -39,17 +39,20 @@
 
   <button on:click={createNewCollection}>create</button>
   <input bind:value={newCollectionName} />
-  <div>
+
+  <div style="height: 1em;" />
+
+  <div class="flex items-center gap-3">
     <input
       id="onlyShowModsNotInAnyCollection"
       type="checkbox"
       disabled={$selectedCollectionName !== ''}
       bind:checked={$onlyShowModsNotInAnyCollection}
     />
-
-    <label for="onlyShowModsNotInAnyCollection"> Only show mods not in any collection</label>
+    <label class="inline" for="onlyShowModsNotInAnyCollection">
+      Only mods not in <br /> any collection</label
+    >
   </div>
-  <div style="height: 1em;" />
 </div>
 
 <style>

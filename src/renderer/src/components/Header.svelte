@@ -5,7 +5,7 @@
     type ModalComponent,
     type ModalSettings
   } from '@skeletonlabs/skeleton'
-  import { Github, Settings } from 'lucide-svelte'
+  import { Github, RefreshCw, Settings } from 'lucide-svelte'
   import { requestManifest } from '../api/api'
   import { modManifest } from '../stores/manifest'
   import { showPreferences } from '../stores/preferences'
@@ -54,7 +54,8 @@
       disabled={isBuildingManifest}
       class="btn btn-sm"
     >
-      {isBuildingManifest ? 'Refreshing Manifest...' : 'Refresh Manifest'}</button
+      <RefreshCw size={16} />
+      <span>{isBuildingManifest ? 'Refreshing Manifest...' : 'Refresh Manifest'}</span></button
     >
     <!--     <button
       on:click={() => attemptRequestManifest(true)}
