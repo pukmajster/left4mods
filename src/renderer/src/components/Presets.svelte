@@ -16,7 +16,7 @@
     }
     const d: ModalSettings = {
       type: 'component',
-      title: 'Presets',
+      title: 'Manage Presets',
       component: modalComponent
     }
     modalStore.trigger(d)

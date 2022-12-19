@@ -58,7 +58,6 @@
 
 <!-- @component This example creates a simple form modal. -->
 <div class="modal-example-form {cBase}">
-  <h5 class="font-bold">Manage your collection</h5>
   <select bind:value={$selectedCollectionName} placeholder="collection" class="">
     <option value="">None</option>
     {#each $collections as collection}
@@ -92,7 +91,11 @@
       class="flex-1 w-full"
     />
 
-    <button class="btn btn-ghost-accent" on:click={onFormSubmit}>Create Collection</button>
+    <button
+      class="btn btn-ghost-accent"
+      disabled={formData.newCollectionName.length == 0}
+      on:click={onFormSubmit}>Create Collection</button
+    >
   </div>
 
   <!-- prettier-ignore -->

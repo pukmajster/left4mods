@@ -70,16 +70,20 @@
     >
   </div>
 
-  <h5 class="font-bold">Create new preset</h5>
+  <h5 class="font-bold">Create New Preset</h5>
   <div class="flex gap-4">
     <input
       type="text"
       bind:value={formData.newPresetName}
-      placeholder="Enter name..."
+      placeholder="Enter new preset name..."
       class="flex-1 w-full"
     />
 
-    <button class="btn btn-ghost-accent" on:click={onFormSubmit}>Create preset</button>
+    <button
+      class="btn btn-ghost-accent"
+      disabled={formData.newPresetName.length == 0}
+      on:click={onFormSubmit}>Create Preset</button
+    >
   </div>
 
   <!--   <ListBox
