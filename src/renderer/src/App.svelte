@@ -55,5 +55,5 @@
 
 <Modal />
 
-<style>
+<style global>
 </style>

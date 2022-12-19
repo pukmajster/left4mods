@@ -28,6 +28,7 @@
     "electron-updater": "^5.3.0",
     "form-data": "^4.0.0",
     "formdata-node": "^5.0.0",
+    "lucide-svelte": "^0.104.0",
     "node-fetch": "^2.6.6",
     "node-vdf": "^0.0.3",
     "shared": "file:./shared",

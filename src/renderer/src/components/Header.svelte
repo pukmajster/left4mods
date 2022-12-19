@@ -1,10 +1,12 @@
 <script lang="ts">
   import { AppBar } from '@skeletonlabs/skeleton'
+  import { Github, Settings } from 'lucide-svelte'
   import { requestManifest } from '../api/api'
   import { modManifest } from '../stores/manifest'
   import { showPreferences, toggleShowPreferences } from '../stores/preferences'
   import Preferences from './Preferences.svelte'
   import Presets from './Presets.svelte'
+
   let isBuildingManifest = false
 
   async function attemptRequestManifest(forceNewBuild: boolean = false) {
@@ -22,7 +24,9 @@
 
 <AppBar padding="px-2 py-2">
   <svelte:fragment slot="lead">
-    <button on:click={toggleShowPreferences} class="btn btn-sm">Settings</button>
+    <button on:click={toggleShowPreferences} class="btn btn-sm">
+      <Settings size={16} /> <span>Settings</span></button
+    >
     <button
       on:click={() => attemptRequestManifest(false)}
       disabled={isBuildingManifest}
@@ -39,7 +43,9 @@
     > -->
   </svelte:fragment>
   <svelte:fragment slot="trail">
-    <a class="btn btn-sm" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+    <a class="btn btn-sm" href="https://github.com/" target="_blank" rel="noreferrer">
+      <Github size={16} /> <span>GitHub</span>
+    </a>
     <Presets parent={{}} />
   </svelte:fragment>
 

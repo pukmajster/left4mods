@@ -22,7 +22,7 @@
   }
 </script>
 
-<button on:click={triggerCustomModal} class="btn btn-ghost-primary btn-sm"
+<button on:click={triggerCustomModal} class="btn btn-ghost-accent btn-sm"
   >Preset: {$activePreset}
 </button>
 
