@@ -49,42 +49,6 @@
           <SidebarCategoryButton categoryName={'infected'} />
           <SidebarCategoryButton categoryName={'misc'} />
         </div>
-
-        <!-- <button
-          class:active={$selectedGuns.length > 0 && $selectedGuns[0] != ''}
-          class:selected={visibleFilterPanel == 'guns'}
-          on:click={() => setVisiblePanel('guns')}><span>guns</span></button
-        >
-        <button
-          class:active={$selectedMelees.length > 0 && $selectedMelees[0] != ''}
-          class:selected={visibleFilterPanel == 'melee'}
-          on:click={() => setVisiblePanel('melee')}><span>melee</span></button
-        >
-        <button
-          class:active={$selectedGrenades.length > 0 && $selectedGrenades[0] != ''}
-          class:selected={visibleFilterPanel == 'grenades'}
-          on:click={() => setVisiblePanel('grenades')}><span>grenades</span></button
-        >
-        <button
-          class:active={$selectedUtils.length > 0 && $selectedUtils[0] != ''}
-          class:selected={visibleFilterPanel == 'utils'}
-          on:click={() => setVisiblePanel('utils')}><span>utils</span></button
-        >
-        <button
-          class:active={$selectedSurvivors.length > 0 && $selectedSurvivors[0] != ''}
-          class:selected={visibleFilterPanel == 'survivors'}
-          on:click={() => setVisiblePanel('survivors')}><span>survivors</span></button
-        >
-        <button
-          class:active={$selectedInfected.length > 0 && $selectedInfected[0] != ''}
-          class:selected={visibleFilterPanel == 'infected'}
-          on:click={() => setVisiblePanel('infected')}><span>infected</span></button
-        >
-        <button
-          class:active={$selectedMisc.length > 0 && $selectedMisc[0] != ''}
-          class:selected={visibleFilterPanel == 'misc'}
-          on:click={() => setVisiblePanel('misc')}><span>misc</span></button
-        > -->
       </div>
 
       <!-- guns -->
@@ -151,6 +115,9 @@
 <style lang="postcss">
   .sidebar {
     padding: 1em;
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
 
     display: flex;
     flex-direction: column;
@@ -167,28 +134,6 @@
     gap: 2px;
     /* transform: rotate(-90deg);
     transform-origin: center; */
-  }
-
-  .panel-hovers button span {
-    font-weight: 600;
-    text-transform: uppercase;
-
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    text-orientation: inherit;
-  }
-
-  .panel-hovers button.active {
-    color: rgb(0, 42, 255);
-  }
-
-  .panel-hovers button.selected {
-    @apply text-black bg-accent-400/100;
-  }
-
-  .panel-hovers button {
-    padding: 2px 1px;
-    padding-top: 6px;
   }
 
   .panel-hovers {
