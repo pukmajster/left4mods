@@ -6,7 +6,7 @@ export const collections = writable<IModCollection[]>([])
 
 export const activePreset = writable('')
 export const selectedCollectionName = writable('') // Not stored in profile
-
+export const disableOnlineFetchingOfModData = writable(false) // Not stored in profile
 export const gameDir = writable('')
 
 // --------------------------------------------------------------------

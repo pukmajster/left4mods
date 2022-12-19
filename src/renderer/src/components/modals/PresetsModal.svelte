@@ -7,7 +7,7 @@
   import { activePreset, presets } from '../../stores/profile'
   // Form Data
   const formData = {
-    newPresetName: 'Jane Doe'
+    newPresetName: ''
   }
   // We've created a custom submit function to pass the response and close the modal.
   function onFormSubmit(): void {
@@ -47,10 +47,15 @@
       class="flex-1 w-full"
     />
 
-    <button class="btn {parent.buttonPositive}" on:click={onFormSubmit}>Create preset</button>
+    <button class="btn btn-ghost-accent" on:click={onFormSubmit}>Create preset</button>
   </div>
 
-  <ListBox selected={activePreset} label="Select Active Preset">
+  <ListBox
+    accent="!bg-accent-active-token"
+    hover="!bg-accent-hover-token"
+    selected={activePreset}
+    label="Select Active Preset"
+  >
     {#each $presets as preset}
       <ListBoxItem value={preset.name}>{preset.name}</ListBoxItem>
     {/each}
@@ -58,6 +63,6 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Close</button>
+    <button class="btn btn-ghost-accent" on:click={parent.onClose}>Close</button>
   </footer>
 </div>

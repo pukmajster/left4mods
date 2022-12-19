@@ -25,6 +25,7 @@ export interface IUserProfile {
   activePreset: string
   preferences: {
     gameDir: string
+    disableOnlineFetchingOfModData: boolean
   }
 }
 

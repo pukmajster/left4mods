@@ -6,7 +6,13 @@
   import ModLibrary from './components/ModLibrary.svelte'
   import Sidebar from './components/Sidebar.svelte'
   import { modManifest } from './stores/manifest'
-  import { activePreset, collections, gameDir, presets } from './stores/profile'
+  import {
+    activePreset,
+    collections,
+    disableOnlineFetchingOfModData,
+    gameDir,
+    presets
+  } from './stores/profile'
   let ready = false
 
   onMount(async () => {
@@ -20,6 +26,9 @@
       gameDir.set(profile.preferences.gameDir ?? '')
       presets.set(profile.presets ?? [])
       activePreset.set(profile.activePreset ?? '')
+      disableOnlineFetchingOfModData.set(
+        profile.preferences.disableOnlineFetchingOfModData ?? false
+      )
     } catch (e) {
       console.log(e)
     }
@@ -34,7 +43,8 @@
         collections: $collections,
         presets: $presets,
         preferences: {
-          gameDir: $gameDir
+          gameDir: $gameDir,
+          disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData
         }
       }
 

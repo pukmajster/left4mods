@@ -158,7 +158,7 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   .sidebar {
     padding: 1em;
 
@@ -186,7 +186,6 @@
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     text-orientation: inherit;
-    width: 32px;
   }
 
   .panel-hovers button.active {
@@ -194,11 +193,12 @@
   }
 
   .panel-hovers button.selected {
-    color: red;
+    @apply text-black bg-accent-400/100;
   }
 
   .panel-hovers button {
-    padding: 2px;
+    padding: 2px 1px;
+    padding-top: 6px;
   }
 
   .panel-hovers {
@@ -209,9 +209,5 @@
   .filter-panels {
     width: 100%;
     display: flex;
-  }
-
-  .stats {
-    font-size: 13px;
   }
 </style>
