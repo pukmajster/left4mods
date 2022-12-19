@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { AppShell, Modal } from '@skeletonlabs/skeleton'
   import type { IUserProfile } from 'shared'
   import { onMount } from 'svelte'
   import Header from './components/Header.svelte'
   import ModLibrary from './components/ModLibrary.svelte'
+  import Sidebar from './components/Sidebar.svelte'
   import { modManifest } from './stores/manifest'
   import { activePreset, collections, gameDir, presets } from './stores/profile'
-
   let ready = false
 
   onMount(async () => {
@@ -42,14 +43,17 @@
   }
 </script>
 
-<div class="container">
-  <Header />
+<AppShell>
+  <svelte:fragment slot="header"><Header /></svelte:fragment>
+  <!-- Sidebar -->
+  <svelte:fragment slot="sidebarLeft">
+    <Sidebar />
+  </svelte:fragment>
+  <!-- Page Content -->
   <ModLibrary />
-</div>
+</AppShell>
+
+<Modal />
 
 <style>
-  .container {
-    display: grid;
-    grid-template-rows: 64px 1fr;
-  }
 </style>

@@ -6,12 +6,10 @@
   } from '../stores/library'
   import { activePreset } from '../stores/profile'
   import ModCard from './ModCard.svelte'
-  import Sidebar from './Sidebar.svelte'
   import TopRow from './TopRow.svelte'
 </script>
 
 <ul class="library">
-  <Sidebar />
   <div class="mods-wrapper">
     <TopRow />
     <div class="mods-inner">
@@ -51,12 +49,7 @@
 <style>
   .library {
     display: grid;
-    grid-template-columns: 260px 1fr;
     position: relative;
-
-    width: 100vw;
-    height: calc(100vh - 64px);
-    overflow: hidden;
   }
 
   .library,
@@ -65,7 +58,6 @@
   }
 
   .mods-wrapper {
-    overflow: hidden;
     display: flex;
     flex-direction: column;
   }
@@ -73,7 +65,6 @@
   .mods-inner {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
     flex: 1;
     height: 300px;
   }

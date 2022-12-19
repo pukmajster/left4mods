@@ -56,7 +56,7 @@
   let batchCollectionName = ''
 </script>
 
-<div class="container">
+<div class=" sticky top-0 bg-surface-50-900-token z-50 w-full flex justify-between p-4">
   <div>
     <button on:click={toggleView}>
       {#if $showConflictingView}
@@ -68,7 +68,7 @@
   </div>
 
   {#if !$showConflictingView}
-    <div class="top-filters">
+    <div class="flex">
       <select bind:value={$perPageCount}>
         <option value={'30'}>30</option>
         <option value={'50'}>50</option>

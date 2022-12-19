@@ -1,0 +1,63 @@
+<script lang="ts">
+  // Props
+  /** Exposes parent props to this component. */
+  export let parent: any
+  // Stores
+  import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton'
+  import { activePreset, presets } from '../../stores/profile'
+  // Form Data
+  const formData = {
+    newPresetName: 'Jane Doe'
+  }
+  // We've created a custom submit function to pass the response and close the modal.
+  function onFormSubmit(): void {
+    //if ($modalStore[0].response) $modalStore[0].response(formData)
+    createNewPreset(formData.newPresetName)
+    //modalStore.close()
+  }
+
+  function createNewPreset(newPresetName: string) {
+    if (newPresetName === '') return
+    if ($presets.find((preset) => preset.name === newPresetName)) return
+
+    presets.update((presets) => {
+      presets.push({
+        name: newPresetName,
+        enabledMods: []
+      })
+
+      return presets
+    })
+    $activePreset = newPresetName
+    newPresetName = ''
+  }
+
+  // Base Classes
+  const cBase = 'space-y-4'
+</script>
+
+<!-- @component This example creates a simple form modal. -->
+<div class="modal-example-form {cBase}">
+  <h5 class="font-bold">Create new preset</h5>
+  <div class="flex gap-4">
+    <input
+      type="text"
+      bind:value={formData.newPresetName}
+      placeholder="Enter name..."
+      class="flex-1 w-full"
+    />
+
+    <button class="btn {parent.buttonPositive}" on:click={onFormSubmit}>Create preset</button>
+  </div>
+
+  <ListBox selected={activePreset} label="Select Active Preset">
+    {#each $presets as preset}
+      <ListBoxItem value={preset.name}>{preset.name}</ListBoxItem>
+    {/each}
+  </ListBox>
+
+  <!-- prettier-ignore -->
+  <footer class="modal-footer {parent.regionFooter}">
+    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Close</button>
+  </footer>
+</div>
