@@ -24,7 +24,7 @@
 <div class="modal-example-form {cBase}">
   <select bind:value={formData.collection}>
     {#each $collections as collection}
-      <option value={collection.name}>{collection.name}</option>
+      <option value={collection.id}>{collection.id}</option>
     {/each}
   </select>
 

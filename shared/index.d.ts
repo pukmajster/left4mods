@@ -30,12 +30,14 @@ export interface IUserProfile {
 }
 
 export interface IPreset {
-  name: string
+  label: string
+  id: string
   enabledMods: ModId[]
 }
 
 export interface IModCollection {
-  name: string
+  label: string
+  id: string
   mods: ModId[]
 }
 

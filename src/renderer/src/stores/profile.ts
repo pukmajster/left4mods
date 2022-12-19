@@ -1,7 +1,7 @@
 import type { IModCollection, IPreset, ModId } from 'shared'
 import { get, writable } from 'svelte/store'
 
-export const presets = writable<IPreset[]>([{ name: 'default', enabledMods: [] }])
+export const presets = writable<IPreset[]>([{ id: 'default', label: 'Default', enabledMods: [] }])
 export const collections = writable<IModCollection[]>([])
 
 export const activePreset = writable('')
@@ -20,7 +20,7 @@ export const gameDir = writable('')
 function enableModInCurrentPresetUnsafe(modId: ModId) {
   const workingPresets = get(presets)
   const workingActivePreset = get(activePreset)
-  workingPresets.find((preset) => preset.name == workingActivePreset).enabledMods.push(modId)
+  workingPresets.find((preset) => preset.id == workingActivePreset).enabledMods.push(modId)
   presets.set(workingPresets)
 }
 
@@ -28,10 +28,10 @@ function disableModInCurrentPresetUnsafe(modId: ModId) {
   const workingPresets = get(presets)
   const workingActivePreset = get(activePreset)
   let tempEnabledMods = workingPresets
-    .find((preset) => preset.name == workingActivePreset)
+    .find((preset) => preset.id == workingActivePreset)
     .enabledMods.filter((id) => id != modId)
 
-  workingPresets.find((preset) => preset.name == workingActivePreset).enabledMods = tempEnabledMods
+  workingPresets.find((preset) => preset.id == workingActivePreset).enabledMods = tempEnabledMods
   presets.set(workingPresets)
 }
 
@@ -47,7 +47,7 @@ export function isModEnabledInCurrentPreset(modId: ModId) {
   const workingActivePreset = get(activePreset)
 
   return workingPresets
-    .find((preset) => preset.name == workingActivePreset)
+    .find((preset) => preset.id == workingActivePreset)
     .enabledMods.includes(modId)
 }
 
@@ -93,7 +93,7 @@ function addModToCollectionUnsafe(modId: ModId, workingCollectionName: string) {
   if (workingCollections === undefined) return
 
   let workingCollection = workingCollections.find(
-    (collection) => collection.name == workingCollectionName
+    (collection) => collection.id == workingCollectionName
   )
   if (workingCollection === undefined) return
   workingCollection.mods.push(modId)
@@ -104,10 +104,10 @@ function removeModFromCollectionUnsafe(modId: ModId, workingCollectionName: stri
   const workingCollections = get(collections)!
 
   let tempMods = workingCollections
-    .find((collection) => collection.name == workingCollectionName)
+    .find((collection) => collection.id == workingCollectionName)
     .mods.filter((id) => id != modId)
 
-  workingCollections.find((collection) => collection.name == workingCollectionName).mods = tempMods
+  workingCollections.find((collection) => collection.id == workingCollectionName).mods = tempMods
   collections.set(workingCollections)
 }
 
@@ -121,7 +121,7 @@ export function isModInCollection(modId: ModId, workingCollectionName: string) {
   const workingCollections = get(collections)
 
   let workingCollection = workingCollections.find(
-    (collection) => collection.name == workingCollectionName
+    (collection) => collection.id == workingCollectionName
   )
 
   if (!workingCollection) return false

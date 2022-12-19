@@ -2,7 +2,7 @@
   import { modalStore } from '@skeletonlabs/skeleton'
   import type { ModalComponent, ModalSettings } from '@skeletonlabs/skeleton/'
   import { Folder } from 'lucide-svelte'
-  import { activePreset } from '../stores/profile'
+  import { activePreset, presets } from '../stores/profile'
   import PresetsModal from './modals/PresetsModal.svelte'
 
   export let parent: any
@@ -24,7 +24,8 @@
 </script>
 
 <button on:click={triggerCustomModal} class="btn btn-ghost-accent btn-sm">
-  <Folder size={16} /> <span>Preset: {$activePreset}</span>
+  <Folder size={16} />
+  <span>Preset: {$presets.find((preset) => preset.id == $activePreset)?.label}</span>
 </button>
 
 <style>

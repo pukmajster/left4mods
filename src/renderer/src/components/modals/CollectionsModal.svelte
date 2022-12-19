@@ -1,35 +1,33 @@
 <script lang="ts">
-  // Props
-  /** Exposes parent props to this component. */
   export let parent: any
-  // Stores
-  import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton'
-  import { activePreset, presets } from '../../stores/profile'
-  // Form Data
+  import { nanoid } from 'nanoid'
+  import { collections, selectedCollectionName } from '../../stores/profile'
+
   const formData = {
-    newPresetName: 'Jane Doe'
+    newCollectionName: ''
   }
-  // We've created a custom submit function to pass the response and close the modal.
+
   function onFormSubmit(): void {
     //if ($modalStore[0].response) $modalStore[0].response(formData)
-    createNewPreset(formData.newPresetName)
+    createNewCollection(formData.newCollectionName)
     //modalStore.close()
   }
 
-  function createNewPreset(newPresetName: string) {
-    if (newPresetName === '') return
-    if ($presets.find((preset) => preset.name === newPresetName)) return
+  function createNewCollection(newCollectionName: string) {
+    if (newCollectionName === '') return
+    if ($collections.find((preset) => preset.id === newCollectionName)) return
 
-    presets.update((presets) => {
-      presets.push({
-        name: newPresetName,
-        enabledMods: []
+    collections.update((collections) => {
+      collections.push({
+        label: newCollectionName,
+        id: nanoid(),
+        mods: []
       })
 
-      return presets
+      return collections
     })
-    $activePreset = newPresetName
-    newPresetName = ''
+    $selectedCollectionName = newCollectionName
+    newCollectionName = ''
   }
 
   // Base Classes
@@ -38,26 +36,28 @@
 
 <!-- @component This example creates a simple form modal. -->
 <div class="modal-example-form {cBase}">
-  <h5 class="font-bold">Create new preset</h5>
+  <h5 class="font-bold">Manage your collection</h5>
+  <select bind:value={$selectedCollectionName} placeholder="collection" class="">
+    <option value="">None</option>
+    {#each $collections as collection}
+      <option value={collection.id}>{collection.label}</option>
+    {/each}
+  </select>
+
+  <h5 class="font-bold">Create New Collection</h5>
   <div class="flex gap-4">
     <input
       type="text"
-      bind:value={formData.newPresetName}
-      placeholder="Enter name..."
+      bind:value={formData.newCollectionName}
+      placeholder="Enter new collection name..."
       class="flex-1 w-full"
     />
 
-    <button class="btn {parent.buttonPositive}" on:click={onFormSubmit}>Create preset</button>
+    <button class="btn btn-ghost-accent" on:click={onFormSubmit}>Create Collection</button>
   </div>
-
-  <ListBox selected={activePreset} label="Select Active Preset">
-    {#each $presets as preset}
-      <ListBoxItem value={preset.name}>{preset.name}</ListBoxItem>
-    {/each}
-  </ListBox>
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Close</button>
+    <button class="btn btn-ghost-accent" on:click={parent.onClose}>Close</button>
   </footer>
 </div>

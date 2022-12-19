@@ -3,8 +3,9 @@
   /** Exposes parent props to this component. */
   export let parent: any
   // Stores
-  import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton'
+  import { nanoid } from 'nanoid'
   import { activePreset, presets } from '../../stores/profile'
+
   // Form Data
   const formData = {
     newPresetName: ''
@@ -18,11 +19,12 @@
 
   function createNewPreset(newPresetName: string) {
     if (newPresetName === '') return
-    if ($presets.find((preset) => preset.name === newPresetName)) return
+    if ($presets.find((preset) => preset.id === newPresetName)) return
 
     presets.update((presets) => {
       presets.push({
-        name: newPresetName,
+        label: newPresetName,
+        id: nanoid(),
         enabledMods: []
       })
 
@@ -38,6 +40,14 @@
 
 <!-- @component This example creates a simple form modal. -->
 <div class="modal-example-form {cBase}">
+  <h5 class="font-bold">Pick Preset</h5>
+  <select bind:value={$activePreset} placeholder="preset" class="">
+    <option value="">None</option>
+    {#each $presets as preset}
+      <option value={preset.id}>{preset.label}</option>
+    {/each}
+  </select>
+
   <h5 class="font-bold">Create new preset</h5>
   <div class="flex gap-4">
     <input
@@ -50,16 +60,16 @@
     <button class="btn btn-ghost-accent" on:click={onFormSubmit}>Create preset</button>
   </div>
 
-  <ListBox
+  <!--   <ListBox
     accent="!bg-accent-active-token"
     hover="!bg-accent-hover-token"
     selected={activePreset}
     label="Select Active Preset"
   >
     {#each $presets as preset}
-      <ListBoxItem value={preset.name}>{preset.name}</ListBoxItem>
+      <ListBoxItem value={preset.id}>{preset.label}</ListBoxItem>
     {/each}
-  </ListBox>
+  </ListBox> -->
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">

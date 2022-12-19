@@ -18,7 +18,7 @@
       writeAddonList(
         $gameDir,
         $modManifest,
-        $presets.find((preset) => preset.name === $activePreset)
+        $presets.find((preset) => preset.id === $activePreset)
       )
     } catch (e) {
       console.log(e)

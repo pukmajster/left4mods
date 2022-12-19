@@ -39,7 +39,7 @@ export const enabledMods = derived(
   ([$modManifest, $presets, $activePreset]) => {
     let tempStorage: ModId[] = []
 
-    let activePreset = $presets.find((preset) => preset.name == $activePreset)
+    let activePreset = $presets.find((preset) => preset.id == $activePreset)
 
     if (!activePreset) return tempStorage
 
@@ -149,7 +149,7 @@ export const sortedFilteredMods = derived(
 
     if ($selectedCollectionName != '') {
       let modsInCollection = $collections.find(
-        (collection) => collection.name == $selectedCollectionName
+        (collection) => collection.id == $selectedCollectionName
       )?.mods
 
       tempStorage = tempStorage.filter((mod) => modsInCollection?.includes(mod.id))
