@@ -40,7 +40,7 @@
 
     <div class="filter-panels">
       <div class="panel-hovers">
-        <div class="flex flex-col pt-1">
+        <div class="flex flex-col p-3 gap-4 bg-surface-800/90 rounded-md">
           <SidebarCategoryButton categoryName={'guns'} />
           <SidebarCategoryButton categoryName={'melee'} />
           <SidebarCategoryButton categoryName={'grenades'} />
@@ -51,55 +51,57 @@
         </div>
       </div>
 
-      <!-- guns -->
-      <SidebarCategoryEntry
-        categoryName="guns"
-        categoryEntries={categories.guns}
-        store={selectedGuns}
-        isVisible={$visibleFilterPanel == 'guns'}
-      />
+      <div class=" relative grid">
+        <!-- guns -->
+        <SidebarCategoryEntry
+          categoryName="guns"
+          categoryEntries={categories.guns}
+          store={selectedGuns}
+          isVisible={$visibleFilterPanel == 'guns'}
+        />
 
-      <SidebarCategoryEntry
-        categoryName="melee"
-        categoryEntries={categories.melee}
-        store={selectedMelees}
-        isVisible={$visibleFilterPanel == 'melee'}
-      />
+        <SidebarCategoryEntry
+          categoryName="melee"
+          categoryEntries={categories.melee}
+          store={selectedMelees}
+          isVisible={$visibleFilterPanel == 'melee'}
+        />
 
-      <SidebarCategoryEntry
-        categoryName="grenades"
-        categoryEntries={categories.grenades}
-        store={selectedGrenades}
-        isVisible={$visibleFilterPanel == 'grenades'}
-      />
+        <SidebarCategoryEntry
+          categoryName="grenades"
+          categoryEntries={categories.grenades}
+          store={selectedGrenades}
+          isVisible={$visibleFilterPanel == 'grenades'}
+        />
 
-      <SidebarCategoryEntry
-        categoryName="utils"
-        categoryEntries={categories.utils}
-        store={selectedUtils}
-        isVisible={$visibleFilterPanel == 'utils'}
-      />
+        <SidebarCategoryEntry
+          categoryName="utils"
+          categoryEntries={categories.utils}
+          store={selectedUtils}
+          isVisible={$visibleFilterPanel == 'utils'}
+        />
 
-      <SidebarCategoryEntry
-        categoryName="survivors"
-        categoryEntries={categories.survivors}
-        store={selectedSurvivors}
-        isVisible={$visibleFilterPanel == 'survivors'}
-      />
+        <SidebarCategoryEntry
+          categoryName="survivors"
+          categoryEntries={categories.survivors}
+          store={selectedSurvivors}
+          isVisible={$visibleFilterPanel == 'survivors'}
+        />
 
-      <SidebarCategoryEntry
-        categoryName="infected"
-        categoryEntries={categories.infected}
-        store={selectedInfected}
-        isVisible={$visibleFilterPanel == 'infected'}
-      />
+        <SidebarCategoryEntry
+          categoryName="infected"
+          categoryEntries={categories.infected}
+          store={selectedInfected}
+          isVisible={$visibleFilterPanel == 'infected'}
+        />
 
-      <SidebarCategoryEntry
-        categoryName="misc"
-        categoryEntries={categories.misc}
-        store={selectedMisc}
-        isVisible={$visibleFilterPanel == 'misc'}
-      />
+        <SidebarCategoryEntry
+          categoryName="misc"
+          categoryEntries={categories.misc}
+          store={selectedMisc}
+          isVisible={$visibleFilterPanel == 'misc'}
+        />
+      </div>
     </div>
 
     <!-- <div class="clear-selection">
@@ -137,7 +139,7 @@
   }
 
   .panel-hovers {
-    width: 52px;
+    width: 64px;
     margin-right: 1em;
   }
 

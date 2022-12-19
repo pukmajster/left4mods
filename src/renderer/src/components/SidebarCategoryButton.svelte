@@ -30,21 +30,25 @@
 
 <div
   on:click={setVisiblePanel}
-  class="button flex justify-center items-center mb-2 "
+  class="button flex justify-center items-center "
   class:selected={$visibleFilterPanel == categoryName}
 >
-  <img src="l4d-icons/coach.png" />
+  <img src={`icons/${categoryName}2.png`} />
 </div>
 
 <style>
   .button {
     cursor: pointer;
+    aspect-ratio: 1/1;
   }
 
   .button.selected {
     cursor: pointer;
-    border-radius: 2px;
-    border: 3px solid white;
+    border-radius: 4px;
+    border: 3px solid transparent;
+    background-color: rgb(0, 0, 0);
+    transform: scale(1.2);
+    filter: invert(100%);
   }
 
   img {
