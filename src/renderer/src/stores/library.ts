@@ -22,6 +22,8 @@ export const selectedSurvivors = writable<string[]>([])
 export const selectedInfected = writable<string[]>([])
 export const selectedMisc = writable<string[]>([])
 
+export const visibleFilterPanel = writable('guns')
+
 export const enabledMods = derived(
   [modManifest, presets, activePreset],
   ([$modManifest, $presets, $activePreset]) => {

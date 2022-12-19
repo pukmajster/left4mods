@@ -10,27 +10,13 @@
     selectedSurvivors,
     selectedUtils,
     showConflictingView,
-    totalConflictingMods
+    totalConflictingMods,
+    visibleFilterPanel
   } from '../stores/library'
   import ActionButtons from './ActionButtons.svelte'
   import Collections from './Collections.svelte'
+  import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
-  let visibleFilterPanel = 'guns'
-
-  function setVisiblePanel(panel: string) {
-    clearCategorySelection()
-    visibleFilterPanel = panel
-  }
-
-  function clearCategorySelection() {
-    selectedGuns.set([])
-    selectedMelees.set([])
-    selectedGrenades.set([])
-    selectedUtils.set([])
-    selectedSurvivors.set([])
-    selectedInfected.set([])
-    selectedMisc.set([])
-  }
 
   function toggleView() {
     $showConflictingView = !$showConflictingView
@@ -55,7 +41,17 @@
 
     <div class="filter-panels">
       <div class="panel-hovers">
-        <button
+        <div class="flex flex-col pt-1">
+          <SidebarCategoryButton categoryName={'guns'} />
+          <SidebarCategoryButton categoryName={'melee'} />
+          <SidebarCategoryButton categoryName={'grenades'} />
+          <SidebarCategoryButton categoryName={'utils'} />
+          <SidebarCategoryButton categoryName={'survivors'} />
+          <SidebarCategoryButton categoryName={'infected'} />
+          <SidebarCategoryButton categoryName={'misc'} />
+        </div>
+
+        <!-- <button
           class:active={$selectedGuns.length > 0 && $selectedGuns[0] != ''}
           class:selected={visibleFilterPanel == 'guns'}
           on:click={() => setVisiblePanel('guns')}><span>guns</span></button
@@ -89,7 +85,7 @@
           class:active={$selectedMisc.length > 0 && $selectedMisc[0] != ''}
           class:selected={visibleFilterPanel == 'misc'}
           on:click={() => setVisiblePanel('misc')}><span>misc</span></button
-        >
+        > -->
       </div>
 
       <!-- guns -->
@@ -97,49 +93,49 @@
         categoryName="guns"
         categoryEntries={categories.guns}
         store={selectedGuns}
-        isVisible={visibleFilterPanel == 'guns'}
+        isVisible={$visibleFilterPanel == 'guns'}
       />
 
       <SidebarCategoryEntry
         categoryName="melee"
         categoryEntries={categories.melee}
         store={selectedMelees}
-        isVisible={visibleFilterPanel == 'melee'}
+        isVisible={$visibleFilterPanel == 'melee'}
       />
 
       <SidebarCategoryEntry
         categoryName="grenades"
         categoryEntries={categories.grenades}
         store={selectedGrenades}
-        isVisible={visibleFilterPanel == 'grenades'}
+        isVisible={$visibleFilterPanel == 'grenades'}
       />
 
       <SidebarCategoryEntry
         categoryName="utils"
         categoryEntries={categories.utils}
         store={selectedUtils}
-        isVisible={visibleFilterPanel == 'utils'}
+        isVisible={$visibleFilterPanel == 'utils'}
       />
 
       <SidebarCategoryEntry
         categoryName="survivors"
         categoryEntries={categories.survivors}
         store={selectedSurvivors}
-        isVisible={visibleFilterPanel == 'survivors'}
+        isVisible={$visibleFilterPanel == 'survivors'}
       />
 
       <SidebarCategoryEntry
         categoryName="infected"
         categoryEntries={categories.infected}
         store={selectedInfected}
-        isVisible={visibleFilterPanel == 'infected'}
+        isVisible={$visibleFilterPanel == 'infected'}
       />
 
       <SidebarCategoryEntry
         categoryName="misc"
         categoryEntries={categories.misc}
         store={selectedMisc}
-        isVisible={visibleFilterPanel == 'misc'}
+        isVisible={$visibleFilterPanel == 'misc'}
       />
     </div>
 
@@ -202,8 +198,8 @@
   }
 
   .panel-hovers {
-    width: 24px;
-    margin-right: 1.2em;
+    width: 52px;
+    margin-right: 1em;
   }
 
   .filter-panels {
