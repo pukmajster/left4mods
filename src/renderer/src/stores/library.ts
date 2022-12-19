@@ -24,6 +24,8 @@ export const selectedMisc = writable<string[]>([])
 
 export const visibleFilterPanel = writable('guns')
 
+export const modIdToOverview = writable<ModId>('99999999999')
+
 export const enabledMods = derived(
   [modManifest, presets, activePreset],
   ([$modManifest, $presets, $activePreset]) => {

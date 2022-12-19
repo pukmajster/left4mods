@@ -50,7 +50,7 @@
   let batchCollectionName = ''
 </script>
 
-<div class=" sticky top-0 bg-surface-50-900-token z-50 w-full flex justify-between p-4 gap-4 ">
+<div class=" sticky top-0 bg-surface-50-900-token z-10 w-full flex justify-between p-4 gap-4 ">
   <div class="actions">
     <div class="flex flex-wrap flex-col justify-between gap-2 ">
       <div>

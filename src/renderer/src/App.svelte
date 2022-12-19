@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { AppShell, Drawer, Modal } from '@skeletonlabs/skeleton'
+  import { AppShell, Modal } from '@skeletonlabs/skeleton'
+  import DrawersRoot from './components/DrawersRoot.svelte'
   import Header from './components/Header.svelte'
   import ModLibrary from './components/ModLibrary.svelte'
   import Sidebar from './components/Sidebar.svelte'
@@ -18,7 +19,7 @@
 </AppShell>
 
 <Modal />
-<Drawer />
+<DrawersRoot />
 
 <style global>
 </style>

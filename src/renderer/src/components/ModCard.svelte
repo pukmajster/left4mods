@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { IMod } from 'shared'
-  import { enabledMods, groupedEnabledMods, selectedMods } from '../stores/library'
+  import { enabledMods, groupedEnabledMods, modIdToOverview, selectedMods } from '../stores/library'
   import { toggleModInCurrentPresetSafe } from '../stores/profile'
 
+  import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   export let mod: IMod
 
   let showHoverbox = false
@@ -57,6 +58,12 @@
   function toggleModEnable() {
     toggleModInCurrentPresetSafe(mod.id)
   }
+
+  function overview() {
+    modIdToOverview.set(mod.id)
+    const settings: DrawerSettings = { id: 'mod-overview', position: 'right', width: '400px' }
+    drawerStore.open(settings)
+  }
 </script>
 
 <div
@@ -67,7 +74,7 @@
   on:click={handleClick}
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
-  on:contextmenu={openModInBrowser}
+  on:contextmenu={overview}
 >
   <img
     alt="mod"
