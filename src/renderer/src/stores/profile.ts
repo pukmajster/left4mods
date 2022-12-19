@@ -72,6 +72,14 @@ export function batchDisableModsInCurrentPreset(modIds: ModId[]) {
   modIds.forEach((modId) => disableModInCurrentPresetSafe(modId))
 }
 
+export const renameCurrentPreset = (newName: string) => {
+  const workingPresets = get(presets)
+  let workingPreset = workingPresets.find((preset) => preset.id == get(activePreset))
+  if (!workingPreset) return
+  workingPreset.label = newName
+  presets.set(workingPresets)
+}
+
 // --------------------------------------------------------------------
 // Unsafe methods for collections.
 //
@@ -151,4 +159,14 @@ export function batchAddModsToCollection(modIds: ModId[], workingCollectionName:
 
 export function batchRemoveModsFromCollection(modIds: ModId[], workingCollectionName: string) {
   modIds.forEach((modId) => removeModFromCollectionSafe(modId, workingCollectionName))
+}
+
+export const renameCurrentCollection = (newName: string) => {
+  const workingCollections = get(collections)
+  let workingCollection = workingCollections.find(
+    (collection) => collection.id == get(selectedCollectionName)
+  )
+  if (!workingCollection) return
+  workingCollection.label = newName
+  collections.set(workingCollections)
 }

@@ -1,7 +1,13 @@
 <script lang="ts">
-  export let parent: any
   import { nanoid } from 'nanoid'
-  import { collections, selectedCollectionName } from '../../stores/profile'
+  import {
+    collections,
+    renameCurrentCollection,
+    selectedCollectionName
+  } from '../../stores/profile'
+
+  /** Exposes parent props to this component. */
+  export let parent: any
 
   const formData = {
     newCollectionName: ''
@@ -13,21 +19,37 @@
     //modalStore.close()
   }
 
+  const renameFormData = {
+    collectionLabel: ''
+  }
+
+  $: selectedColletionLabel = $collections.find(
+    (collection) => collection.id === $selectedCollectionName
+  )?.label!
+
+  function onRename() {
+    renameCurrentCollection(renameFormData.collectionLabel)
+    renameFormData.collectionLabel = ''
+  }
+
   function createNewCollection(newCollectionName: string) {
     if (newCollectionName === '') return
     if ($collections.find((preset) => preset.id === newCollectionName)) return
 
+    let newId = nanoid()
+
     collections.update((collections) => {
       collections.push({
         label: newCollectionName,
-        id: nanoid(),
+        id: newId,
         mods: []
       })
 
       return collections
     })
-    $selectedCollectionName = newCollectionName
+    $selectedCollectionName = newId
     newCollectionName = ''
+    formData.newCollectionName = ''
   }
 
   // Base Classes
@@ -43,6 +65,23 @@
       <option value={collection.id}>{collection.label}</option>
     {/each}
   </select>
+
+  <div class="flex gap-3">
+    <input
+      bind:value={renameFormData.collectionLabel}
+      placeholder={`${
+        $selectedCollectionName !== ''
+          ? `Rename collection "${selectedColletionLabel}"`
+          : 'Select a collection'
+      }`}
+      type="text"
+    />
+    <button
+      on:click={onRename}
+      disabled={renameFormData.collectionLabel.length == 0}
+      class="btn btn-ghost-accent">Rename</button
+    >
+  </div>
 
   <h5 class="font-bold">Create New Collection</h5>
   <div class="flex gap-4">

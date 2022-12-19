@@ -4,34 +4,44 @@
   export let parent: any
   // Stores
   import { nanoid } from 'nanoid'
-  import { activePreset, presets } from '../../stores/profile'
+  import { activePreset, presets, renameCurrentPreset } from '../../stores/profile'
 
-  // Form Data
   const formData = {
     newPresetName: ''
   }
-  // We've created a custom submit function to pass the response and close the modal.
+
   function onFormSubmit(): void {
-    //if ($modalStore[0].response) $modalStore[0].response(formData)
     createNewPreset(formData.newPresetName)
-    //modalStore.close()
+  }
+
+  const renameFormData = {
+    label: ''
+  }
+
+  $: selectedPresetLabel = $presets.find((collection) => collection.id === $activePreset)?.label!
+
+  function onRename() {
+    renameCurrentPreset(renameFormData.label)
+    renameFormData.label = ''
   }
 
   function createNewPreset(newPresetName: string) {
     if (newPresetName === '') return
     if ($presets.find((preset) => preset.id === newPresetName)) return
 
+    let newId = nanoid()
+
     presets.update((presets) => {
       presets.push({
         label: newPresetName,
-        id: nanoid(),
+        id: newId,
         enabledMods: []
       })
 
       return presets
     })
-    $activePreset = newPresetName
-    newPresetName = ''
+    $activePreset = newId
+    formData.newPresetName = ''
   }
 
   // Base Classes
@@ -40,13 +50,25 @@
 
 <!-- @component This example creates a simple form modal. -->
 <div class="modal-example-form {cBase}">
-  <h5 class="font-bold">Pick Preset</h5>
   <select bind:value={$activePreset} placeholder="preset" class="">
     <option hidden value="">None</option>
     {#each $presets as preset}
       <option value={preset.id}>{preset.label}</option>
     {/each}
   </select>
+
+  <div class="flex gap-3">
+    <input
+      bind:value={renameFormData.label}
+      placeholder={`Rename preset "${selectedPresetLabel}"`}
+      type="text"
+    />
+    <button
+      on:click={onRename}
+      disabled={renameFormData.label.length == 0}
+      class="btn btn-ghost-accent">Rename</button
+    >
+  </div>
 
   <h5 class="font-bold">Create new preset</h5>
   <div class="flex gap-4">
