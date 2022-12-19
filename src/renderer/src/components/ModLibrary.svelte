@@ -81,7 +81,7 @@
   }
 
   .mods-list:last-child {
-    padding-bottom: 4em;
+    padding-bottom: 24em;
   }
 
   .conflicting-mods {
