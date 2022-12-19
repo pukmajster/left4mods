@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { pickCollection } from '../functions/modals'
   import {
     paginatedSortedFilteredMods,
     perPageCount,
@@ -10,8 +11,7 @@
   import {
     batchAddModsToCollection,
     batchDisableModsInCurrentPreset,
-    batchEnableModsInCurrentPreset,
-    batchRemoveModsFromCollection
+    batchEnableModsInCurrentPreset
   } from '../stores/profile'
 
   function unselectAll() {
@@ -33,13 +33,11 @@
   }
 
   function _batchAddModsToCollection() {
-    batchAddModsToCollection($selectedMods, batchCollectionName)
-    clearSelection()
-  }
-
-  function _batchRemoveModsToCollection() {
-    batchRemoveModsFromCollection($selectedMods, batchCollectionName)
-    clearSelection()
+    pickCollection((collectionName) => {
+      if (!collectionName) return
+      batchAddModsToCollection($selectedMods, collectionName)
+      clearSelection()
+    })
   }
 
   function clearSelection() {
@@ -48,19 +46,27 @@
   }
 
   let batchCollectionName = ''
+
+  function handleSelectedButtonClick() {
+    if ($selectedMods.length > 0) {
+      unselectAll()
+    } else selectAll()
+  }
 </script>
 
 <div class=" sticky top-0 bg-surface-50-900-token z-10 w-full flex justify-between p-4 gap-4 ">
   <div class="actions">
     <div class="flex flex-wrap flex-col justify-between gap-2 ">
       <div>
-        <span class="btn btn-sm btn-filled-surface">Selected: {$selectedMods.length}</span>
-        <button on:click={unselectAll} class="btn btn-sm btn-filled-surface">unselect all</button>
-        <button on:click={selectAll} class="btn btn-sm btn-filled-surface">select visible</button>
+        <span class="btn btn-sm btn-filled-surface" on:click={handleSelectedButtonClick}
+          >Selected: {$selectedMods.length}</span
+        >
+        <!-- <button on:click={unselectAll} class="btn btn-sm btn-filled-surface">unselect all</button>
+        <button on:click={selectAll} class="btn btn-sm btn-filled-surface">select visible</button> -->
       </div>
 
       {#if $selectedMods.length > 0}
-        <div class="grid-cols-2 gir-rows-2 grid  gap-1 ">
+        <div class="flex flex-wrap  gap-1 ">
           <button on:click={_batchEnableSelectedMods} class="btn btn-sm btn-filled-accent"
             >enable selected</button
           >
@@ -76,9 +82,9 @@
           <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-accent"
             >add selected to collection</button
           >
-          <button on:click={_batchRemoveModsToCollection} class="btn btn-sm btn-filled-accent"
+          <!-- <button on:click={_batchRemoveModsToCollection} class="btn btn-sm btn-filled-accent"
             >remove selected from collection</button
-          >
+          > -->
         </div>
       {/if}
     </div>

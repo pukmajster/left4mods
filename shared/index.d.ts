@@ -65,6 +65,6 @@ export interface IMod {
   addoncontent_weapon?: string
   addoncontent_weaponmodel?: string
   error?: string
-  categories?: string[]
-  timemodified?: string
+  categories: string[]
+  timemodified: string
 }

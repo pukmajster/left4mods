@@ -2,7 +2,7 @@
   import type { Writable } from 'svelte/store'
   export let categoryName: string
   export let categoryEntries: string[]
-  export let store: Writable<string[]>
+  export let store: Writable<string>
   export let isVisible: boolean = false
 </script>
 

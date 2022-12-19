@@ -13,7 +13,6 @@
     totalConflictingMods,
     visibleFilterPanel
   } from '../stores/library'
-  import ActionButtons from './ActionButtons.svelte'
   import Collections from './Collections.svelte'
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
@@ -146,11 +145,6 @@
     <div style="height: 1em" />
 
     <Collections />
-
-    <div style="height: 1px; background-color: gray" />
-    <div style="height: 1em" />
-
-    <ActionButtons />
   </div>
 </div>
 

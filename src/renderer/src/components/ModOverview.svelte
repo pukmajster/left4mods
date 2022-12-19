@@ -31,7 +31,7 @@
   <div class="credits p-4">
     <h3>{mod.addontitle}</h3>
     <div class="categories pt-2">
-      {#each mod.categories as category}
+      {#each mod.categories ?? [] as category}
         <p class="category">{category}</p>
       {/each}
     </div>

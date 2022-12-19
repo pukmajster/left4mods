@@ -44,10 +44,6 @@
     showHoverbox = false
   }
 
-  function openModInBrowser() {
-    window.api.openLinkInBrowser(`https://steamcommunity.com/sharedfiles/filedetails/?id=${mod.id}`)
-  }
-
   $: selected = $selectedMods.includes(mod.id)
   $: enabled = $enabledMods.includes(mod.id)
 
@@ -87,7 +83,7 @@
       {#if mod.addonauthor}<p class="author">By: {mod.addonauthor}</p>{/if}
 
       <div class="categories">
-        {#each mod.categories as category}
+        {#each mod.categories ?? [] as category}
           <p class="category">{category}</p>
         {/each}
       </div>
