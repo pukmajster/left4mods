@@ -194,6 +194,8 @@ async function buildManifest(existingManifest?: IModManifest) {
         if (modIdsWithoutValidAddonInfo.includes(id))
           mergedManifest[id].addontitle = publishedFile.title
       }
+
+      console.log('Successfully retrieved online mod info')
     } catch (e) {
       console.log(e as Error)
 

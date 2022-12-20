@@ -2,9 +2,15 @@
   import { modalStore, SlideToggle, Tab, TabGroup } from '@skeletonlabs/skeleton'
   // Stores
   import { writable } from 'svelte/store'
-  import { requestManifest } from '../../api/api'
+  import { requestManifest, writeAddonList } from '../../api/api'
   import { modManifest } from '../../stores/manifest'
-  import { disableOnlineFetchingOfModData, gameDir, launchParameters } from '../../stores/profile'
+  import {
+    activePreset,
+    disableOnlineFetchingOfModData,
+    gameDir,
+    launchParameters,
+    presets
+  } from '../../stores/profile'
   // Props
   /** Exposes parent props to this component. */
   export let parent: any
@@ -38,6 +44,18 @@
     } catch (e) {
       console.log(e)
     }
+  }
+
+  function writeAddonlist() {
+    writeAddonList(
+      $gameDir,
+      $modManifest,
+      $presets.find((preset) => preset.id === $activePreset) ?? {
+        enabledMods: [],
+        id: '',
+        label: ''
+      }
+    )
   }
 
   $: networkText = !formData.disableOnlineFetchingOfModData ? willNotNetworkText : willNetworkText
@@ -100,9 +118,13 @@
     {/if}
 
     {#if $tab == 'misc'}
-      <button class="btn btn-ghost-primary" on:click={forceFullManifestRefresh}
-        >Force Refresh Full Manifest</button
-      >
+      <div class="space-x-2">
+        <button class="btn btn-ghost-primary" on:click={forceFullManifestRefresh}
+          >Force Refresh Full Manifest</button
+        >
+
+        <button class="btn btn-ghost-accent" on:click={writeAddonlist}>Write addonlist</button>
+      </div>
     {/if}
   </div>
 

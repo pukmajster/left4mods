@@ -82,7 +82,7 @@
       class="btn btn-sm"
     >
       <RefreshCw size={16} />
-      <span>{isBuildingManifest ? 'Refreshing Manifest...' : 'Refresh Manifest'}</span></button
+      <span>Refresh Mods</span></button
     >
     <!--     <button
       on:click={() => attemptRequestManifest(true)}

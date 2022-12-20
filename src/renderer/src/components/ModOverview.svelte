@@ -1,8 +1,8 @@
 <script lang="ts">
   import { CodeBlock, Divider } from '@skeletonlabs/skeleton'
-  import { modIdToOverview } from '../stores/library'
+  import { enabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
-  import { collections } from '../stores/profile'
+  import { collections, toggleModInCurrentPresetSafe } from '../stores/profile'
 
   $: mod = $modManifest[$modIdToOverview]
 
@@ -20,6 +20,12 @@
       : Object.keys($modManifest)
           .filter((id) => $modManifest[id].addonauthor == mod.addonauthor)
           .filter((id) => id != mod.id)
+
+  $: isEnabled = $enabledMods.includes(mod.id)
+
+  function toggleModEnabled() {
+    toggleModInCurrentPresetSafe(mod.id)
+  }
 </script>
 
 <div class="mod">
@@ -38,6 +44,12 @@
 
     <button class=" w-full btn btn-ghost-accent mt-5" on:click={openModInBrowser}
       >Open in Workshop</button
+    >
+
+    <button
+      class=" w-full btn btn-ghost-primary mt-5"
+      class:btn-ghost-accent={isEnabled}
+      on:click={toggleModEnabled}>{isEnabled ? 'Enabled' : 'Disabled'}</button
     >
 
     {#if mod.addonauthor}

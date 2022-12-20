@@ -20,7 +20,7 @@
         </div>
       {:else if $showConflictingView}
         {#if $groupedEnabledMods.length == 0}
-          <div class="no-conflicting-mods">
+          <div class="no-conflicting-mods p-2 pl-8 space-y-2">
             <h1>No conflicting mods</h1>
             <p>There are no conflicting mods in your preset.</p>
           </div>

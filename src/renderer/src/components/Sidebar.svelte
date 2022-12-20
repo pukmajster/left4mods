@@ -14,7 +14,6 @@
   import Collections from './Collections.svelte'
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
-  import ToggleViewButton from './ToggleViewButton.svelte'
 </script>
 
 <div class="sidebar">
@@ -92,16 +91,16 @@
     </div> -->
 
     <div style="height: 1em" />
-    <Collections />
   </div>
 
-  <ToggleViewButton />
+  <Collections />
 </div>
 
 <style lang="postcss">
   .sidebar {
     padding: 1em;
     padding-top: 0;
+    padding-bottom: 0;
     min-width: 320px;
     max-width: 320px;
     height: 100%;

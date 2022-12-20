@@ -4,14 +4,17 @@
   import { toggleModInCurrentPresetSafe } from '../stores/profile'
 
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
+  import { CheckCircle2 } from 'lucide-svelte'
   export let mod: IMod
 
   let showHoverbox = false
 
   function handleClick(e: MouseEvent) {
     if (!e.ctrlKey) {
-      toggleModEnable()
-      return
+      if (!userIsSelecting) {
+        toggleModEnable()
+        return
+      }
     }
 
     selectedMods.update((mods) => {
@@ -46,6 +49,8 @@
 
   $: selected = $selectedMods.includes(mod.id)
   $: enabled = $enabledMods.includes(mod.id)
+  $: otherModsSelectedButNotThisOne = $selectedMods.some((id) => id != mod.id)
+  $: userIsSelecting = $selectedMods.length > 0
 
   $: isGroupEnabled = $groupedEnabledMods.some((group) =>
     group.some((conflictingMod) => conflictingMod.id == mod.id)
@@ -65,6 +70,7 @@
 <div
   class="mod"
   class:selected
+  class:unselected={otherModsSelectedButNotThisOne && !selected}
   class:enabled
   class:conflicting={isGroupEnabled}
   on:click={handleClick}
@@ -77,7 +83,7 @@
     src={`file:///home/kry/.local/share/Steam/steamapps/common/Left%204%20Dead%202/left4dead2/addons/workshop/${mod.id}.jpg`}
   />
 
-  {#if showHoverbox}
+  {#if showHoverbox && !userIsSelecting}
     <div class="hoverbox backdrop-blur-lg bg-surface-900/70">
       <h6 class="title">{mod.addontitle}</h6>
 
@@ -88,9 +94,17 @@
       </div>
     </div>
   {/if}
+
+  {#if selected}<div
+      class="selected-overlay absolute inset-0 bg w-full h-full right-0 justify-center items-center flex bg-slate-900/50 "
+    >
+      <div class="backdrop-blur-lg rounded-full">
+        <CheckCircle2 size={64} />
+      </div>
+    </div>{/if}
 </div>
 
-<style>
+<style lang="postcss">
   .mod {
     --mod-enabled-color: rgb(25, 165, 25);
     --mod-conflicting-color: #ff5151f9;
@@ -99,7 +113,6 @@
     flex-direction: column;
     position: relative;
     margin-bottom: 5px;
-    overflow: hidden;
 
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
@@ -119,10 +132,16 @@
     aspect-ratio: 5/3;
   }
 
-  .mod.selected {
-    outline: 8px solid #e7d5d5;
+  .mod.unselected {
+    opacity: 0.5;
     transform: scale(0.8);
+  }
+
+  .mod.selected {
+    outline: 2px solid #6abcffc5;
     border-radius: 2px;
+
+    box-shadow: 0 0 12px 6px #ffffff23;
   }
 
   .mod.enabled {

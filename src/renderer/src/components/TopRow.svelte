@@ -15,6 +15,7 @@
     batchRemoveModsFromCollection,
     selectedCollectionName
   } from '../stores/profile'
+  import ToggleViewButton from './ToggleViewButton.svelte'
 
   function unselectAll() {
     selectedMods.set([])
@@ -63,68 +64,74 @@
 </script>
 
 <div
-  class=" backdrop-blur-md sticky flex-col top-0 -bg-surface-50-900-token bg-surface-900/90 z-10 p-4 pb-4 w-full flex  gap-4 z-10"
+  class="backdrop-blur-md sticky top-0 -bg-surface-50-900-token bg-surface-900/90 z-10 p-4 pb-4 w-full flex justify-between gap-2 "
 >
-  {#if !$showConflictingView}
-    <div class="items-start flex-1 flex justify-start  gap-2">
-      <select style="max-width: 100px;" bind:value={$perPageCount}>
-        <option value={'30'}>30</option>
-        <option value={'50'}>50</option>
-        <option value={'100'}>100</option>
-        <option value={'300'}>300</option>
-        <option value={'999'}>All</option>
-      </select>
+  <div class=" flex  gap-4 z-10  flex-col ">
+    {#if !$showConflictingView}
+      <div class="items-start flex-1 flex justify-start  gap-2">
+        <select style="max-width: 100px;" bind:value={$perPageCount}>
+          <option value={'30'}>30</option>
+          <option value={'50'}>50</option>
+          <option value={'100'}>100</option>
+          <option value={'300'}>300</option>
+          <option value={'999'}>All</option>
+        </select>
 
-      <select style="max-width: 210px;  w-full" bind:value={$sortingType}>
-        <option value="name_asc">Name (Ascending)</option>
-        <option value="name_desc">Name (Descending)</option>
-        <option value="time_newest">Time modified (latest)</option>
-        <option value="time_oldest">Time modified (oldest)</option>
-      </select>
+        <select style="max-width: 210px;  w-full" bind:value={$sortingType}>
+          <option value="name_asc">Name (Ascending)</option>
+          <option value="name_desc">Name (Descending)</option>
+          <option value="time_newest">Time modified (latest)</option>
+          <option value="time_oldest">Time modified (oldest)</option>
+        </select>
 
-      <select style="max-width: 130px;" bind:value={$typeToShow}>
-        <option value="any">Any</option>
-        <option value="enabled">Enabled</option>
-        <option value="disabled">Disabled</option>
-      </select>
-    </div>
-
-    <div class="actions">
-      <div class="flex flex-wrap   gap-2 ">
-        <span class="btn btn-sm btn-filled-surface" on:click={handleSelectedButtonClick}
-          >Selected: {$selectedMods.length}</span
-        >
-        <!-- <button on:click={unselectAll} class="btn btn-sm btn-filled-surface">unselect all</button>
-        <button on:click={selectAll} class="btn btn-sm btn-filled-surface">select visible</button> -->
-
-        {#if $selectedMods.length > 0}
-          <button on:click={_batchEnableSelectedMods} class="btn btn-sm btn-filled-accent"
-            >enable selected</button
-          >
-          <button on:click={_batchDisableSelectedMods} class="btn btn-sm btn-filled-accent"
-            >disable selected</button
-          >
-          <!-- <select bind:value={batchCollectionName}>
-              {#each $collections as collection}
-                <option value={collection.id}>{collection.id}</option>
-              {/each}
-            </select> -->
-
-          {#if $selectedCollectionName == ''}
-            <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-accent"
-              >add selected to collection</button
-            >
-          {/if}
-
-          {#if $selectedCollectionName != ''}
-            <button on:click={_batchRemoveModsFromCollection} class="btn btn-sm btn-filled-accent"
-              >remove selected from collection</button
-            >
-          {/if}
-        {/if}
+        <select style="max-width: 130px;" bind:value={$typeToShow}>
+          <option value="any">Any</option>
+          <option value="enabled">Enabled</option>
+          <option value="disabled">Disabled</option>
+        </select>
       </div>
-    </div>
-  {/if}
+
+      <div class="actions">
+        <div class="flex flex-wrap   gap-2 ">
+          <span class="btn btn-sm btn-filled-surface" on:click={handleSelectedButtonClick}
+            >Selected: {$selectedMods.length}</span
+          >
+          <!-- <button on:click={unselectAll} class="btn btn-sm btn-filled-surface">unselect all</button>
+      <button on:click={selectAll} class="btn btn-sm btn-filled-surface">select visible</button> -->
+
+          {#if $selectedMods.length > 0}
+            <button on:click={_batchEnableSelectedMods} class="btn btn-sm btn-filled-accent"
+              >enable selected</button
+            >
+            <button on:click={_batchDisableSelectedMods} class="btn btn-sm btn-filled-accent"
+              >disable selected</button
+            >
+            <!-- <select bind:value={batchCollectionName}>
+            {#each $collections as collection}
+              <option value={collection.id}>{collection.id}</option>
+            {/each}
+          </select> -->
+
+            {#if $selectedCollectionName == ''}
+              <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-accent"
+                >add selected to collection</button
+              >
+            {/if}
+
+            {#if $selectedCollectionName != ''}
+              <button on:click={_batchRemoveModsFromCollection} class="btn btn-sm btn-filled-accent"
+                >remove selected from collection</button
+              >
+            {/if}
+          {/if}
+        </div>
+      </div>
+    {/if}
+  </div>
+
+  <div class="flex justify-end">
+    <div><ToggleViewButton /></div>
+  </div>
 </div>
 
 <style lang="postcss">
