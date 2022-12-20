@@ -19,11 +19,9 @@
   import { writable } from 'svelte/store'
   import { requestManifest } from '../api/api'
   import { modManifest } from '../stores/manifest'
-  import { showPreferences } from '../stores/preferences'
   import ActionButtons from './ActionButtons.svelte'
   import HelpModal from './modals/HelpModal.svelte'
   import SettingsModal from './modals/SettingsModal.svelte'
-  import Preferences from './Preferences.svelte'
   import Presets from './Presets.svelte'
 
   let isBuildingManifest = false
@@ -120,8 +118,4 @@
     </a>
     <Presets parent={{}} />
   </svelte:fragment>
-
-  {#if $showPreferences}
-    <Preferences />
-  {/if}
 </AppBar>

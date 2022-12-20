@@ -30,7 +30,7 @@
 
 <div
   on:click={setVisiblePanel}
-  class="button flex justify-center items-center "
+  class="button flex justify-center items-center p-1"
   class:selected={$visibleFilterPanel == categoryName}
 >
   <img src={`icons/${categoryName}2.png`} />
@@ -40,18 +40,26 @@
   .button {
     cursor: pointer;
     aspect-ratio: 1/1;
+    border-radius: 4px;
+  }
+
+  .button:hover {
+    @apply bg-slate-800;
   }
 
   .button.selected {
     cursor: pointer;
-    border-radius: 4px;
-    border: 3px solid transparent;
-    background-color: rgb(0, 0, 0);
-    transform: scale(1.2);
-    filter: invert(100%);
+
+    border: 2px solid transparent;
+    background-color: rgb(255, 255, 255);
   }
 
   img {
     aspect-ratio: 1/1;
+  }
+
+  .button.selected img {
+    filter: invert(100%);
+    transform: scale(1.2);
   }
 </style>

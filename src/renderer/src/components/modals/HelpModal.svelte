@@ -17,7 +17,7 @@
   </p>
   <div class="flex gap-4" />
 
-  <h5 class="font-bold">Useful key combos</h5>
+  <h5 class="font-bold">Useful Key Combos / Actions</h5>
   <div class="grid grid-cols-1 gap-4">
     <div class="keycombo">
       <p>Ctrl + Left Click</p>

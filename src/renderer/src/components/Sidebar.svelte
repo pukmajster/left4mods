@@ -23,7 +23,7 @@
 
     <div class="filter-panels">
       <div class="panel-hovers">
-        <div class="flex flex-col p-3 gap-4 bg-surface-800/90 rounded-md">
+        <div class="flex flex-col p-2 gap-3 bg-surface-800/90 rounded-md">
           <SidebarCategoryButton categoryName={'guns'} />
           <SidebarCategoryButton categoryName={'melee'} />
           <SidebarCategoryButton categoryName={'grenades'} />

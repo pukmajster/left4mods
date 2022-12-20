@@ -304,7 +304,7 @@ const fileToCategoryMap = {
   'charger/': ['Charger'],
   jockey: ['Jockey'],
   witch: ['Witch'],
-  'hulk/': ['Tank (Hulk)'],
+  'hulk/': ['Tank'],
   spitter: ['Spitter'],
   'hunter/': ['Hunter'],
   smoker: ['Smoker'],
@@ -372,7 +372,23 @@ const fileToCategoryMap = {
   painpills: ['Pills'],
   medkit: ['Medkit'],
 
-  gnome: ['Gnome']
+  gnome: ['Gnome'],
+  'materials/vgui/loadingscreen': ['Loading Screen'],
+  'media/valve.bik': ['Startup Movie'],
+  '/props_vehicles/': ['Vehicles'],
+  'flu/jukebox/': ['Jukebox'],
+  '/liquids/water': ['Water'],
+  'materials/effects/flashlight': ['Flashlight'],
+
+  'scripts/sprays_manifest.txt': ['Spray'],
+  'materials/vgui/logos': ['Spray'],
+
+  ammo_stack: ['Ammo Stack'],
+  coffeeammo: ['Ammo Stack'],
+
+  '/props_interiors/medicalcabinet': ['Medical Cabinet'],
+
+  "lil'peanut_cutout001": ["Lil' Peanut"]
 }
 
 // Common files found in VPKs that should not result in mod conflictions

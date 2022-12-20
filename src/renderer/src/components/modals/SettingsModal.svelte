@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { modalStore, SlideToggle } from '@skeletonlabs/skeleton'
-
+  import { modalStore, SlideToggle, Tab, TabGroup } from '@skeletonlabs/skeleton'
+  // Stores
+  import { writable } from 'svelte/store'
+  import { requestManifest } from '../../api/api'
+  import { modManifest } from '../../stores/manifest'
+  import { disableOnlineFetchingOfModData, gameDir, launchParameters } from '../../stores/profile'
   // Props
   /** Exposes parent props to this component. */
   export let parent: any
-
-  // Stores
-  import { disableOnlineFetchingOfModData, gameDir, launchParameters } from '../../stores/profile'
+  const tab = writable<'manifest' | 'launchparameters' | 'misc'>('manifest')
 
   // Form Data
   let formData = {
@@ -30,57 +32,89 @@
   const willNetworkText = 'Networking allowed.'
   const willNotNetworkText = 'Networking disabled.'
 
+  async function forceFullManifestRefresh() {
+    try {
+      modManifest.set(await requestManifest(true))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   $: networkText = !formData.disableOnlineFetchingOfModData ? willNotNetworkText : willNetworkText
 </script>
 
 <!-- @component This example creates a simple form modal. -->
 <div class="modal-example-form {cBase}">
-  <h5 class="font-bold">Game Directory</h5>
-  <p>
-    The directory is needed to access and write to the game files. We won't be snooping outside of
-    this directory even if an invalid l4d2 directory has been supplied.
-  </p>
-  <div class="flex gap-4">
-    <input
-      type="text"
-      bind:value={formData.gameDir}
-      placeholder="Enter name..."
-      class="flex-1 w-full"
-    />
-  </div>
+  <TabGroup selected={tab}>
+    <Tab value="manifest">General</Tab>
+    <Tab value="launchparameters">Launch Parameters</Tab>
+    <Tab value="misc">Misc</Tab>
+  </TabGroup>
 
-  <h5 class="font-bold">Networking</h5>
-  <p>
-    A lot of .VPKs come with broken or straight up missing accompanying metadata (such as title,
-    author, ...). We get around this by fetching said metadata straight from Steam's own workshop.
-    In fact, so does the game! You can disable this feature if you wish, but new mods will show up
-    as "undefined" until you re-enable this feature and refresh the manifest.
-  </p>
+  <div class="modal-content space-y-4">
+    {#if $tab == 'manifest'}
+      <h5 class="font-bold">Game Directory</h5>
+      <p>
+        The directory is needed to access and write to the game files. We won't be snooping outside
+        of this directory even if an invalid l4d2 directory has been supplied.
+      </p>
+      <div class="flex gap-4">
+        <input
+          type="text"
+          bind:value={formData.gameDir}
+          placeholder="Enter name..."
+          class="flex-1 w-full"
+        />
+      </div>
 
-  <SlideToggle bind:checked={formData.disableOnlineFetchingOfModData}>{networkText}</SlideToggle>
+      <h5 class="font-bold">Networking</h5>
+      <p>
+        A lot of .VPKs come with broken or straight up missing accompanying metadata (such as title,
+        author, ...). We get around this by fetching said metadata straight from Steam's own
+        workshop. In fact, so does the game! You can disable this feature if you wish, but new mods
+        will show up as "undefined" until you re-enable this feature and refresh the manifest.
+      </p>
 
-  <h5 class="font-bold">Launch Parameters</h5>
-  <p>
-    Launch parameters to use when launching the game directly from the app. Recommended launch
-    parameters to use:
-  </p>
-  <ul class="pl-4">
-    <li>-novid (skips the intro cutscene)</li>
-    <li>+exec l4d2launcher.cfg (execus your custom config)</li>
-  </ul>
-  <div class="flex gap-4">
-    <input
-      type="text"
-      bind:value={formData.launchParameters}
-      placeholder="Enter launch parameters..."
-      class="flex-1 w-full"
-    />
+      <SlideToggle bind:checked={formData.disableOnlineFetchingOfModData}>{networkText}</SlideToggle
+      >
+    {/if}
+
+    {#if $tab == 'launchparameters'}
+      <h5 class="font-bold">Launch Parameters</h5>
+      <p>Launch parameters to use when launching the game directly from the app.</p>
+      <div class="flex gap-4">
+        <input
+          type="text"
+          bind:value={formData.launchParameters}
+          placeholder="Enter launch parameters..."
+          class="flex-1 w-full"
+        />
+      </div>
+
+      <p>Recommended launch parameters to use:</p>
+
+      <ul class="pl-4">
+        <li>-novid (skips the intro cutscene)</li>
+        <li>+exec l4d2launcher.cfg (executes your custom config)</li>
+      </ul>
+    {/if}
+
+    {#if $tab == 'misc'}
+      <button class="btn btn-ghost-primary" on:click={forceFullManifestRefresh}
+        >Force Refresh Full Manifest</button
+      >
+    {/if}
   </div>
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
     <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Cancel</button>
     <button class="btn btn-ghost-accent" on:click={onFormSubmit}> Save</button>
-
   </footer>
 </div>
+
+<style>
+  .modal-content {
+    min-height: 420px;
+  }
+</style>

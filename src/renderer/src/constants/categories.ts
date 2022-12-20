@@ -1,5 +1,20 @@
-const misc = ['HUD', 'Colour Correction', 'UI', 'VScript', 'Gnome']
-
+const misc = [
+  'HUD',
+  'UI',
+  'VScript',
+  'Colour Correction',
+  'Loading Screen', // TODO only for official maps?
+  'Startup Movie',
+  'Flashlight',
+  'Spray',
+  'Ammo Stack',
+  'Gnome',
+  'Jukebox',
+  'Vehicles',
+  'Water',
+  'Medical Cabinet',
+  "Lil' Peanut"
+]
 const guns = [
   'Pistol',
   'Deagle',
