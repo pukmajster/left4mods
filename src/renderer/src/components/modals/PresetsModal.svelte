@@ -99,6 +99,6 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn btn-ghost-accent" on:click={parent.onClose}>Ok</button>
+    <button class="btn btn-ghost-accent" on:click={parent.onClose}>Close</button>
   </footer>
 </div>

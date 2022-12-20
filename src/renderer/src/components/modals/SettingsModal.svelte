@@ -59,7 +59,7 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Close</button>
+    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Cancel</button>
     <button class="btn btn-ghost-accent" on:click={onFormSubmit}> Save</button>
 
   </footer>

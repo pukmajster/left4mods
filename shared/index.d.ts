@@ -13,6 +13,7 @@ export interface BridgedAPI {
   writeProfile: (profileData: IUserProfile) => void
   readProfile: () => Promise<IUserProfile>
   writeAddonInfo: (gameDir: string, addonInfo: string) => Promise<boolean>
+  writeCustomCfg: (gameDir: string, customCfg: string) => Promise<boolean>
 }
 
 export interface IModManifest {
@@ -27,6 +28,8 @@ export interface IUserProfile {
     gameDir: string
     disableOnlineFetchingOfModData: boolean
   }
+  customCfg: string
+  launchParameters: string
 }
 
 export interface IPreset {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { modalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton'
   import { Album } from 'lucide-svelte'
-  import { onlyShowModsNotInAnyCollection } from '../stores/library'
+  import { onlyShowModsNotInAnyCollection, showConflictingView } from '../stores/library'
   import { collections, selectedCollectionName } from '../stores/profile'
   import CollectionsModal from './modals/CollectionsModal.svelte'
 
@@ -21,35 +21,37 @@
   }
 </script>
 
-<div class="container">
-  <div class="flex gap-2">
-    <button class="w-full btn btn-sm bg-accent-500" on:click={triggerCustomModal}>
-      <Album size={16} />
-      <span
-        >{$selectedCollectionName
-          ? $collections.find((collection) => collection.id == $selectedCollectionName)?.label
-          : 'Collections'}</span
-      >
-    </button>
-  </div>
+{#if !$showConflictingView}
+  <div class="container">
+    <div class="flex gap-2">
+      <button class="w-full btn btn-sm bg-accent-500" on:click={triggerCustomModal}>
+        <Album size={16} />
+        <span
+          >{$selectedCollectionName
+            ? $collections.find((collection) => collection.id == $selectedCollectionName)?.label
+            : 'Collections'}</span
+        >
+      </button>
+    </div>
 
-  <!--  <button on:click={createNewCollection}>create</button>
+    <!--  <button on:click={createNewCollection}>create</button>
   <input bind:value={newCollectionName} /> -->
 
-  <div style="height: 1em;" />
+    <div style="height: 1em;" />
 
-  <div class="flex items-center gap-3">
-    <input
-      id="onlyShowModsNotInAnyCollection"
-      type="checkbox"
-      disabled={$selectedCollectionName !== ''}
-      bind:checked={$onlyShowModsNotInAnyCollection}
-    />
-    <label class="inline" for="onlyShowModsNotInAnyCollection">
-      Only mods not in <br /> any collection</label
-    >
+    <div class="flex items-center gap-3">
+      <input
+        id="onlyShowModsNotInAnyCollection"
+        type="checkbox"
+        disabled={$selectedCollectionName !== ''}
+        bind:checked={$onlyShowModsNotInAnyCollection}
+      />
+      <label class="inline" for="onlyShowModsNotInAnyCollection">
+        Only mods not in any collection</label
+      >
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   select {

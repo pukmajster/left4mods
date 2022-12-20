@@ -8,6 +8,8 @@ export const activePreset = writable('')
 export const selectedCollectionName = writable('') // Not stored in profile
 export const disableOnlineFetchingOfModData = writable(false) // Not stored in profile
 export const gameDir = writable('')
+export const launchParameters = writable('')
+export const customCfg = writable('')
 
 // --------------------------------------------------------------------
 // Unsafe methods for mods.

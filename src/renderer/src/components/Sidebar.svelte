@@ -10,12 +10,12 @@
     selectedSurvivors,
     selectedUtils,
     showConflictingView,
-    totalConflictingMods,
     visibleFilterPanel
   } from '../stores/library'
   import Collections from './Collections.svelte'
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
+  import ToggleViewButton from './ToggleViewButton.svelte'
 
   function toggleView() {
     $showConflictingView = !$showConflictingView
@@ -24,19 +24,7 @@
 
 <div class="sidebar">
   <div class="sidebar-inner">
-    <input type="text" placeholder="Search" bind:value={$searchTerm} />
-
-    <button
-      on:click={toggleView}
-      class="btn btn-sm my-3"
-      class:btn-ghost-warning={$totalConflictingMods > 0}
-    >
-      {#if $showConflictingView}
-        Show all
-      {:else}
-        Show {$totalConflictingMods} conflicting
-      {/if}
-    </button>
+    <input type="text" placeholder="Search" bind:value={$searchTerm} class="my-4" />
 
     <div class="filter-panels">
       <div class="panel-hovers">
@@ -109,20 +97,24 @@
     </div> -->
 
     <div style="height: 1em" />
-
     <Collections />
   </div>
+
+  <ToggleViewButton />
 </div>
 
 <style lang="postcss">
   .sidebar {
     padding: 1em;
+    padding-top: 0;
     width: 300px;
     min-width: 300px;
     max-width: 300px;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 
   .sidebar-inner {

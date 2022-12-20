@@ -2,10 +2,12 @@
   import {
     AppBar,
     modalStore,
+    RadioGroup,
+    RadioItem,
     type ModalComponent,
     type ModalSettings
   } from '@skeletonlabs/skeleton'
-  import { Github, RefreshCw, Settings } from 'lucide-svelte'
+  import { FileCog, Github, Library, MessageCircle, RefreshCw, Settings } from 'lucide-svelte'
   import { writable } from 'svelte/store'
   import { requestManifest } from '../api/api'
   import { modManifest } from '../stores/manifest'
@@ -71,13 +73,13 @@
     <ActionButtons />
   </svelte:fragment>
 
-  <!-- <div class="flex justify-center">
+  <div class="flex justify-center hidden">
     <RadioGroup selected={store}>
       <RadioItem value="library"><Library size={16} /></RadioItem>
       <RadioItem value="autoexec"><FileCog size={16} /></RadioItem>
       <RadioItem value="vocalizer"><MessageCircle size={16} /></RadioItem>
     </RadioGroup>
-  </div> -->
+  </div>
 
   <svelte:fragment slot="trail">
     <a

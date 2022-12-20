@@ -5,8 +5,10 @@
   import {
     activePreset,
     collections,
+    customCfg,
     disableOnlineFetchingOfModData,
     gameDir,
+    launchParameters,
     presets
   } from './stores/profile'
   let ready = false
@@ -25,6 +27,8 @@
       disableOnlineFetchingOfModData.set(
         profile.preferences.disableOnlineFetchingOfModData ?? false
       )
+      launchParameters.set(profile.launchParameters ?? '')
+      customCfg.set(profile.customCfg ?? '')
     } catch (e) {
       console.log(e)
     }
@@ -41,7 +45,9 @@
         preferences: {
           gameDir: $gameDir,
           disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData
-        }
+        },
+        launchParameters: $launchParameters,
+        customCfg: $customCfg
       }
 
       window.api.writeProfile(profileData)
