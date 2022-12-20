@@ -64,11 +64,11 @@
 </script>
 
 <div
-  class="backdrop-blur-md sticky top-0 -bg-surface-50-900-token bg-surface-900/90 z-10 p-4 pb-4 w-full flex justify-between gap-2 "
+  class="backdrop-blur-md sticky top-0 -bg-surface-50-900-token bg-surface-900/90 z-10 p-4 pb-4 w-full flex justify-between gap-4 flex-col-reverse lg:flex-row lg:gap-2 "
 >
-  <div class=" flex  gap-4 z-10  flex-col ">
+  <div class=" flex  gap-4 z-10  flex-col flex-1">
     {#if !$showConflictingView}
-      <div class="items-start flex-1 flex justify-start  gap-2">
+      <div class=" flex-col md:flex-row  items-start flex-1 flex justify-start  gap-2">
         <select style="max-width: 100px;" bind:value={$perPageCount}>
           <option value={'30'}>30</option>
           <option value={'50'}>50</option>
@@ -129,7 +129,7 @@
     {/if}
   </div>
 
-  <div class="flex justify-end">
+  <div class="flex justify-center lg:justify-end">
     <div><ToggleViewButton /></div>
   </div>
 </div>

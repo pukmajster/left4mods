@@ -1,6 +1,6 @@
 import type { IModManifest, IPreset, IUserProfile } from 'shared'
 
-export async function requestManifest(forceNewBuild: boolean = false) {
+async function requestManifest(forceNewBuild: boolean = false) {
   console.log('manifest')
 
   try {
@@ -33,7 +33,7 @@ export async function writeProfile(profile: IUserProfile) {
   }
 }
 
-export async function writeAddonList(gameDir: string, manifest: IModManifest, preset: IPreset) {
+async function writeAddonList(gameDir: string, manifest: IModManifest, preset: IPreset) {
   let outputVdfString = `"AddonList"\n{\n`
   let enabledMods = preset.enabledMods
 
@@ -47,4 +47,9 @@ export async function writeAddonList(gameDir: string, manifest: IModManifest, pr
 
   let res = await window.api.writeAddonList(gameDir, outputVdfString)
   return res
+}
+
+export const bridgedApi = {
+  writeAddonList,
+  requestManifest
 }

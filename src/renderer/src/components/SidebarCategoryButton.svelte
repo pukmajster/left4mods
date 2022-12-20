@@ -41,10 +41,12 @@
     cursor: pointer;
     aspect-ratio: 1/1;
     border-radius: 4px;
+
+    transition: background-color 0.1s ease-in-out;
   }
 
   .button:hover {
-    @apply bg-slate-800;
+    @apply bg-surface-900;
   }
 
   .button.selected {

@@ -32,6 +32,7 @@
   <img
     alt="mod"
     src={`file:///home/kry/.local/share/Steam/steamapps/common/Left%204%20Dead%202/left4dead2/addons/workshop/${mod.id}.jpg`}
+    class="shadow-lg"
   />
 
   <div class="credits p-4">
@@ -106,7 +107,7 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   .mod {
     --mod-enabled-color: rgb(25, 165, 25);
     --mod-conflicting-color: #ff5151f9;
@@ -118,15 +119,6 @@
     max-width: 400px;
     overflow-x: hidden;
     /* background-color: #262847; */
-  }
-
-  .mod:hover {
-    /* transform: scale(1.06); */
-  }
-
-  .title {
-    font-size: 14px;
-    margin-bottom: 4px;
   }
 
   img {
@@ -148,7 +140,6 @@
     border-radius: 2px;
   }
 
-  .version,
   .categories p {
     font-size: 14px;
   }

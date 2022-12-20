@@ -1,34 +1,11 @@
 <script lang="ts">
   import { Play } from 'lucide-svelte'
-  import { writeAddonList } from '../api/api'
-  import { modManifest } from '../stores/manifest'
-  import { activePreset, gameDir, launchParameters, presets } from '../stores/profile'
+  import { writeAddonlist } from '../functions/writeAddonlist'
+  import { launchParameters } from '../stores/profile'
 
   async function launchGame() {
-    await _writeAddonList()
+    await writeAddonlist()
     window.api.openLinkInBrowser(`steam://run/550/${launchParameters}`)
-  }
-
-  let writingAddonList = false
-
-  async function _writeAddonList() {
-    writingAddonList = true
-
-    try {
-      writeAddonList(
-        $gameDir,
-        $modManifest,
-        $presets.find((preset) => preset.id === $activePreset) ?? {
-          enabledMods: [],
-          id: '',
-          label: ''
-        }
-      )
-    } catch (e) {
-      console.log(e)
-    } finally {
-      writingAddonList = false
-    }
   }
 </script>
 

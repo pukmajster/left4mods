@@ -17,8 +17,7 @@
     Settings
   } from 'lucide-svelte'
   import { writable } from 'svelte/store'
-  import { requestManifest } from '../api/api'
-  import { modManifest } from '../stores/manifest'
+  import { requestManifest } from '../functions/manifest'
   import ActionButtons from './ActionButtons.svelte'
   import HelpModal from './modals/HelpModal.svelte'
   import SettingsModal from './modals/SettingsModal.svelte'
@@ -32,7 +31,7 @@
     isBuildingManifest = true
 
     try {
-      modManifest.set(await requestManifest(forceNewBuild))
+      await requestManifest(forceNewBuild)
     } catch (e) {
       console.log(e)
     } finally {

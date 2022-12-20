@@ -1,16 +1,19 @@
 <script lang="ts">
-  import { modalStore, SlideToggle, Tab, TabGroup } from '@skeletonlabs/skeleton'
+  import {
+    modalStore,
+    SlideToggle,
+    Tab,
+    TabGroup,
+    toastStore,
+    type ToastSettings
+  } from '@skeletonlabs/skeleton'
   // Stores
   import { writable } from 'svelte/store'
-  import { requestManifest, writeAddonList } from '../../api/api'
+  import { commonToastOptions } from '../../constants/skeleton'
+  import { requestManifest } from '../../functions/manifest'
+  import { writeAddonlist } from '../../functions/writeAddonlist'
   import { modManifest } from '../../stores/manifest'
-  import {
-    activePreset,
-    disableOnlineFetchingOfModData,
-    gameDir,
-    launchParameters,
-    presets
-  } from '../../stores/profile'
+  import { disableOnlineFetchingOfModData, gameDir, launchParameters } from '../../stores/profile'
   // Props
   /** Exposes parent props to this component. */
   export let parent: any
@@ -30,6 +33,15 @@
     disableOnlineFetchingOfModData.set(formData.disableOnlineFetchingOfModData)
     launchParameters.set(formData.launchParameters)
     modalStore.close()
+    triggerToast()
+  }
+
+  function triggerToast(): void {
+    const t: ToastSettings = {
+      message: 'Settings saved!',
+      ...commonToastOptions
+    }
+    toastStore.trigger(t)
   }
 
   // Base Classes
@@ -44,18 +56,6 @@
     } catch (e) {
       console.log(e)
     }
-  }
-
-  function writeAddonlist() {
-    writeAddonList(
-      $gameDir,
-      $modManifest,
-      $presets.find((preset) => preset.id === $activePreset) ?? {
-        enabledMods: [],
-        id: '',
-        label: ''
-      }
-    )
   }
 
   $: networkText = !formData.disableOnlineFetchingOfModData ? willNotNetworkText : willNetworkText

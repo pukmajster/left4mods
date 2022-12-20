@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AppShell, Modal } from '@skeletonlabs/skeleton'
+  import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton'
   import DrawersRoot from './components/DrawersRoot.svelte'
   import Header from './components/Header.svelte'
   import ModLibrary from './components/ModLibrary.svelte'
@@ -8,6 +8,7 @@
 </script>
 
 <Config />
+
 <AppShell>
   <svelte:fragment slot="header"><Header /></svelte:fragment>
   <!-- Sidebar -->
@@ -20,6 +21,7 @@
 
 <Modal />
 <DrawersRoot />
+<Toast />
 
 <style global>
 </style>

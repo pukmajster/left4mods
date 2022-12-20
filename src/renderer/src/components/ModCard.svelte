@@ -83,6 +83,8 @@
     src={`file:///home/kry/.local/share/Steam/steamapps/common/Left%204%20Dead%202/left4dead2/addons/workshop/${mod.id}.jpg`}
   />
 
+  <div class="mod-status-bar  absolute  " />
+
   {#if showHoverbox && !userIsSelecting}
     <div class="hoverbox backdrop-blur-lg bg-surface-900/70">
       <h6 class="title">{mod.addontitle}</h6>
@@ -96,7 +98,7 @@
   {/if}
 
   {#if selected}<div
-      class="selected-overlay absolute inset-0 bg w-full h-full right-0 justify-center items-center flex bg-slate-900/50 "
+      class="selected-overlay absolute inset-0 bg w-full h-full right-0 justify-center items-center flex  "
     >
       <div class="backdrop-blur-lg rounded-full">
         <CheckCircle2 size={64} />
@@ -106,17 +108,17 @@
 
 <style lang="postcss">
   .mod {
-    --mod-enabled-color: rgb(25, 165, 25);
+    --mod-enabled-color: rgb(27, 158, 27);
     --mod-conflicting-color: #ff5151f9;
 
     display: flex;
     flex-direction: column;
     position: relative;
     margin-bottom: 5px;
+    overflow: hidden;
 
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
-    border-bottom: 6px solid transparent;
     /* background-color: #262847; */
   }
 
@@ -138,18 +140,28 @@
   }
 
   .mod.selected {
-    outline: 2px solid #6abcffc5;
+    outline: 2px solid #6abcffc0;
     border-radius: 2px;
+    opacity: 0.9;
 
-    box-shadow: 0 0 12px 6px #ffffff23;
+    box-shadow: 0 0 16px 3px #ffffff23;
   }
 
-  .mod.enabled {
-    border-bottom: 6px solid var(--mod-enabled-color);
+  .mod-status-bar {
+    height: 6px;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
-  .mod.enabled.conflicting {
+  .mod.enabled .mod-status-bar {
+    background: var(--mod-enabled-color);
+    box-shadow: 0 0 16px 6px #3bdf3e55;
+  }
+
+  .mod.enabled.conflicting .mod-status-bar {
     border-bottom: 6px solid var(--mod-conflicting-color);
+    box-shadow: 0 0 16px 6px #ff515169;
   }
 
   .hoverbox {
