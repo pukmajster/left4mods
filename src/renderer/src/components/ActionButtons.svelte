@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Play } from 'lucide-svelte'
   import { writeAddonList } from '../api/api'
   import { modManifest } from '../stores/manifest'
   import { activePreset, gameDir, presets } from '../stores/profile'
@@ -17,7 +18,7 @@
       writeAddonList(
         $gameDir,
         $modManifest,
-        $presets.find((preset) => preset.name === $activePreset)
+        $presets.find((preset) => preset.id === $activePreset)
       )
     } catch (e) {
       console.log(e)
@@ -30,31 +31,6 @@
 <!-- <button on:click={_writeAddonList} disabled={writingAddonList} class="launch-button write"
   >{writingAddonList ? 'Writing...' : 'Write addonlist'}</button
 > -->
-<button on:click={launchGame} class="launch-button">Launch L4D2</button>
-
-<style>
-  .launch-button {
-    margin-top: 0.6em;
-    padding: 8px;
-    font-size: 1.2em;
-    font-weight: 400;
-    text-transform: uppercase;
-    background-color: rgb(67, 149, 32);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .launch-button:hover {
-    background-color: rgb(42, 86, 23);
-  }
-
-  .launch-button.write {
-    background-color: rgb(16, 114, 176);
-  }
-
-  .launch-button.write:hover {
-    background-color: rgb(23, 73, 104);
-  }
-</style>
+<button on:click={launchGame} class="btn btn-sm btn-ghost-accent">
+  <Play size={16} /> <span>Launch L4D2</span></button
+>

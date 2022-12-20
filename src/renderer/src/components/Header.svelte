@@ -1,11 +1,25 @@
 <script lang="ts">
+  import {
+    AppBar,
+    modalStore,
+    RadioGroup,
+    RadioItem,
+    type ModalComponent,
+    type ModalSettings
+  } from '@skeletonlabs/skeleton'
+  import { FileCog, Github, Library, MessageCircle, RefreshCw, Settings } from 'lucide-svelte'
+  import { writable } from 'svelte/store'
   import { requestManifest } from '../api/api'
   import { modManifest } from '../stores/manifest'
-  import { showPreferences, toggleShowPreferences } from '../stores/preferences'
+  import { showPreferences } from '../stores/preferences'
+  import ActionButtons from './ActionButtons.svelte'
+  import SettingsModal from './modals/SettingsModal.svelte'
   import Preferences from './Preferences.svelte'
   import Presets from './Presets.svelte'
 
   let isBuildingManifest = false
+
+  let store = writable('library')
 
   async function attemptRequestManifest(forceNewBuild: boolean = false) {
     isBuildingManifest = true
@@ -18,30 +32,68 @@
       isBuildingManifest = false
     }
   }
+
+  function triggerCustomModal(): void {
+    const modalComponent: ModalComponent = {
+      ref: SettingsModal,
+      props: { background: 'bg-red-500' },
+      // Provide default slot content as a template literal
+      slot: '<p>aw</p>'
+    }
+    const d: ModalSettings = {
+      type: 'component',
+      title: 'Settings',
+      component: modalComponent
+    }
+    modalStore.trigger(d)
+  }
 </script>
 
-<div class="container">
-  <div>
-    <button on:click={toggleShowPreferences}>settings</button>
-    <button on:click={() => attemptRequestManifest(false)} disabled={isBuildingManifest}>
-      {isBuildingManifest ? 'refreshing manifest...' : 'refresh manifest'}</button
+<AppBar padding="px-2 py-2">
+  <svelte:fragment slot="lead">
+    <button on:click={triggerCustomModal} class="btn btn-sm">
+      <Settings size={16} /> <span>Settings</span></button
     >
-    <button on:click={() => attemptRequestManifest(true)} disabled={isBuildingManifest}>
+    <button
+      on:click={() => attemptRequestManifest(false)}
+      disabled={isBuildingManifest}
+      class="btn btn-sm"
+    >
+      <RefreshCw size={16} />
+      <span>{isBuildingManifest ? 'Refreshing Manifest...' : 'Refresh Manifest'}</span></button
+    >
+    <!--     <button
+      on:click={() => attemptRequestManifest(true)}
+      disabled={isBuildingManifest}
+      class="btn btn-sm"
+    >
       {isBuildingManifest ? 'refreshing manifest...' : 'force new build manifest'}</button
-    >
+    > -->
+
+    <ActionButtons />
+  </svelte:fragment>
+
+  <div class="flex justify-center hidden">
+    <RadioGroup selected={store}>
+      <RadioItem value="library"><Library size={16} /></RadioItem>
+      <RadioItem value="autoexec"><FileCog size={16} /></RadioItem>
+      <RadioItem value="vocalizer"><MessageCircle size={16} /></RadioItem>
+    </RadioGroup>
   </div>
 
-  <Presets />
+  <svelte:fragment slot="trail">
+    <a
+      class="btn btn-sm"
+      href="https://github.com/pukmajster/l4d2-launcher"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Github size={16} /> <span>GitHub</span>
+    </a>
+    <Presets parent={{}} />
+  </svelte:fragment>
 
   {#if $showPreferences}
     <Preferences />
   {/if}
-</div>
-
-<style>
-  .container {
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-  }
-</style>
+</AppBar>

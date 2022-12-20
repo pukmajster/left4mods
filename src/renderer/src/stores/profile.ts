@@ -1,13 +1,15 @@
 import type { IModCollection, IPreset, ModId } from 'shared'
 import { get, writable } from 'svelte/store'
 
-export const presets = writable<IPreset[]>([{ name: 'default', enabledMods: [] }])
+export const presets = writable<IPreset[]>([{ id: 'default', label: 'Default', enabledMods: [] }])
 export const collections = writable<IModCollection[]>([])
 
 export const activePreset = writable('')
 export const selectedCollectionName = writable('') // Not stored in profile
-
+export const disableOnlineFetchingOfModData = writable(false) // Not stored in profile
 export const gameDir = writable('')
+export const launchParameters = writable('')
+export const customCfg = writable('')
 
 // --------------------------------------------------------------------
 // Unsafe methods for mods.
@@ -20,7 +22,7 @@ export const gameDir = writable('')
 function enableModInCurrentPresetUnsafe(modId: ModId) {
   const workingPresets = get(presets)
   const workingActivePreset = get(activePreset)
-  workingPresets.find((preset) => preset.name == workingActivePreset).enabledMods.push(modId)
+  workingPresets.find((preset) => preset.id == workingActivePreset).enabledMods.push(modId)
   presets.set(workingPresets)
 }
 
@@ -28,10 +30,10 @@ function disableModInCurrentPresetUnsafe(modId: ModId) {
   const workingPresets = get(presets)
   const workingActivePreset = get(activePreset)
   let tempEnabledMods = workingPresets
-    .find((preset) => preset.name == workingActivePreset)
+    .find((preset) => preset.id == workingActivePreset)
     .enabledMods.filter((id) => id != modId)
 
-  workingPresets.find((preset) => preset.name == workingActivePreset).enabledMods = tempEnabledMods
+  workingPresets.find((preset) => preset.id == workingActivePreset).enabledMods = tempEnabledMods
   presets.set(workingPresets)
 }
 
@@ -47,7 +49,7 @@ export function isModEnabledInCurrentPreset(modId: ModId) {
   const workingActivePreset = get(activePreset)
 
   return workingPresets
-    .find((preset) => preset.name == workingActivePreset)
+    .find((preset) => preset.id == workingActivePreset)
     .enabledMods.includes(modId)
 }
 
@@ -72,37 +74,50 @@ export function batchDisableModsInCurrentPreset(modIds: ModId[]) {
   modIds.forEach((modId) => disableModInCurrentPresetSafe(modId))
 }
 
+export const renameCurrentPreset = (newName: string) => {
+  const workingPresets = get(presets)
+  let workingPreset = workingPresets.find((preset) => preset.id == get(activePreset))
+  if (!workingPreset) return
+  workingPreset.label = newName
+  presets.set(workingPresets)
+}
+
 // --------------------------------------------------------------------
 // Unsafe methods for collections.
 //
 // Same idea as with mods
 // --------------------------------------------------------------------
 
-function addModToCurrentCollectionUnsafe(modId: ModId, workingCollectionName: string) {
-  const workingCollections = get(collections)
-
+function addModToCurrentCollectionUnsafe(modId: ModId) {
+  const workingCollectionName = get(selectedCollectionName)
   addModToCollectionUnsafe(modId, workingCollectionName)
 }
 
-function removeModFromCurrentCollectionUnsafe(modId: ModId, workingCollectionName: string) {
-  const workingCollections = get(collections)
-
+function removeModFromCurrentCollectionUnsafe(modId: ModId) {
+  const workingCollectionName = get(selectedCollectionName)
   removeModFromCollectionUnsafe(modId, workingCollectionName)
 }
 
 function addModToCollectionUnsafe(modId: ModId, workingCollectionName: string) {
   const workingCollections = get(collections)
-  workingCollections.find((collection) => collection.name == workingCollectionName).mods.push(modId)
+  if (workingCollections === undefined) return
+
+  let workingCollection = workingCollections.find(
+    (collection) => collection.id == workingCollectionName
+  )
+  if (workingCollection === undefined) return
+  workingCollection.mods.push(modId)
   collections.set(workingCollections)
 }
 
 function removeModFromCollectionUnsafe(modId: ModId, workingCollectionName: string) {
-  const workingCollections = get(collections)
+  const workingCollections = get(collections)!
+
   let tempMods = workingCollections
-    .find((collection) => collection.name == workingCollectionName)
+    .find((collection) => collection.id == workingCollectionName)
     .mods.filter((id) => id != modId)
 
-  workingCollections.find((collection) => collection.name == workingCollectionName).mods = tempMods
+  workingCollections.find((collection) => collection.id == workingCollectionName).mods = tempMods
   collections.set(workingCollections)
 }
 
@@ -115,9 +130,13 @@ function removeModFromCollectionUnsafe(modId: ModId, workingCollectionName: stri
 export function isModInCollection(modId: ModId, workingCollectionName: string) {
   const workingCollections = get(collections)
 
-  return workingCollections
-    .find((collection) => collection.name == workingCollectionName)
-    .mods.includes(modId)
+  let workingCollection = workingCollections.find(
+    (collection) => collection.id == workingCollectionName
+  )
+
+  if (!workingCollection) return false
+
+  return workingCollection.mods.includes(modId)
 }
 
 export function isModInCurrentCollection(modId: ModId) {
@@ -128,12 +147,12 @@ export function isModInCurrentCollection(modId: ModId) {
 
 export function addModToCollectionSafe(modId: ModId, workingCollectionName: string) {
   if (!isModInCollection(modId, workingCollectionName))
-    addModToCurrentCollectionUnsafe(modId, workingCollectionName)
+    addModToCollectionUnsafe(modId, workingCollectionName)
 }
 
 export function removeModFromCollectionSafe(modId: ModId, workingCollectionName: string) {
   if (isModInCollection(modId, workingCollectionName))
-    removeModFromCurrentCollectionUnsafe(modId, workingCollectionName)
+    removeModFromCollectionUnsafe(modId, workingCollectionName)
 }
 
 export function batchAddModsToCollection(modIds: ModId[], workingCollectionName: string) {
@@ -142,4 +161,14 @@ export function batchAddModsToCollection(modIds: ModId[], workingCollectionName:
 
 export function batchRemoveModsFromCollection(modIds: ModId[], workingCollectionName: string) {
   modIds.forEach((modId) => removeModFromCollectionSafe(modId, workingCollectionName))
+}
+
+export const renameCurrentCollection = (newName: string) => {
+  const workingCollections = get(collections)
+  let workingCollection = workingCollections.find(
+    (collection) => collection.id == get(selectedCollectionName)
+  )
+  if (!workingCollection) return
+  workingCollection.label = newName
+  collections.set(workingCollections)
 }

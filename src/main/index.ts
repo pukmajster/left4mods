@@ -58,6 +58,7 @@ function createWindow(): void {
       sandbox: false,
       nodeIntegration: true, // keep     two    !
       contextIsolation: true, //    these   true
+      allowRunningInsecureContent: false,
       webSecurity: app.isPackaged
     }
   })

@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { pickCollection } from '../functions/modals'
   import {
     paginatedSortedFilteredMods,
     perPageCount,
     selectedMods,
     showConflictingView,
     sortingType,
-    totalConflictingMods,
     typeToShow
   } from '../stores/library'
   import {
@@ -13,7 +13,7 @@
     batchDisableModsInCurrentPreset,
     batchEnableModsInCurrentPreset,
     batchRemoveModsFromCollection,
-    collections
+    selectedCollectionName
   } from '../stores/profile'
 
   function unselectAll() {
@@ -22,10 +22,6 @@
 
   function selectAll() {
     selectedMods.set($paginatedSortedFilteredMods.map((mod) => mod.id))
-  }
-
-  function toggleView() {
-    $showConflictingView = !$showConflictingView
   }
 
   function _batchEnableSelectedMods() {
@@ -39,12 +35,16 @@
   }
 
   function _batchAddModsToCollection() {
-    batchAddModsToCollection($selectedMods, batchCollectionName)
-    clearSelection()
+    pickCollection((collectionName) => {
+      if (!collectionName) return
+      batchAddModsToCollection($selectedMods, collectionName)
+      clearSelection()
+    })
   }
 
-  function _batchRemoveModsToCollection() {
-    batchRemoveModsFromCollection($selectedMods, batchCollectionName)
+  function _batchRemoveModsFromCollection() {
+    if (!$selectedCollectionName) return
+    batchRemoveModsFromCollection($selectedMods, $selectedCollectionName)
     clearSelection()
   }
 
@@ -54,22 +54,58 @@
   }
 
   let batchCollectionName = ''
+
+  function handleSelectedButtonClick() {
+    if ($selectedMods.length > 0) {
+      unselectAll()
+    } else selectAll()
+  }
 </script>
 
-<div class="container">
-  <div>
-    <button on:click={toggleView}>
-      {#if $showConflictingView}
-        Show all
-      {:else}
-        Show {$totalConflictingMods} conflicting
-      {/if}
-    </button>
-  </div>
-
+<div class=" sticky top-0 bg-surface-50-900-token z-10 w-full flex  p-4 gap-4 ">
   {#if !$showConflictingView}
-    <div class="top-filters">
-      <select bind:value={$perPageCount}>
+    <div class="actions">
+      <div class="flex flex-wrap flex-col justify-between gap-2 ">
+        <div>
+          <span class="btn btn-sm btn-filled-surface" on:click={handleSelectedButtonClick}
+            >Selected: {$selectedMods.length}</span
+          >
+          <!-- <button on:click={unselectAll} class="btn btn-sm btn-filled-surface">unselect all</button>
+        <button on:click={selectAll} class="btn btn-sm btn-filled-surface">select visible</button> -->
+        </div>
+
+        {#if $selectedMods.length > 0}
+          <div class="flex flex-wrap  gap-1 ">
+            <button on:click={_batchEnableSelectedMods} class="btn btn-sm btn-filled-accent"
+              >enable selected</button
+            >
+            <button on:click={_batchDisableSelectedMods} class="btn btn-sm btn-filled-accent"
+              >disable selected</button
+            >
+            <!-- <select bind:value={batchCollectionName}>
+              {#each $collections as collection}
+                <option value={collection.id}>{collection.id}</option>
+              {/each}
+            </select> -->
+
+            {#if $selectedCollectionName == ''}
+              <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-accent"
+                >add selected to collection</button
+              >
+            {/if}
+
+            {#if $selectedCollectionName != ''}
+              <button on:click={_batchRemoveModsFromCollection} class="btn btn-sm btn-filled-accent"
+                >remove selected from collection</button
+              >
+            {/if}
+          </div>
+        {/if}
+      </div>
+    </div>
+
+    <div class="items-start flex-1 flex justify-end  gap-2">
+      <select style="max-width: 100px;" bind:value={$perPageCount}>
         <option value={'30'}>30</option>
         <option value={'50'}>50</option>
         <option value={'100'}>100</option>
@@ -77,51 +113,24 @@
         <option value={'999'}>All</option>
       </select>
 
-      <select bind:value={$sortingType}>
+      <select style="max-width: 210px;  w-full" bind:value={$sortingType}>
         <option value="name_asc">Name (Ascending)</option>
         <option value="name_desc">Name (Descending)</option>
         <option value="time_newest">Time modified (latest)</option>
         <option value="time_oldest">Time modified (oldest)</option>
       </select>
 
-      <select bind:value={$typeToShow}>
+      <select style="max-width: 130px;" bind:value={$typeToShow}>
         <option value="any">Any</option>
         <option value="enabled">Enabled</option>
         <option value="disabled">Disabled</option>
       </select>
     </div>
   {/if}
-
-  <div class="actions">
-    <span>selected: {$selectedMods.length}</span>
-    <div>
-      <button on:click={unselectAll}>unselect all</button>
-      <button on:click={selectAll}>select visible</button>
-    </div>
-
-    {#if $selectedMods.length > 0}
-      <div>
-        <button on:click={_batchEnableSelectedMods}>enable selected</button>
-        <button on:click={_batchDisableSelectedMods}>disable selected</button>
-        <div>
-          <select bind:value={batchCollectionName}>
-            {#each $collections as collection}
-              <option value={collection.name}>{collection.name}</option>
-            {/each}
-          </select>
-          <button on:click={_batchAddModsToCollection}>add selected to collection</button>
-          <button on:click={_batchRemoveModsToCollection}>remove selected from collection</button>
-        </div>
-      </div>
-    {/if}
-  </div>
 </div>
 
-<style>
-  .container {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 1em;
+<style lang="postcss">
+  select {
+    max-width: 200px;
   }
 </style>

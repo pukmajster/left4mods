@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { IMod } from 'shared'
-  import { enabledMods, groupedEnabledMods, selectedMods } from '../stores/library'
+  import { enabledMods, groupedEnabledMods, modIdToOverview, selectedMods } from '../stores/library'
   import { toggleModInCurrentPresetSafe } from '../stores/profile'
 
+  import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   export let mod: IMod
 
   let showHoverbox = false
@@ -43,10 +44,6 @@
     showHoverbox = false
   }
 
-  function openModInBrowser() {
-    window.api.openLinkInBrowser(`https://steamcommunity.com/sharedfiles/filedetails/?id=${mod.id}`)
-  }
-
   $: selected = $selectedMods.includes(mod.id)
   $: enabled = $enabledMods.includes(mod.id)
 
@@ -56,6 +53,12 @@
 
   function toggleModEnable() {
     toggleModInCurrentPresetSafe(mod.id)
+  }
+
+  function overview() {
+    modIdToOverview.set(mod.id)
+    const settings: DrawerSettings = { id: 'mod-overview', position: 'right', width: '400px' }
+    drawerStore.open(settings)
   }
 </script>
 
@@ -67,7 +70,7 @@
   on:click={handleClick}
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
-  on:contextmenu={openModInBrowser}
+  on:contextmenu={overview}
 >
   <img
     alt="mod"
@@ -80,7 +83,7 @@
       {#if mod.addonauthor}<p class="author">By: {mod.addonauthor}</p>{/if}
 
       <div class="categories">
-        {#each mod.categories as category}
+        {#each mod.categories ?? [] as category}
           <p class="category">{category}</p>
         {/each}
       </div>

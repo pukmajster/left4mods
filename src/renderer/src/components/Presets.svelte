@@ -1,52 +1,32 @@
 <script lang="ts">
+  import { modalStore } from '@skeletonlabs/skeleton'
+  import type { ModalComponent, ModalSettings } from '@skeletonlabs/skeleton/'
+  import { Folder } from 'lucide-svelte'
   import { activePreset, presets } from '../stores/profile'
-  let newPresetName = ''
+  import PresetsModal from './modals/PresetsModal.svelte'
 
-  function createNewPreset() {
-    if (newPresetName === '') {
-      return
+  export let parent: any
+
+  function triggerCustomModal(): void {
+    const modalComponent: ModalComponent = {
+      ref: PresetsModal,
+      props: { background: 'bg-red-500' },
+      // Provide default slot content as a template literal
+      slot: '<p>aw</p>'
     }
-
-    if ($presets.find((preset) => preset.name === newPresetName)) {
-      return
+    const d: ModalSettings = {
+      type: 'component',
+      title: 'Manage Presets',
+      component: modalComponent
     }
-
-    presets.update((presets) => {
-      presets.push({
-        name: newPresetName,
-        enabledMods: []
-      })
-
-      return presets
-    })
-
-    newPresetName = ''
+    modalStore.trigger(d)
   }
 </script>
 
-<div class="container">
-  <p>Preset</p>
-  <div>
-    <select bind:value={$activePreset} placeholder="none">
-      <option value="">None</option>
-      {#each $presets as preset}
-        <option value={preset.name}>{preset.name}</option>
-      {/each}
-    </select>
-
-    <div>
-      <button on:click={createNewPreset}>create</button>
-      <input bind:value={newPresetName} />
-    </div>
-  </div>
-</div>
+<button on:click={triggerCustomModal} class="btn btn-ghost-accent btn-sm">
+  <Folder size={16} />
+  <span>Preset: {$presets.find((preset) => preset.id == $activePreset)?.label}</span>
+</button>
 
 <style>
-  .container {
-    display: flex;
-  }
-
-  select {
-    width: 100%;
-  }
 </style>

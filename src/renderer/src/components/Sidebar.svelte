@@ -1,7 +1,6 @@
 <script lang="ts">
+  import categories from '../constants/categories'
   import {
-    enabledMods,
-    paginatedSortedFilteredMods,
     searchTerm,
     selectedGrenades,
     selectedGuns,
@@ -10,200 +9,117 @@
     selectedMisc,
     selectedSurvivors,
     selectedUtils,
-    sortedFilteredMods
+    showConflictingView,
+    visibleFilterPanel
   } from '../stores/library'
-
-  import categories from '../constants/categories'
-  import { modManifest } from '../stores/manifest'
-  import ActionButtons from './ActionButtons.svelte'
   import Collections from './Collections.svelte'
-  let visibleFilterPanel = 'guns'
+  import SidebarCategoryButton from './SidebarCategoryButton.svelte'
+  import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
+  import ToggleViewButton from './ToggleViewButton.svelte'
 
-  function setVisiblePanel(panel: string) {
-    clearCategorySelection()
-    visibleFilterPanel = panel
-  }
-
-  function clearCategorySelection() {
-    selectedGuns.set([])
-    selectedMelees.set([])
-    selectedGrenades.set([])
-    selectedUtils.set([])
-    selectedSurvivors.set([])
-    selectedInfected.set([])
-    selectedMisc.set([])
+  function toggleView() {
+    $showConflictingView = !$showConflictingView
   }
 </script>
 
 <div class="sidebar">
   <div class="sidebar-inner">
-    <input placeholder="Search" bind:value={$searchTerm} />
-    <br />
-
-    <div class="stats">
-      <p>Mods installed: {Object.keys($modManifest).length}</p>
-      <p>Mods enabled: {$enabledMods.length}</p>
-      <p>Mods by filter: {Object.keys($sortedFilteredMods).length}</p>
-      <p>Mods shown: {Object.keys($paginatedSortedFilteredMods).length}</p>
-    </div>
-
-    <div style="height: 7px" />
+    <input type="text" placeholder="Search" bind:value={$searchTerm} class="my-4" />
 
     <div class="filter-panels">
       <div class="panel-hovers">
-        <button
-          class:active={$selectedGuns.length > 0 && $selectedGuns[0] != ''}
-          class:selected={visibleFilterPanel == 'guns'}
-          on:click={() => setVisiblePanel('guns')}><span>guns</span></button
-        >
-        <button
-          class:active={$selectedMelees.length > 0 && $selectedMelees[0] != ''}
-          class:selected={visibleFilterPanel == 'melee'}
-          on:click={() => setVisiblePanel('melee')}><span>melee</span></button
-        >
-        <button
-          class:active={$selectedGrenades.length > 0 && $selectedGrenades[0] != ''}
-          class:selected={visibleFilterPanel == 'grenades'}
-          on:click={() => setVisiblePanel('grenades')}><span>grenades</span></button
-        >
-        <button
-          class:active={$selectedUtils.length > 0 && $selectedUtils[0] != ''}
-          class:selected={visibleFilterPanel == 'utils'}
-          on:click={() => setVisiblePanel('utils')}><span>utils</span></button
-        >
-        <button
-          class:active={$selectedSurvivors.length > 0 && $selectedSurvivors[0] != ''}
-          class:selected={visibleFilterPanel == 'survivors'}
-          on:click={() => setVisiblePanel('survivors')}><span>survivors</span></button
-        >
-        <button
-          class:active={$selectedInfected.length > 0 && $selectedInfected[0] != ''}
-          class:selected={visibleFilterPanel == 'infected'}
-          on:click={() => setVisiblePanel('infected')}><span>infected</span></button
-        >
-        <button
-          class:active={$selectedMisc.length > 0 && $selectedMisc[0] != ''}
-          class:selected={visibleFilterPanel == 'misc'}
-          on:click={() => setVisiblePanel('misc')}><span>misc</span></button
-        >
+        <div class="flex flex-col p-3 gap-4 bg-surface-800/90 rounded-md">
+          <SidebarCategoryButton categoryName={'guns'} />
+          <SidebarCategoryButton categoryName={'melee'} />
+          <SidebarCategoryButton categoryName={'grenades'} />
+          <SidebarCategoryButton categoryName={'utils'} />
+          <SidebarCategoryButton categoryName={'survivors'} />
+          <SidebarCategoryButton categoryName={'infected'} />
+          <SidebarCategoryButton categoryName={'misc'} />
+        </div>
       </div>
 
-      <!-- guns -->
-      <select multiple bind:value={$selectedGuns} class:visible={visibleFilterPanel == 'guns'}>
-        <option value="">- NONE -</option>
-        {#each categories.guns as entry}
-          <option value={entry}>
-            {entry}
-          </option>
-        {/each}
-      </select>
+      <div class=" relative grid">
+        <!-- guns -->
+        <SidebarCategoryEntry
+          categoryName="guns"
+          categoryEntries={categories.guns}
+          store={selectedGuns}
+          isVisible={$visibleFilterPanel == 'guns'}
+        />
 
-      <!-- melee -->
-      <select multiple bind:value={$selectedMelees} class:visible={visibleFilterPanel == 'melee'}>
-        <option value="">- NONE -</option>
-        {#each categories.melee as entry}
-          <option value={entry}>
-            {entry}
-          </option>
-        {/each}
-      </select>
+        <SidebarCategoryEntry
+          categoryName="melee"
+          categoryEntries={categories.melee}
+          store={selectedMelees}
+          isVisible={$visibleFilterPanel == 'melee'}
+        />
 
-      <!-- grenades -->
-      <select
-        multiple
-        bind:value={$selectedGrenades}
-        class:visible={visibleFilterPanel == 'grenades'}
-      >
-        <option value="">- NONE -</option>
-        {#each categories.grenades as entry}
-          <option value={entry}>
-            {entry}
-          </option>
-        {/each}
-      </select>
+        <SidebarCategoryEntry
+          categoryName="grenades"
+          categoryEntries={categories.grenades}
+          store={selectedGrenades}
+          isVisible={$visibleFilterPanel == 'grenades'}
+        />
 
-      <!-- utils -->
-      <select multiple bind:value={$selectedUtils} class:visible={visibleFilterPanel == 'utils'}>
-        <option value="">- NONE -</option>
-        {#each categories.utils as entry}
-          <option value={entry}>
-            {entry}
-          </option>
-        {/each}
-      </select>
+        <SidebarCategoryEntry
+          categoryName="utils"
+          categoryEntries={categories.utils}
+          store={selectedUtils}
+          isVisible={$visibleFilterPanel == 'utils'}
+        />
 
-      <!-- survivors -->
-      <select
-        multiple
-        bind:value={$selectedSurvivors}
-        class:visible={visibleFilterPanel == 'survivors'}
-      >
-        <option value="">- NONE -</option>
-        {#each categories.survivors as entry}
-          <option value={entry}>
-            {entry}
-          </option>
-        {/each}
-      </select>
+        <SidebarCategoryEntry
+          categoryName="survivors"
+          categoryEntries={categories.survivors}
+          store={selectedSurvivors}
+          isVisible={$visibleFilterPanel == 'survivors'}
+        />
 
-      <!-- infected -->
-      <select
-        multiple
-        bind:value={$selectedInfected}
-        class:visible={visibleFilterPanel == 'infected'}
-      >
-        <option value="">- NONE -</option>
-        {#each categories.infected as entry}
-          <option value={entry}>
-            {entry}
-          </option>
-        {/each}
-      </select>
+        <SidebarCategoryEntry
+          categoryName="infected"
+          categoryEntries={categories.infected}
+          store={selectedInfected}
+          isVisible={$visibleFilterPanel == 'infected'}
+        />
 
-      <!-- misc -->
-      <select multiple bind:value={$selectedMisc} class:visible={visibleFilterPanel == 'misc'}>
-        <option value="">- NONE -</option>
-        {#each categories.misc as entry}
-          <option value={entry}>
-            {entry}
-          </option>
-        {/each}
-      </select>
+        <SidebarCategoryEntry
+          categoryName="misc"
+          categoryEntries={categories.misc}
+          store={selectedMisc}
+          isVisible={$visibleFilterPanel == 'misc'}
+        />
+      </div>
     </div>
 
-    <div style="height: 1em" />
+    <!-- <div class="clear-selection">
+      <button on:click={clearCategorySelection}>Clear Selection</button>
+    </div> -->
 
+    <div style="height: 1em" />
     <Collections />
-
-    <div style="height: 1px; background-color: gray" />
-    <div style="height: 1em" />
-
-    <ActionButtons />
   </div>
+
+  <ToggleViewButton />
 </div>
 
-<style>
+<style lang="postcss">
   .sidebar {
     padding: 1em;
+    padding-top: 0;
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 
   .sidebar-inner {
     display: flex;
     flex-direction: column;
-  }
-
-  .filter-panels select {
-    display: none;
-    height: 466px;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .filter-panels select.visible {
-    display: block;
   }
 
   .panel-hovers {
@@ -214,48 +130,13 @@
     transform-origin: center; */
   }
 
-  .panel-hovers button span {
-    font-weight: 600;
-    text-transform: uppercase;
-
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    text-orientation: inherit;
-    width: 32px;
-  }
-
-  .panel-hovers button.active {
-    color: rgb(0, 42, 255);
-  }
-
-  .panel-hovers button.selected {
-    color: red;
-  }
-
-  .panel-hovers button {
-    padding: 2px;
-  }
-
   .panel-hovers {
-    width: 24px;
-    margin-right: 12px;
+    width: 64px;
+    margin-right: 1em;
   }
 
   .filter-panels {
     width: 100%;
     display: flex;
-  }
-
-  option {
-    padding: 4px;
-  }
-
-  option:checked {
-    color: rgb(234, 249, 255);
-    background-color: black;
-  }
-
-  .stats {
-    font-size: 13px;
   }
 </style>

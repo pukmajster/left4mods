@@ -1,55 +1,25 @@
 <script lang="ts">
-  import type { IUserProfile } from 'shared'
-  import { onMount } from 'svelte'
+  import { AppShell, Modal } from '@skeletonlabs/skeleton'
+  import DrawersRoot from './components/DrawersRoot.svelte'
   import Header from './components/Header.svelte'
   import ModLibrary from './components/ModLibrary.svelte'
-  import { modManifest } from './stores/manifest'
-  import { activePreset, collections, gameDir, presets } from './stores/profile'
-
-  let ready = false
-
-  onMount(async () => {
-    let data = await window.api.requestManifest(false)
-    modManifest.set(data)
-
-    try {
-      let profile = await window.api.readProfile()
-
-      collections.set(profile.collections ?? [])
-      gameDir.set(profile.preferences.gameDir ?? '')
-      presets.set(profile.presets ?? [])
-      activePreset.set(profile.activePreset ?? '')
-    } catch (e) {
-      console.log(e)
-    }
-
-    ready = true
-  })
-
-  $: {
-    if (ready) {
-      let profileData: IUserProfile = {
-        activePreset: $activePreset,
-        collections: $collections,
-        presets: $presets,
-        preferences: {
-          gameDir: $gameDir
-        }
-      }
-
-      window.api.writeProfile(profileData)
-    }
-  }
+  import Sidebar from './components/Sidebar.svelte'
+  import Config from './Config.svelte'
 </script>
 
-<div class="container">
-  <Header />
+<Config />
+<AppShell>
+  <svelte:fragment slot="header"><Header /></svelte:fragment>
+  <!-- Sidebar -->
+  <svelte:fragment slot="sidebarLeft">
+    <Sidebar />
+  </svelte:fragment>
+  <!-- Page Content -->
   <ModLibrary />
-</div>
+</AppShell>
 
-<style>
-  .container {
-    display: grid;
-    grid-template-rows: 64px 1fr;
-  }
+<Modal />
+<DrawersRoot />
+
+<style global>
 </style>

@@ -13,6 +13,7 @@ export interface BridgedAPI {
   writeProfile: (profileData: IUserProfile) => void
   readProfile: () => Promise<IUserProfile>
   writeAddonInfo: (gameDir: string, addonInfo: string) => Promise<boolean>
+  writeCustomCfg: (gameDir: string, customCfg: string) => Promise<boolean>
 }
 
 export interface IModManifest {
@@ -25,16 +26,21 @@ export interface IUserProfile {
   activePreset: string
   preferences: {
     gameDir: string
+    disableOnlineFetchingOfModData: boolean
   }
+  customCfg: string
+  launchParameters: string
 }
 
 export interface IPreset {
-  name: string
+  label: string
+  id: string
   enabledMods: ModId[]
 }
 
 export interface IModCollection {
-  name: string
+  label: string
+  id: string
   mods: ModId[]
 }
 
@@ -64,6 +70,6 @@ export interface IMod {
   addoncontent_weapon?: string
   addoncontent_weaponmodel?: string
   error?: string
-  categories?: string[]
-  timemodified?: string
+  categories: string[]
+  timemodified: string
 }
