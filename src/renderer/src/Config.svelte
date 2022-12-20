@@ -1,22 +1,22 @@
 <script lang="ts">
   import type { IUserProfile } from 'shared'
   import { onMount } from 'svelte'
-  import { modManifest } from './stores/manifest'
+  import { requestManifest } from './functions/manifest'
   import {
     activePreset,
     collections,
     customCfg,
+    darkMode,
     disableOnlineFetchingOfModData,
     gameDir,
     launchParameters,
     presets
   } from './stores/profile'
+
   let ready = false
+  let readyToRequestInitialManifest = false
 
   onMount(async () => {
-    let data = await window.api.requestManifest(false)
-    modManifest.set(data)
-
     try {
       let profile = await window.api.readProfile()
 
@@ -26,7 +26,8 @@
         presets: [{ id: 'default', label: 'Default', enabledMods: [] }],
         preferences: {
           gameDir: '',
-          disableOnlineFetchingOfModData: false
+          disableOnlineFetchingOfModData: false,
+          darkMode: true
         },
         launchParameters: '-novid +exec autoexec.cfg +exec l4d2launcher.cfg',
         customCfg: ''
@@ -43,11 +44,13 @@
       )
       launchParameters.set(profile.launchParameters ?? '')
       customCfg.set(profile.customCfg ?? '')
+      darkMode.set(profile.preferences.darkMode ?? false)
     } catch (e) {
       console.log(e)
     }
 
     ready = true
+    readyToRequestInitialManifest = true
   })
 
   $: {
@@ -58,13 +61,30 @@
         presets: $presets,
         preferences: {
           gameDir: $gameDir,
-          disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData
+          disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData,
+          darkMode: $darkMode
         },
         launchParameters: $launchParameters,
         customCfg: $customCfg
       }
 
       window.api.writeProfile(profileData)
+    }
+  }
+
+  $: {
+    if (readyToRequestInitialManifest) {
+      // Sync the manifest on startup
+      requestManifest(false)
+      readyToRequestInitialManifest = false
+    }
+  }
+
+  $: {
+    if ($darkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
     }
   }
 </script>

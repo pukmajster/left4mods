@@ -12,12 +12,16 @@
   import { commonToastOptions } from '../../constants/skeleton'
   import { requestManifest } from '../../functions/manifest'
   import { writeAddonlist } from '../../functions/writeAddonlist'
-  import { modManifest } from '../../stores/manifest'
-  import { disableOnlineFetchingOfModData, gameDir, launchParameters } from '../../stores/profile'
+  import {
+    darkMode,
+    disableOnlineFetchingOfModData,
+    gameDir,
+    launchParameters
+  } from '../../stores/profile'
   // Props
   /** Exposes parent props to this component. */
   export let parent: any
-  const tab = writable<'manifest' | 'launchparameters' | 'misc'>('manifest')
+  const tab = writable<'manifest' | 'Appearance' | 'launchparameters' | 'misc'>('manifest')
 
   // Form Data
   let formData = {
@@ -52,7 +56,7 @@
 
   async function forceFullManifestRefresh() {
     try {
-      modManifest.set(await requestManifest(true))
+      await requestManifest(true)
     } catch (e) {
       console.log(e)
     }
@@ -66,6 +70,7 @@
   <TabGroup selected={tab}>
     <Tab value="manifest">General</Tab>
     <Tab value="launchparameters">Launch Parameters</Tab>
+    <Tab value="Appearance">Appearance</Tab>
     <Tab value="misc">Misc</Tab>
   </TabGroup>
 
@@ -115,6 +120,13 @@
         <li>-novid (skips the intro cutscene)</li>
         <li>+exec l4d2launcher.cfg (executes your custom config)</li>
       </ul>
+    {/if}
+
+    {#if $tab == 'Appearance'}
+      <h5 class="font-bold">Theme</h5>
+      <SlideToggle bind:checked={$darkMode}
+        >{$darkMode ? 'Dark Mode' : 'Light Theme (WIP)'}</SlideToggle
+      >
     {/if}
 
     {#if $tab == 'misc'}

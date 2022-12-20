@@ -10,6 +10,7 @@ export const disableOnlineFetchingOfModData = writable(false) // Not stored in p
 export const gameDir = writable('')
 export const launchParameters = writable('')
 export const customCfg = writable('')
+export const darkMode = writable(true)
 
 // --------------------------------------------------------------------
 // Unsafe methods for mods.

@@ -1,10 +1,10 @@
-import type { IModManifest, IPreset, IUserProfile } from 'shared'
+import type { IModManifest, IPreset, IUserProfile, RequestManifestOptions } from 'shared'
 
-async function requestManifest(forceNewBuild: boolean = false) {
+async function requestManifest(options: RequestManifestOptions) {
   console.log('manifest')
 
   try {
-    let manifest = await window.api.requestManifest(forceNewBuild)
+    let manifest = await window.api.requestManifest(options)
     return manifest
   } catch (e) {
     let err = e as Error

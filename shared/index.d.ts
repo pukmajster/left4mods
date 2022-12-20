@@ -7,8 +7,14 @@ declare global {
   }
 }
 
+export interface RequestManifestOptions {
+  forceNewBuild: boolean
+  gameDir: string
+  disableOnlineFetchingOfModData: boolean
+}
+
 export interface BridgedAPI {
-  requestManifest: (forceNewBuild: boolean) => Promise<IModManifest>
+  requestManifest: (options: RequestManifestOptions) => Promise<IModManifest>
   openLinkInBrowser: (url: string) => void
   writeProfile: (profileData: IUserProfile) => void
   readProfile: () => Promise<IUserProfile>
@@ -27,6 +33,7 @@ export interface IUserProfile {
   preferences: {
     gameDir: string
     disableOnlineFetchingOfModData: boolean
+    darkMode: boolean
   }
   customCfg: string
   launchParameters: string

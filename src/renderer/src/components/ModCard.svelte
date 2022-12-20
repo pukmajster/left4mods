@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { IMod } from 'shared'
   import { enabledMods, groupedEnabledMods, modIdToOverview, selectedMods } from '../stores/library'
-  import { toggleModInCurrentPresetSafe } from '../stores/profile'
+  import { gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
 
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   import { CheckCircle2 } from 'lucide-svelte'
@@ -78,10 +78,7 @@
   on:mouseleave={handleMouseLeave}
   on:contextmenu={overview}
 >
-  <img
-    alt="mod"
-    src={`file:///home/kry/.local/share/Steam/steamapps/common/Left%204%20Dead%202/left4dead2/addons/workshop/${mod.id}.jpg`}
-  />
+  <img alt="mod" src={`file://${$gameDir}left4dead2/addons/workshop/${mod.id}.jpg`} />
 
   <div class="mod-status-bar  absolute  " />
 

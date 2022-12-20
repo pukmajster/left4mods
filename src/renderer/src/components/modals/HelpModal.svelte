@@ -15,7 +15,12 @@
     the "Local Files" tab and click "Browse Local Files". This will open up the game directory in
     your file browser.
   </p>
-  <div class="flex gap-4" />
+
+  <div>
+    The end of the directory should look like this: <p class="p-2 font-bold">
+      .../common/Left 4 Dead 2/left4dead2/
+    </p>
+  </div>
 
   <h5 class="font-bold">Useful Key Combos / Actions</h5>
   <div class="grid grid-cols-1 gap-4">

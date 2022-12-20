@@ -2,7 +2,7 @@ const VPK = require('vpk')
 import fetch from 'electron-fetch'
 import FormData from 'form-data'
 import * as fs from 'fs'
-import { IMod, IModManifest, ModId } from 'shared'
+import { IMod, IModManifest, ModId, RequestManifestOptions } from 'shared'
 const path = require('path')
 const vdf = require('node-vdf')
 const { app } = require('electron')
@@ -32,12 +32,17 @@ export interface IOnlineAddoninfoResponse {
   }
 }
 
-const gameDir = '/home/kry/.local/share/Steam/steamapps/common/Left 4 Dead 2/left4dead2/'
-const ADDONS_WORKSHOP_DIR = path.join(gameDir, 'addons/workshop')
-const MANIFEST_PATH = path.join(app.getPath('userData'), 'manifest.json')
-
-async function buildManifest(existingManifest?: IModManifest) {
+async function buildManifest(options: RequestManifestOptions) {
   let tempManifest: IModManifest = {}
+
+  // ----------------------------------------------------------------
+  // Verify we have a proper gameDir
+  if (!options.gameDir || options.gameDir.includes('common/Left 4 Dead 2/')) {
+    throw new Error('Invalid gameDir')
+  }
+
+  const ADDONS_WORKSHOP_DIR = path.join(options.gameDir, 'left4dead2/addons/workshop')
+  const MANIFEST_PATH = path.join(app.getPath('userData'), 'manifest.json')
 
   // ----------------------------------------------------------------
   // 1. Check for new mods that are not in the manifest
@@ -45,10 +50,19 @@ async function buildManifest(existingManifest?: IModManifest) {
   let idsInAddonsDir: ModId[] = []
   let newIds: ModId[] = []
   let newIdCount = 0
+  let existingManifest: IModManifest = {}
 
-  if (existingManifest) {
-    idsInAddonsDir = Object.keys(existingManifest)
-    console.log('Found ' + idsInAddonsDir.length + ' mods in the manifest')
+  try {
+    if (!options.forceNewBuild) {
+      await fsp.access(MANIFEST_PATH)
+      let data: IModManifest = JSON.parse(await fsp.readFile(MANIFEST_PATH, 'utf8'))
+      existingManifest = data
+      idsInAddonsDir = Object.keys(data)
+      console.log('Found ' + idsInAddonsDir.length + ' existing mods in the manifest')
+    }
+  } catch (e) {
+    console.log('Failed to access manifest.json')
+    return {}
   }
 
   try {
@@ -167,7 +181,7 @@ async function buildManifest(existingManifest?: IModManifest) {
     }
   }
 
-  if (modIdsWithoutValidAddonInfo.length > 0) {
+  if (!options.disableOnlineFetchingOfModData && modIdsWithoutValidAddonInfo.length > 0) {
     const fd = new FormData()
     let i = 0
     fd.append('itemcount', `${modIdsWithoutValidAddonInfo.length}`)
@@ -215,25 +229,12 @@ async function buildManifest(existingManifest?: IModManifest) {
   return mergedManifest
 }
 
-async function readExistingManifest() {
+export async function requestManifest(options: RequestManifestOptions) {
   try {
-    let data: IModManifest = JSON.parse(await fsp.readFile(MANIFEST_PATH, 'utf8'))
-    return await buildManifest(data)
+    return await buildManifest(options)
   } catch (e) {
-    console.log(e as Error)
+    console.log('Failed to build manifest', e)
     return {}
-  }
-}
-
-export async function requestManifest(forceNewBuild: boolean = false) {
-  try {
-    await fsp.access(MANIFEST_PATH)
-
-    if (forceNewBuild) return await buildManifest({})
-    else return await readExistingManifest()
-  } catch (e) {
-    console.log('there is no existing manifest')
-    return await buildManifest({})
   }
 }
 
