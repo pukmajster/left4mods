@@ -62,7 +62,7 @@
     }
   }
 
-  $: networkText = !formData.disableOnlineFetchingOfModData ? willNotNetworkText : willNetworkText
+  $: networkText = formData.disableOnlineFetchingOfModData ? willNotNetworkText : willNetworkText
 </script>
 
 <!-- @component This example creates a simple form modal. -->
@@ -90,7 +90,7 @@
         />
       </div>
 
-      <h5 class="font-bold">Networking</h5>
+      <h5 class="font-bold">Disable Networking</h5>
       <p>
         A lot of .VPKs come with broken or straight up missing accompanying metadata (such as title,
         author, ...). We get around this by fetching said metadata straight from Steam's own

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import classnames from 'classnames'
   import { pickCollection } from '../functions/modals'
   import {
     paginatedSortedFilteredMods,
@@ -13,6 +14,7 @@
     batchDisableModsInCurrentPreset,
     batchEnableModsInCurrentPreset,
     batchRemoveModsFromCollection,
+    darkMode,
     selectedCollectionName
   } from '../stores/profile'
   import ToggleViewButton from './ToggleViewButton.svelte'
@@ -64,7 +66,9 @@
 </script>
 
 <div
-  class="backdrop-blur-md sticky top-0 -bg-surface-50-900-token bg-surface-900/90 z-10 p-4 pb-4 w-full flex justify-between gap-4 flex-col-reverse lg:flex-row lg:gap-2 "
+  class={`backdrop-blur-md sticky top-0 -bg-surface-50-900-token  z-10 p-4 pb-4 w-full flex justify-between gap-4 flex-col-reverse lg:flex-row lg:gap-2 ${classnames(
+    $darkMode ? 'bg-surface-900/90' : 'bg-surface-50/70'
+  )}`}
 >
   <div class=" flex  gap-4 z-10  flex-col flex-1">
     {#if !$showConflictingView}

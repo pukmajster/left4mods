@@ -47,6 +47,7 @@
           categoryEntries={categories.melee}
           store={selectedMelees}
           isVisible={$visibleFilterPanel == 'melee'}
+          label={'melees'}
         />
 
         <SidebarCategoryEntry
@@ -61,6 +62,7 @@
           categoryEntries={categories.utils}
           store={selectedUtils}
           isVisible={$visibleFilterPanel == 'utils'}
+          label={'utilities'}
         />
 
         <SidebarCategoryEntry
@@ -82,6 +84,7 @@
           categoryEntries={categories.misc}
           store={selectedMisc}
           isVisible={$visibleFilterPanel == 'misc'}
+          label={'misc.'}
         />
       </div>
     </div>

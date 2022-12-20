@@ -37,7 +37,7 @@ async function buildManifest(options: RequestManifestOptions) {
 
   // ----------------------------------------------------------------
   // Verify we have a proper gameDir
-  if (!options.gameDir || options.gameDir.includes('common/Left 4 Dead 2/')) {
+  if (!options.gameDir || !options.gameDir.includes('common/Left 4 Dead 2/')) {
     throw new Error('Invalid gameDir')
   }
 
