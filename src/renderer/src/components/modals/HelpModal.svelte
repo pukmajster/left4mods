@@ -37,7 +37,7 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Cancel</button>
+    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Close</button>
   </footer>
 </div>
 
@@ -54,7 +54,7 @@
     border-radius: 0.25rem;
     background-color: #f7fafc;
     border: 1px solid #e2e8f0;
-    color: #4a5568;
+    color: #24262a;
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.25rem;
