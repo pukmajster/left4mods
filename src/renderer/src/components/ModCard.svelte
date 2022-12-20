@@ -80,10 +80,12 @@
 >
   <img alt="mod" src={`file://${$gameDir}left4dead2/addons/workshop/${mod.id}.jpg`} />
 
-  <div class="mod-status-bar  absolute  " />
+  <div class="mod-status-bar-overlay absolute inset-0 h-full overflow-hidden">
+    <div class="mod-status-bar  absolute bottom-0 left-0 right-0  " />
+  </div>
 
   {#if showHoverbox && !userIsSelecting}
-    <div class="hoverbox backdrop-blur-lg bg-surface-900/70">
+    <div class="hoverbox p-3 backdrop-blur-lg bg-surface-900/70 z-10">
       <h6 class="title">{mod.addontitle}</h6>
 
       <div class="categories">
@@ -100,7 +102,8 @@
       <div class="backdrop-blur-lg rounded-full">
         <CheckCircle2 size={64} />
       </div>
-    </div>{/if}
+    </div>
+  {/if}
 </div>
 
 <style lang="postcss">
@@ -112,7 +115,6 @@
     flex-direction: column;
     position: relative;
     margin-bottom: 5px;
-    overflow: hidden;
 
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
@@ -144,11 +146,11 @@
     box-shadow: 0 0 16px 3px #ffffff23;
   }
 
+  .mod-status-bar-overlay {
+  }
+
   .mod-status-bar {
     height: 6px;
-    bottom: 0;
-    left: 0;
-    right: 0;
   }
 
   .mod.enabled .mod-status-bar {
@@ -165,11 +167,8 @@
     pointer-events: none;
     position: absolute;
     left: 0;
-    bottom: 0;
-    /* top: 100%; */
+    top: 100%;
     right: 0px;
-    padding: 0.45em;
-    padding-top: 0.3em;
   }
 
   .categories {

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { CodeBlock, Divider } from '@skeletonlabs/skeleton'
-  import { enabledMods, modIdToOverview } from '../stores/library'
+  import classnames from 'classnames'
+  import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
   import { collections, toggleModInCurrentPresetSafe } from '../stores/profile'
 
@@ -22,6 +23,10 @@
           .filter((id) => id != mod.id)
 
   $: isEnabled = $enabledMods.includes(mod.id)
+
+  $: isGroupEnabled = $groupedEnabledMods.some((group) =>
+    group.some((conflictingMod) => conflictingMod.id == mod.id)
+  )
 
   function toggleModEnabled() {
     toggleModInCurrentPresetSafe(mod.id)
@@ -48,9 +53,12 @@
     >
 
     <button
-      class=" w-full btn btn-ghost-primary mt-5"
-      class:btn-ghost-accent={isEnabled}
-      on:click={toggleModEnabled}>{isEnabled ? 'Enabled' : 'Disabled'}</button
+      class={classnames(' w-full btn  mt-5', {
+        'btn-ghost-accent': isEnabled && !isGroupEnabled,
+        'btn-ghost-primary': isEnabled && isGroupEnabled
+      })}
+      on:click={toggleModEnabled}
+      >{isEnabled ? (isGroupEnabled ? 'Enabled (Conflicting)' : 'Enabled') : 'Disabled'}</button
     >
 
     {#if mod.addonauthor}
