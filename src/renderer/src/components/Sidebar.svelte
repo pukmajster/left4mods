@@ -9,17 +9,12 @@
     selectedMisc,
     selectedSurvivors,
     selectedUtils,
-    showConflictingView,
     visibleFilterPanel
   } from '../stores/library'
   import Collections from './Collections.svelte'
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
   import ToggleViewButton from './ToggleViewButton.svelte'
-
-  function toggleView() {
-    $showConflictingView = !$showConflictingView
-  }
 </script>
 
 <div class="sidebar">
@@ -107,9 +102,8 @@
   .sidebar {
     padding: 1em;
     padding-top: 0;
-    width: 300px;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 320px;
+    max-width: 320px;
     height: 100%;
 
     display: flex;

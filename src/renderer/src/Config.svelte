@@ -20,6 +20,20 @@
     try {
       let profile = await window.api.readProfile()
 
+      let defaultConfig: IUserProfile = {
+        activePreset: 'default',
+        collections: [],
+        presets: [{ id: 'default', label: 'Default', enabledMods: [] }],
+        preferences: {
+          gameDir: '',
+          disableOnlineFetchingOfModData: false
+        },
+        launchParameters: '-novid +exec autoexec.cfg +exec l4d2launcher.cfg',
+        customCfg: ''
+      }
+
+      profile = { ...defaultConfig, ...profile }
+
       collections.set(profile.collections ?? [])
       gameDir.set(profile.preferences.gameDir ?? '')
       presets.set(profile.presets ?? [])

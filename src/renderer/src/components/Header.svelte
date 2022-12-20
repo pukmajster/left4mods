@@ -7,12 +7,21 @@
     type ModalComponent,
     type ModalSettings
   } from '@skeletonlabs/skeleton'
-  import { FileCog, Github, Library, MessageCircle, RefreshCw, Settings } from 'lucide-svelte'
+  import {
+    FileCog,
+    Github,
+    HelpCircle,
+    Library,
+    MessageCircle,
+    RefreshCw,
+    Settings
+  } from 'lucide-svelte'
   import { writable } from 'svelte/store'
   import { requestManifest } from '../api/api'
   import { modManifest } from '../stores/manifest'
   import { showPreferences } from '../stores/preferences'
   import ActionButtons from './ActionButtons.svelte'
+  import HelpModal from './modals/HelpModal.svelte'
   import SettingsModal from './modals/SettingsModal.svelte'
   import Preferences from './Preferences.svelte'
   import Presets from './Presets.svelte'
@@ -43,6 +52,21 @@
     const d: ModalSettings = {
       type: 'component',
       title: 'Settings',
+      component: modalComponent
+    }
+    modalStore.trigger(d)
+  }
+
+  function triggerHelpDialog(): void {
+    const modalComponent: ModalComponent = {
+      ref: HelpModal,
+      props: { background: 'bg-red-500' },
+      // Provide default slot content as a template literal
+      slot: '<p>aw</p>'
+    }
+    const d: ModalSettings = {
+      type: 'component',
+      title: 'Help',
       component: modalComponent
     }
     modalStore.trigger(d)
@@ -82,6 +106,10 @@
   </div>
 
   <svelte:fragment slot="trail">
+    <button class="btn btn-sm" on:click={triggerHelpDialog}
+      ><HelpCircle size={16} /><span>Help</span></button
+    >
+
     <a
       class="btn btn-sm"
       href="https://github.com/pukmajster/l4d2-launcher"

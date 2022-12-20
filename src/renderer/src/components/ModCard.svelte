@@ -78,9 +78,8 @@
   />
 
   {#if showHoverbox}
-    <div class="hoverbox">
-      <p class="title">{mod.addontitle}</p>
-      {#if mod.addonauthor}<p class="author">By: {mod.addonauthor}</p>{/if}
+    <div class="hoverbox backdrop-blur-lg bg-surface-900/70">
+      <h6 class="title">{mod.addontitle}</h6>
 
       <div class="categories">
         {#each mod.categories ?? [] as category}
@@ -100,6 +99,7 @@
     flex-direction: column;
     position: relative;
     margin-bottom: 5px;
+    overflow: hidden;
 
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
@@ -112,7 +112,6 @@
   }
 
   .title {
-    font-size: 14px;
     margin-bottom: 4px;
   }
 
@@ -127,12 +126,10 @@
   }
 
   .mod.enabled {
-    color: var(--mod-enabled-color);
     border-bottom: 6px solid var(--mod-enabled-color);
   }
 
   .mod.enabled.conflicting {
-    color: var(--mod-conflicting-color);
     border-bottom: 6px solid var(--mod-conflicting-color);
   }
 
@@ -140,17 +137,11 @@
     pointer-events: none;
     position: absolute;
     left: 0;
-    /*bottom: 0;*/
-    top: 100%;
+    bottom: 0;
+    /* top: 100%; */
     right: 0px;
     padding: 0.45em;
     padding-top: 0.3em;
-
-    backdrop-filter: blur(20px);
-    background-color: #262847c7;
-    background-color: #0b0c1be2;
-
-    z-index: 9999;
   }
 
   .categories {
@@ -158,17 +149,14 @@
     left: 0;
     top: 100%;
     right: 0;
-    padding-top: 0.3em;
 
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-
-    z-index: 9999;
   }
 
   .category {
-    padding: 5px 6px;
+    padding: 0 6px;
     background-color: rgba(180, 180, 183, 0.141);
     border-radius: 2px;
   }

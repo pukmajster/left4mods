@@ -2,11 +2,11 @@
   import { Play } from 'lucide-svelte'
   import { writeAddonList } from '../api/api'
   import { modManifest } from '../stores/manifest'
-  import { activePreset, gameDir, presets } from '../stores/profile'
+  import { activePreset, gameDir, launchParameters, presets } from '../stores/profile'
 
   async function launchGame() {
     await _writeAddonList()
-    window.api.openLinkInBrowser('steam://run/550/"-novid +exec autoexec.cfg"')
+    window.api.openLinkInBrowser(`steam://run/550/${launchParameters}`)
   }
 
   let writingAddonList = false
@@ -18,7 +18,11 @@
       writeAddonList(
         $gameDir,
         $modManifest,
-        $presets.find((preset) => preset.id === $activePreset)
+        $presets.find((preset) => preset.id === $activePreset) ?? {
+          enabledMods: [],
+          id: '',
+          label: ''
+        }
       )
     } catch (e) {
       console.log(e)

@@ -6,12 +6,13 @@
   export let parent: any
 
   // Stores
-  import { disableOnlineFetchingOfModData, gameDir } from '../../stores/profile'
+  import { disableOnlineFetchingOfModData, gameDir, launchParameters } from '../../stores/profile'
 
   // Form Data
   let formData = {
     gameDir: $gameDir,
-    disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData
+    disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData,
+    launchParameters: $launchParameters
   }
 
   // We've created a custom submit function to pass the response and close the modal.
@@ -19,6 +20,7 @@
     //if ($modalStore[0].response) $modalStore[0].response(formData)
     gameDir.set(formData.gameDir)
     disableOnlineFetchingOfModData.set(formData.disableOnlineFetchingOfModData)
+    launchParameters.set(formData.launchParameters)
     modalStore.close()
   }
 
@@ -56,6 +58,24 @@
   </p>
 
   <SlideToggle bind:checked={formData.disableOnlineFetchingOfModData}>{networkText}</SlideToggle>
+
+  <h5 class="font-bold">Launch Parameters</h5>
+  <p>
+    Launch parameters to use when launching the game directly from the app. Recommended launch
+    parameters to use:
+  </p>
+  <ul class="pl-4">
+    <li>-novid (skips the intro cutscene)</li>
+    <li>+exec l4d2launcher.cfg (execus your custom config)</li>
+  </ul>
+  <div class="flex gap-4">
+    <input
+      type="text"
+      bind:value={formData.launchParameters}
+      placeholder="Enter launch parameters..."
+      class="flex-1 w-full"
+    />
+  </div>
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">

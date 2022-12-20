@@ -17,3 +17,12 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+
+input[type='checkbox'],
+input[type='radio'] {
+  cursor: pointer;
+}
+
+input ~ label {
+  cursor: pointer;
+}

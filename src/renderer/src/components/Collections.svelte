@@ -39,7 +39,7 @@
 
     <div style="height: 1em;" />
 
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3  mb-4">
       <input
         id="onlyShowModsNotInAnyCollection"
         type="checkbox"

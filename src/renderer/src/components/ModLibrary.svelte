@@ -27,8 +27,8 @@
         {/if}
         <div class="conflicting-mods">
           {#each $groupedEnabledMods as group, i}
-            <h2>Conflicting mods #{i + 1}</h2>
-            <div class="conflicting-mods-group">
+            <h3>Conflicting mods #{i + 1}</h3>
+            <div class="conflicting-mods-group mt-2 mb-5">
               {#each group as mod}
                 <ModCard {mod} />
               {/each}
@@ -36,7 +36,7 @@
           {/each}
         </div>
       {:else}
-        <div class="mods-list">
+        <div class="mods-list p-4">
           {#each $paginatedSortedFilteredMods as mod}
             <ModCard {mod} />
           {/each}
@@ -76,8 +76,6 @@
     align-items: stretch;
 
     gap: 12px;
-    padding: 1em;
-    padding-left: 0.5em;
   }
 
   .mods-list:last-child {
@@ -98,6 +96,5 @@
     grid-auto-rows: minmax(min-content, max-content);
     align-items: stretch;
     gap: 12px;
-    padding: 0.6em 0 1.5em 0;
   }
 </style>
