@@ -97,8 +97,8 @@
 
       <div class="actions">
         <div class="flex flex-wrap   gap-2 ">
-          <span class="btn btn-sm btn-filled-surface" on:click={handleSelectedButtonClick}
-            >Selected: {$selectedMods.length}</span
+          <button class="btn btn-sm btn-filled-surface" on:click={handleSelectedButtonClick}
+            >Selected: {$selectedMods.length}</button
           >
           <!-- <button on:click={unselectAll} class="btn btn-sm btn-filled-surface">unselect all</button>
       <button on:click={selectAll} class="btn btn-sm btn-filled-surface">select visible</button> -->
