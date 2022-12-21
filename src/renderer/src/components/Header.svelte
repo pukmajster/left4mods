@@ -29,15 +29,7 @@
   let store = writable('library')
 
   async function attemptRequestManifest(forceNewBuild: boolean = false) {
-    $isBuildingModManifest = true
-
-    try {
-      await requestManifest(forceNewBuild)
-    } catch (e) {
-      console.log(e)
-    } finally {
-      $isBuildingModManifest = false
-    }
+    requestManifest(forceNewBuild)
   }
 
   function triggerCustomModal(): void {
