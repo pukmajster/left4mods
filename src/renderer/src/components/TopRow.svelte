@@ -104,10 +104,10 @@
       <button on:click={selectAll} class="btn btn-sm btn-filled-surface">select visible</button> -->
 
           {#if $selectedMods.length > 0}
-            <button on:click={_batchEnableSelectedMods} class="btn btn-sm btn-filled-accent"
+            <button on:click={_batchEnableSelectedMods} class="btn btn-sm btn-filled-primary"
               >enable selected</button
             >
-            <button on:click={_batchDisableSelectedMods} class="btn btn-sm btn-filled-accent"
+            <button on:click={_batchDisableSelectedMods} class="btn btn-sm btn-filled-primary"
               >disable selected</button
             >
             <!-- <select bind:value={batchCollectionName}>
@@ -117,14 +117,15 @@
           </select> -->
 
             {#if $selectedCollectionName == ''}
-              <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-accent"
+              <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-primary"
                 >add selected to collection</button
               >
             {/if}
 
             {#if $selectedCollectionName != ''}
-              <button on:click={_batchRemoveModsFromCollection} class="btn btn-sm btn-filled-accent"
-                >remove selected from collection</button
+              <button
+                on:click={_batchRemoveModsFromCollection}
+                class="btn btn-sm btn-filled-primary">remove selected from collection</button
               >
             {/if}
           {/if}

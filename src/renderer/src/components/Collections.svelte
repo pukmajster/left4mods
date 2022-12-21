@@ -24,7 +24,7 @@
 {#if !$showConflictingView}
   <div class="container">
     <div class="flex gap-2">
-      <button class="w-full btn  btn-ghost-accent" on:click={triggerCustomModal}>
+      <button class="w-full btn  btn-ghost-primary" on:click={triggerCustomModal}>
         <Album size={16} />
         <span
           >{$selectedCollectionName

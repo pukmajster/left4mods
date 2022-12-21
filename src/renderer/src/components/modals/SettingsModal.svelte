@@ -106,7 +106,7 @@
         </button>
       </div>
       {#if lockGameDirStep && formData.gameDir}
-        <span class="text-red-500 pl-4 text-xs"> Invalid game diretory. Look again... </span>
+        <span class="text-warning-500 pl-4 text-xs"> Invalid game diretory. Look again... </span>
       {/if}
 
       <h5 class="font-bold">Disable Networking</h5>
@@ -151,7 +151,7 @@
 
     {#if $tab == 'misc'}
       <div class="space-x-2">
-        <button class="btn btn-ghost-primary" on:click={forceFullManifestRefresh}
+        <button class="btn btn-ghost-warning" on:click={forceFullManifestRefresh}
           >Force Refresh Full Manifest</button
         >
       </div>
@@ -161,7 +161,7 @@
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
     <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Cancel</button>
-    <button class="btn btn-ghost-accent" on:click={onFormSubmit}> Save</button>
+    <button class="btn btn-ghost-primary" on:click={onFormSubmit}> Save</button>
   </footer>
 </div>
 

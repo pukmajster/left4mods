@@ -84,7 +84,7 @@
     <button
       on:click={onRename}
       disabled={renameFormData.collectionLabel.length == 0}
-      class="btn btn-ghost-accent">Rename</button
+      class="btn btn-ghost-primary">Rename</button
     >
   </div>
 
@@ -98,7 +98,7 @@
     />
 
     <button
-      class="btn btn-ghost-accent"
+      class="btn btn-ghost-primary"
       disabled={formData.newCollectionName.length == 0}
       on:click={onFormSubmit}>Create Collection</button
     >
@@ -106,6 +106,6 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn btn-ghost-accent" on:click={parent.onClose}>Close</button>
+    <button class="btn btn-ghost-primary" on:click={parent.onClose}>Close</button>
   </footer>
 </div>

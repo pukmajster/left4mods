@@ -23,7 +23,7 @@
   }
 </script>
 
-<button on:click={triggerCustomModal} class="btn btn-ghost-accent btn-sm">
+<button on:click={triggerCustomModal} class="btn btn-ghost-primary btn-sm">
   <Folder size={16} />
   <span>Preset: {$presets.find((preset) => preset.id == $activePreset)?.label}</span>
 </button>

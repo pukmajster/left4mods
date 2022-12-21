@@ -30,7 +30,7 @@
 
   <footer class="modal-footer {parent.regionFooter}">
     <button class="btn btn-ghost-surface" on:click={parent.onClose}>Close</button>
-    <button class="btn btn-full-accent" disabled={!formData.collection} on:click={onFormSubmit}
+    <button class="btn btn-full-primary" disabled={!formData.collection} on:click={onFormSubmit}
       >Add to Collection</button
     >
   </footer>

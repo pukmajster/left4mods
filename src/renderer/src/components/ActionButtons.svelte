@@ -12,6 +12,6 @@
 <!-- <button on:click={_writeAddonList} disabled={writingAddonList} class="launch-button write"
   >{writingAddonList ? 'Writing...' : 'Write addonlist'}</button
 > -->
-<button on:click={launchGame} class="btn btn-sm btn-filled-accent ml-2">
+<button on:click={launchGame} class="btn btn-sm btn-filled-primary ml-2">
   <Play size={16} /> <span>Launch L4D2</span></button
 >

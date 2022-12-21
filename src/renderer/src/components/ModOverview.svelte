@@ -51,14 +51,14 @@
       {/each}
     </div>
 
-    <button class=" w-full btn btn-ghost-accent mt-5" on:click={openModInBrowser}
+    <button class=" w-full btn btn-ghost-primary mt-5" on:click={openModInBrowser}
       >Open in Workshop</button
     >
 
     <button
       class={classnames(' w-full btn  mt-5', {
-        'btn-ghost-accent': isEnabled && !isGroupEnabled,
-        'btn-ghost-primary': isEnabled && isGroupEnabled
+        'btn-ghost-primary': isEnabled && !isGroupEnabled,
+        'btn-ghost-warning': isEnabled && isGroupEnabled
       })}
       on:click={toggleModEnabled}
       >{isEnabled ? (isGroupEnabled ? 'Enabled (Conflicting)' : 'Enabled') : 'Disabled'}</button

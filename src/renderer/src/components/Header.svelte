@@ -108,7 +108,7 @@
     <button
       on:click={launchGame}
       use:tooltip={tooltips.startGame}
-      class="btn btn-sm btn-filled-accent ml-2"
+      class="btn btn-sm btn-filled-primary ml-2"
     >
       <Play size={16} /> <span>Launch L4D2</span></button
     >

@@ -66,7 +66,7 @@
     <button
       on:click={onRename}
       disabled={renameFormData.label.length == 0}
-      class="btn btn-ghost-accent">Rename</button
+      class="btn btn-ghost-primary">Rename</button
     >
   </div>
 
@@ -80,15 +80,15 @@
     />
 
     <button
-      class="btn btn-ghost-accent"
+      class="btn btn-ghost-primary"
       disabled={formData.newPresetName.length == 0}
       on:click={onFormSubmit}>Create Preset</button
     >
   </div>
 
   <!--   <ListBox
-    accent="!bg-accent-active-token"
-    hover="!bg-accent-hover-token"
+    primary="!bg-primary-active-token"
+    hover="!bg-primary-hover-token"
     selected={activePreset}
     label="Select Active Preset"
   >
@@ -99,6 +99,6 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn btn-ghost-accent" on:click={parent.onClose}>Close</button>
+    <button class="btn btn-ghost-primary" on:click={parent.onClose}>Close</button>
   </footer>
 </div>
