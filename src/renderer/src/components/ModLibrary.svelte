@@ -46,7 +46,7 @@
           <p>Try changing your search query or filters.</p>
         </div>
       {:else}
-        <div class="mods-list p-4">
+        <div class="mods-list p-4 pt-0">
           {#each $paginatedSortedFilteredMods as mod}
             <ModCard {mod} />
           {/each}

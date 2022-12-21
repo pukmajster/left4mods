@@ -66,7 +66,7 @@
 </script>
 
 <div
-  class={`backdrop-blur-md sticky top-0 -bg-surface-50-900-token  z-10 p-4 pb-4 w-full flex justify-between gap-4 flex-col-reverse lg:flex-row lg:gap-2 ${classnames(
+  class={`root backdrop-blur-md sticky top-0 -bg-surface-50-900-token  p-4 pb-4 w-full flex justify-between gap-4 flex-col-reverse lg:flex-row lg:gap-2 ${classnames(
     $darkMode ? 'bg-surface-900/90' : 'bg-surface-50/70'
   )}`}
 >
@@ -140,6 +140,9 @@
 
 <style lang="postcss">
   select {
-    max-width: 200px;
+  }
+
+  .root {
+    z-index: 2;
   }
 </style>

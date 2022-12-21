@@ -86,7 +86,7 @@
   </div>
 
   {#if showHoverbox && !userIsSelecting}
-    <div class="hoverbox p-3 backdrop-blur-lg bg-surface-900/70 z-10">
+    <div class="hoverbox p-3 backdrop-blur-lg bg-surface-900/70">
       <h6 class="title">{mod.addontitle}</h6>
 
       <div class="categories">
@@ -172,6 +172,7 @@
     left: 0;
     top: 100%;
     right: 0px;
+    z-index: 1;
   }
 
   .categories {

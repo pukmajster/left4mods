@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store'
   import type { ICategoryToLabelMap } from '../constants/categories'
+  import { selectedMods } from '../stores/library'
   export let categoryName: string
   export let categoryEntries: ICategoryToLabelMap
   export let label: string | undefined = undefined
@@ -8,6 +9,9 @@
   export let isVisible: boolean = false
 
   $: categoryEntriesList = Object.keys(categoryEntries)
+  $: {
+    $store && selectedMods.set([])
+  }
 </script>
 
 <div class="entry " class:invisible={!isVisible}>

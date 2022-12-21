@@ -1,5 +1,6 @@
 <script lang="ts">
   import { nanoid } from 'nanoid'
+  import { selectedMods } from '../../stores/library'
   import {
     collections,
     renameCurrentCollection,
@@ -15,6 +16,7 @@
 
   function onFormSubmit(): void {
     //if ($modalStore[0].response) $modalStore[0].response(formData)
+    selectedMods.set([])
     createNewCollection(formData.newCollectionName)
     //modalStore.close()
   }
@@ -54,6 +56,10 @@
 
   // Base Classes
   const cBase = 'space-y-4'
+
+  $: {
+    $selectedCollectionName && selectedMods.set([])
+  }
 </script>
 
 <!-- @component This example creates a simple form modal. -->

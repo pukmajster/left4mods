@@ -5,6 +5,7 @@
     selectedInfected,
     selectedMelees,
     selectedMisc,
+    selectedMods,
     selectedSurvivors,
     selectedUtils,
     visibleFilterPanel
@@ -14,6 +15,7 @@
 
   function setVisiblePanel() {
     clearCategorySelection()
+    selectedMods.set([])
     visibleFilterPanel.set(categoryName)
   }
 

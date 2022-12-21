@@ -7,6 +7,7 @@
     selectedInfected,
     selectedMelees,
     selectedMisc,
+    selectedMods,
     selectedSurvivors,
     selectedUtils,
     visibleFilterPanel
@@ -14,6 +15,8 @@
   import Collections from './Collections.svelte'
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
+
+  $: searchTerm && selectedMods.set([])
 </script>
 
 <div class="sidebar">

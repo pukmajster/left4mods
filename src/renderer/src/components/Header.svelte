@@ -4,6 +4,7 @@
     modalStore,
     RadioGroup,
     RadioItem,
+    tooltip,
     type ModalComponent,
     type ModalSettings
   } from '@skeletonlabs/skeleton'
@@ -13,18 +14,19 @@
     Import,
     Library,
     MessageCircle,
+    Play,
     RefreshCw,
     Settings
   } from 'lucide-svelte'
   import { writable } from 'svelte/store'
   import { requestManifest } from '../functions/manifest'
-  import ActionButtons from './ActionButtons.svelte'
   import HelpModal from './modals/HelpModal.svelte'
   import SettingsModal from './modals/SettingsModal.svelte'
   import Presets from './Presets.svelte'
 
   import { writeAddonlist } from '../functions/writeAddonlist'
   import { isBuildingModManifest, isWritingAddonlist } from '../stores/manifest'
+  import { launchParameters } from '../stores/profile'
 
   let store = writable('library')
 
@@ -61,6 +63,22 @@
     }
     modalStore.trigger(d)
   }
+
+  const tooltips = {
+    writeaAddons: {
+      content: 'Save your selected preset to the game.',
+      position: 'bottom'
+    },
+    startGame: {
+      content: 'Launch the game with your selected preset.',
+      position: 'bottom'
+    }
+  }
+
+  async function launchGame() {
+    await writeAddonlist()
+    window.api.openLinkInBrowser(`steam://run/550/${$launchParameters}`)
+  }
 </script>
 
 <AppBar padding="px-2 py-2">
@@ -77,23 +95,26 @@
       <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
     >
 
-    <button on:click={() => writeAddonlist()} disabled={$isWritingAddonlist} class="btn btn-sm">
-      <Import size={16} />
-      <span>{$isWritingAddonlist ? 'Writing list...' : 'Use these mods'}</span></button
-    >
-
-    <!--     <button
-      on:click={() => attemptRequestManifest(true)}
-      disabled={$isBuildingModManifest}
+    <button
+      on:click={() => writeAddonlist()}
+      disabled={$isWritingAddonlist}
+      use:tooltip={tooltips.writeaAddons}
       class="btn btn-sm"
     >
-      {$isBuildingModManifest ? 'refreshing manifest...' : 'force new build manifest'}</button
-    > -->
+      <Import size={16} />
+      <span>{$isWritingAddonlist ? 'Writing List...' : 'Use These Mods'}</span></button
+    >
 
-    <ActionButtons />
+    <button
+      on:click={launchGame}
+      use:tooltip={tooltips.startGame}
+      class="btn btn-sm btn-filled-accent ml-2"
+    >
+      <Play size={16} /> <span>Launch L4D2</span></button
+    >
   </svelte:fragment>
 
-  <div class="flex justify-center hidden">
+  <div class=" justify-center hidden">
     <RadioGroup selected={store}>
       <RadioItem value="library"><Library size={16} /></RadioItem>
       <RadioItem value="autoexec"><FileCog size={16} /></RadioItem>
@@ -102,10 +123,6 @@
   </div>
 
   <svelte:fragment slot="trail">
-    <!-- <button class="btn btn-sm" on:click={triggerWelcomeStepper}
-      ><HelpCircle size={16} /><span>welcome</span></button
-    > -->
-
     <button class="btn btn-sm" on:click={triggerHelpDialog}
       ><HelpCircle size={16} /><span>Help</span></button
     >
