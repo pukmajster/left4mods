@@ -7,10 +7,10 @@
     toastStore,
     type ToastSettings
   } from '@skeletonlabs/skeleton'
-  import { FolderSearch } from 'lucide-svelte'
-  // Stores
+
   import { writable } from 'svelte/store'
   import { commonToastOptions } from '../../constants/skeleton'
+  import { openInitialSetupDrawer } from '../../functions/drawers'
   import { requestManifest } from '../../functions/manifest'
   import {
     darkMode,
@@ -18,8 +18,8 @@
     gameDir,
     launchParameters
   } from '../../stores/profile'
-  // Props
-  /** Exposes parent props to this component. */
+  import GameDirectoryManager from '../GameDirectoryManager.svelte'
+
   export let parent: any
   const tab = writable<'manifest' | 'Appearance' | 'launchparameters' | 'misc'>('manifest')
 
@@ -63,17 +63,6 @@
   }
 
   $: networkText = formData.disableOnlineFetchingOfModData ? willNotNetworkText : willNetworkText
-
-  async function browseGameDir() {
-    let result = await window.api.selectFolder()
-    if (result) {
-      formData.gameDir = result
-    }
-  }
-
-  $: lockGameDirStep =
-    !formData.gameDir.endsWith('common/Left 4 Dead 2') &&
-    !formData.gameDir.endsWith('common/Left 4 Dead 2/')
 </script>
 
 <!-- @component This example creates a simple form modal. -->
@@ -82,7 +71,7 @@
     <Tab value="manifest">General</Tab>
     <Tab value="launchparameters">Launch Parameters</Tab>
     <Tab value="Appearance">Appearance</Tab>
-    <Tab value="misc">Misc</Tab>
+    <Tab value="misc">Dev</Tab>
   </TabGroup>
 
   <div class="modal-content space-y-4">
@@ -97,17 +86,8 @@
         The end of the directory should look like this: <br />
         <span class="p-4 pt-5 font-bold">.../common/Left 4 Dead 2/left4dead2/</span>
       </p>
-      <div class="flex gap-4">
-        <input bind:value={formData.gameDir} type="text" class="flex-1" />
-        <button class="btn" on:click={browseGameDir}>
-          <FolderSearch />
 
-          <span>Browse</span>
-        </button>
-      </div>
-      {#if lockGameDirStep && formData.gameDir}
-        <span class="text-warning-500 pl-4 text-xs"> Invalid game diretory. Look again... </span>
-      {/if}
+      <GameDirectoryManager bind:state={formData.gameDir} />
 
       <h5 class="font-bold">Disable Networking</h5>
       <p>
@@ -152,7 +132,11 @@
     {#if $tab == 'misc'}
       <div class="space-x-2">
         <button class="btn btn-ghost-warning" on:click={forceFullManifestRefresh}
-          >Force Refresh Full Manifest</button
+          >forceFullManifestRefresh</button
+        >
+
+        <button class="btn btn-ghost-warning" on:click={openInitialSetupDrawer}
+          >openInitialSetupDrawer</button
         >
       </div>
     {/if}

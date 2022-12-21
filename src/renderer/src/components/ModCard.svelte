@@ -121,6 +121,7 @@
 
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
+
     /* background-color: #262847; */
   }
 
@@ -154,6 +155,11 @@
 
   .mod-status-bar {
     height: 6px;
+  }
+
+  .mod.enabled {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .mod.enabled .mod-status-bar {

@@ -1,14 +1,13 @@
 <script lang="ts">
   import { drawerStore, Step, Stepper } from '@skeletonlabs/skeleton'
-  import { FolderSearch } from 'lucide-svelte'
   import { writable } from 'svelte/store'
   import { requestManifest } from '../functions/manifest'
   import { gameDir, hasFinishedFirstTimeSetup } from '../stores/profile'
+  import GameDirectoryManager from './GameDirectoryManager.svelte'
 
   const currentStep = writable(0)
 
   const onComplete: any = () => {
-    /* handle the event */
     $gameDir = formData.gameDir
     hasFinishedFirstTimeSetup.set(true)
     drawerStore.close()
@@ -19,16 +18,7 @@
     gameDir: $gameDir
   }
 
-  async function browseGameDir() {
-    let result = await window.api.selectFolder()
-    if (result) {
-      formData.gameDir = result
-    }
-  }
-
-  $: lockGameDirStep =
-    !formData.gameDir.endsWith('common/Left 4 Dead 2') &&
-    !formData.gameDir.endsWith('common/Left 4 Dead 2/')
+  let isGameDirValid = false
 </script>
 
 <div class="flex justify-center p-8 space-y-8 overflow-y-scroll min-h-full">
@@ -42,7 +32,7 @@
         Let's start by clicking Next!
         <br />
       </Step>
-      <Step index={1} locked={lockGameDirStep}>
+      <Step index={1} locked={!isGameDirValid}>
         <svelte:fragment slot="header">Game Directory</svelte:fragment>
         <p>
           For L4D2-Launcher to work, you need to specify the location of your Left 4 Dead 2 game
@@ -59,17 +49,8 @@
           The end of the directory should look like this:
           <span class="pl-4 font-bold">.../common/Left 4 Dead 2/left4dead2/</span>
         </p>
-        <div class="flex gap-4">
-          <input bind:value={formData.gameDir} type="text" class="flex-1" />
-          <button class="btn" on:click={browseGameDir}>
-            <FolderSearch />
 
-            <span>Browse</span>
-          </button>
-        </div>
-        {#if lockGameDirStep && formData.gameDir}
-          <span class="text-red-500 pl-4 text-xs"> Invalid game diretory. Look again... </span>
-        {/if}
+        <GameDirectoryManager bind:state={formData.gameDir} bind:isValid={isGameDirValid} />
       </Step>
 
       <Step index={2}>
@@ -134,10 +115,7 @@
       <Step index={5}>
         <svelte:fragment slot="header">Setup Complete</svelte:fragment>
         <div class="space-y-2">
-          <p>
-            You're all set! Remember to take a quick gander at the settings and view the Help panel
-            (located in the header) for more info.
-          </p>
+          <p>You're all set!</p>
 
           <p>
             Remember, this thing is in its early stages... there will be bugs and missing features.
