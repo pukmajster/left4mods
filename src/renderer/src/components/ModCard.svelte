@@ -78,7 +78,7 @@
   on:mouseleave={handleMouseLeave}
   on:contextmenu={overview}
 >
-  <img alt="mod" src={`file://${$gameDir}left4dead2/addons/workshop/${mod.id}.jpg`} />
+  <img alt="mod" src={`file://${$gameDir}/left4dead2/addons/workshop/${mod.id}.jpg`} />
 
   <div class="mod-status-bar-overlay absolute inset-0 h-full overflow-hidden">
     <div class="mod-status-bar  absolute bottom-0 left-0 right-0  " />

@@ -20,6 +20,7 @@ export interface BridgedAPI {
   readProfile: () => Promise<IUserProfile>
   writeAddonInfo: (gameDir: string, addonInfo: string) => Promise<boolean>
   writeCustomCfg: (gameDir: string, customCfg: string) => Promise<boolean>
+  selectFolder: () => Promise<string>
 }
 
 export interface IModManifest {
@@ -37,6 +38,7 @@ export interface IUserProfile {
   }
   customCfg: string
   launchParameters: string
+  hasFinishedFirstTimeSetup: boolean
 }
 
 export interface IPreset {

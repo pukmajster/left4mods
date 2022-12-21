@@ -37,11 +37,11 @@ async function buildManifest(options: RequestManifestOptions) {
 
   // ----------------------------------------------------------------
   // Verify we have a proper gameDir
-  if (!options.gameDir || !options.gameDir.includes('common/Left 4 Dead 2/')) {
+  if (!options.gameDir || !options.gameDir.includes('common/Left 4 Dead 2')) {
     throw new Error('Invalid gameDir')
   }
 
-  const ADDONS_WORKSHOP_DIR = path.join(options.gameDir, 'left4dead2/addons/workshop')
+  const ADDONS_WORKSHOP_DIR = path.join(options.gameDir, '/left4dead2/addons/workshop')
   const MANIFEST_PATH = path.join(app.getPath('userData'), 'manifest.json')
 
   // ----------------------------------------------------------------

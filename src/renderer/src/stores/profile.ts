@@ -11,6 +11,7 @@ export const gameDir = writable('')
 export const launchParameters = writable('')
 export const customCfg = writable('')
 export const darkMode = writable(true)
+export const hasFinishedFirstTimeSetup = writable(true)
 
 // --------------------------------------------------------------------
 // Unsafe methods for mods.

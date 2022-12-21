@@ -9,6 +9,7 @@
     darkMode,
     disableOnlineFetchingOfModData,
     gameDir,
+    hasFinishedFirstTimeSetup,
     launchParameters,
     presets
   } from './stores/profile'
@@ -22,7 +23,7 @@
 
       let defaultConfig: IUserProfile = {
         activePreset: 'default',
-        collections: [],
+        collections: [{ id: 'favourites', label: 'Favourites', mods: [] }],
         presets: [{ id: 'default', label: 'Default', enabledMods: [] }],
         preferences: {
           gameDir: '',
@@ -30,7 +31,8 @@
           darkMode: true
         },
         launchParameters: '-novid +exec autoexec.cfg +exec l4d2launcher.cfg',
-        customCfg: ''
+        customCfg: '',
+        hasFinishedFirstTimeSetup: false
       }
 
       profile = { ...defaultConfig, ...profile }
@@ -45,6 +47,7 @@
       launchParameters.set(profile.launchParameters ?? '')
       customCfg.set(profile.customCfg ?? '')
       darkMode.set(profile.preferences.darkMode ?? false)
+      hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup ?? false)
     } catch (e) {
       console.log(e)
     }
@@ -65,7 +68,8 @@
           darkMode: $darkMode
         },
         launchParameters: $launchParameters,
-        customCfg: $customCfg
+        customCfg: $customCfg,
+        hasFinishedFirstTimeSetup: $hasFinishedFirstTimeSetup
       }
 
       window.api.writeProfile(profileData)

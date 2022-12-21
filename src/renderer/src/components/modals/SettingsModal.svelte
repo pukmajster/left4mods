@@ -7,11 +7,11 @@
     toastStore,
     type ToastSettings
   } from '@skeletonlabs/skeleton'
+  import { FolderSearch } from 'lucide-svelte'
   // Stores
   import { writable } from 'svelte/store'
   import { commonToastOptions } from '../../constants/skeleton'
   import { requestManifest } from '../../functions/manifest'
-  import { writeAddonlist } from '../../functions/writeAddonlist'
   import {
     darkMode,
     disableOnlineFetchingOfModData,
@@ -63,6 +63,17 @@
   }
 
   $: networkText = formData.disableOnlineFetchingOfModData ? willNotNetworkText : willNetworkText
+
+  async function browseGameDir() {
+    let result = await window.api.selectFolder()
+    if (result) {
+      formData.gameDir = result
+    }
+  }
+
+  $: lockGameDirStep =
+    !formData.gameDir.endsWith('common/Left 4 Dead 2') &&
+    !formData.gameDir.endsWith('common/Left 4 Dead 2/')
 </script>
 
 <!-- @component This example creates a simple form modal. -->
@@ -81,14 +92,22 @@
         The directory is needed to access and write to the game files. We won't be snooping outside
         of this directory even if an invalid l4d2 directory has been supplied.
       </p>
+
+      <p>
+        The end of the directory should look like this: <br />
+        <span class="p-4 pt-5 font-bold">.../common/Left 4 Dead 2/left4dead2/</span>
+      </p>
       <div class="flex gap-4">
-        <input
-          type="text"
-          bind:value={formData.gameDir}
-          placeholder="Enter name..."
-          class="flex-1 w-full"
-        />
+        <input bind:value={formData.gameDir} type="text" class="flex-1" />
+        <button class="btn" on:click={browseGameDir}>
+          <FolderSearch />
+
+          <span>Browse</span>
+        </button>
       </div>
+      {#if lockGameDirStep && formData.gameDir}
+        <span class="text-red-500 pl-4 text-xs"> Invalid game diretory. Look again... </span>
+      {/if}
 
       <h5 class="font-bold">Disable Networking</h5>
       <p>
@@ -124,6 +143,7 @@
 
     {#if $tab == 'Appearance'}
       <h5 class="font-bold">Theme</h5>
+      <p>Light theme is supported but it's not quite there yet</p>
       <SlideToggle bind:checked={$darkMode}
         >{$darkMode ? 'Dark Mode' : 'Light Theme (WIP)'}</SlideToggle
       >
@@ -134,8 +154,6 @@
         <button class="btn btn-ghost-primary" on:click={forceFullManifestRefresh}
           >Force Refresh Full Manifest</button
         >
-
-        <button class="btn btn-ghost-accent" on:click={writeAddonlist}>Write addonlist</button>
       </div>
     {/if}
   </div>
@@ -149,6 +167,6 @@
 
 <style>
   .modal-content {
-    min-height: 420px;
+    min-height: 480px;
   }
 </style>

@@ -1,8 +1,8 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron'
 import { release } from 'os'
 import * as path from 'path'
-import { IUserProfile } from 'shared'
+import { IUserProfile, RequestManifestOptions } from 'shared'
 import { writeAddonList } from './addoninfo'
 import { requestManifest } from './manifest_v2'
 import { readProfile, writeProfile } from './profile'
@@ -18,8 +18,8 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
-ipcMain.handle('manifest:request', async (e, forceNewBuild: boolean = false) => {
-  return requestManifest(forceNewBuild)
+ipcMain.handle('manifest:request', async (e, options: RequestManifestOptions) => {
+  return requestManifest(options)
 })
 
 ipcMain.handle('external:openLinkInBrowser', async (e, url: string) => {
@@ -70,6 +70,18 @@ function createWindow(): void {
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
+  })
+
+  // Handle for directory dialog
+  ipcMain.handle('dialog:openDirectory', async () => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+      properties: ['openDirectory']
+    })
+    if (canceled) {
+      return
+    } else {
+      return filePaths[0]
+    }
   })
 
   // HMR for renderer base on electron-vite cli.

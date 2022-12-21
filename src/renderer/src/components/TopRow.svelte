@@ -133,7 +133,7 @@
     {/if}
   </div>
 
-  <div class="flex justify-center lg:justify-end">
+  <div class="flex justify-start lg:justify-end">
     <div><ToggleViewButton /></div>
   </div>
 </div>

@@ -9,8 +9,8 @@
   } from '@skeletonlabs/skeleton'
   import {
     FileCog,
-    Github,
     HelpCircle,
+    Import,
     Library,
     MessageCircle,
     RefreshCw,
@@ -23,19 +23,20 @@
   import SettingsModal from './modals/SettingsModal.svelte'
   import Presets from './Presets.svelte'
 
-  let isBuildingManifest = false
+  import { writeAddonlist } from '../functions/writeAddonlist'
+  import { isBuildingModManifest, isWritingAddonlist } from '../stores/manifest'
 
   let store = writable('library')
 
   async function attemptRequestManifest(forceNewBuild: boolean = false) {
-    isBuildingManifest = true
+    $isBuildingModManifest = true
 
     try {
       await requestManifest(forceNewBuild)
     } catch (e) {
       console.log(e)
     } finally {
-      isBuildingManifest = false
+      $isBuildingModManifest = false
     }
   }
 
@@ -77,18 +78,24 @@
     >
     <button
       on:click={() => attemptRequestManifest(false)}
-      disabled={isBuildingManifest}
+      disabled={$isBuildingModManifest}
       class="btn btn-sm"
     >
       <RefreshCw size={16} />
-      <span>Refresh Mods</span></button
+      <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
     >
+
+    <button on:click={() => writeAddonlist()} disabled={$isWritingAddonlist} class="btn btn-sm">
+      <Import size={16} />
+      <span>{$isWritingAddonlist ? 'Writing list...' : 'Use these mods'}</span></button
+    >
+
     <!--     <button
       on:click={() => attemptRequestManifest(true)}
-      disabled={isBuildingManifest}
+      disabled={$isBuildingModManifest}
       class="btn btn-sm"
     >
-      {isBuildingManifest ? 'refreshing manifest...' : 'force new build manifest'}</button
+      {$isBuildingModManifest ? 'refreshing manifest...' : 'force new build manifest'}</button
     > -->
 
     <ActionButtons />
@@ -103,18 +110,14 @@
   </div>
 
   <svelte:fragment slot="trail">
+    <!-- <button class="btn btn-sm" on:click={triggerWelcomeStepper}
+      ><HelpCircle size={16} /><span>welcome</span></button
+    > -->
+
     <button class="btn btn-sm" on:click={triggerHelpDialog}
       ><HelpCircle size={16} /><span>Help</span></button
     >
 
-    <a
-      class="btn btn-sm"
-      href="https://github.com/pukmajster/l4d2-launcher"
-      target="_blank"
-      rel="noreferrer"
-    >
-      <Github size={16} /> <span>GitHub</span>
-    </a>
     <Presets parent={{}} />
   </svelte:fragment>
 </AppBar>

@@ -1,5 +1,8 @@
 <script lang="ts">
   // Props
+
+  import { Github } from 'lucide-svelte'
+
   /** Exposes parent props to this component. */
   export let parent: any
 
@@ -9,19 +12,6 @@
 
 <!-- @component This example creates a simple form modal. -->
 <div class="modal-example-form {cBase}">
-  <h5 class="font-bold">Don't know where to find your game directory?</h5>
-  <p>
-    Go to your Steam library, right click on Left 4 Dead 2, and click "Properties". Then click on
-    the "Local Files" tab and click "Browse Local Files". This will open up the game directory in
-    your file browser.
-  </p>
-
-  <div>
-    The end of the directory should look like this: <p class="p-2 font-bold">
-      .../common/Left 4 Dead 2/left4dead2/
-    </p>
-  </div>
-
   <h5 class="font-bold">Useful Key Combos / Actions</h5>
   <div class="grid grid-cols-1 gap-4">
     <div class="keycombo">
@@ -39,6 +29,17 @@
       <span>Shows you an overview of the mod you click on</span>
     </div>
   </div>
+
+  <h5 class="font-bold">Found a Bug / Requesting a Feature?</h5>
+  <p class="flex gap-2">
+    You can visit the <a
+      class=" inline flex items-center gap-1"
+      href="https://github.com/pukmajster/l4d2-launcher/issues"
+      target="_blank"
+    >
+      <Github size={16} /> github</a
+    > issues page and report there!
+  </p>
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">

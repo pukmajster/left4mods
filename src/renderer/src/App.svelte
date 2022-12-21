@@ -4,20 +4,28 @@
   import Header from './components/Header.svelte'
   import ModLibrary from './components/ModLibrary.svelte'
   import Sidebar from './components/Sidebar.svelte'
+  import WelcomeStepper from './components/WelcomeStepper.svelte'
   import Config from './Config.svelte'
+  import { hasFinishedFirstTimeSetup } from './stores/profile'
+
+  $: shouldShowInitialSetup = $hasFinishedFirstTimeSetup === false
 </script>
 
 <Config />
 
-<AppShell>
-  <svelte:fragment slot="header"><Header /></svelte:fragment>
-  <!-- Sidebar -->
-  <svelte:fragment slot="sidebarLeft">
-    <Sidebar />
-  </svelte:fragment>
-  <!-- Page Content -->
-  <ModLibrary />
-</AppShell>
+{#if shouldShowInitialSetup}
+  <WelcomeStepper />
+{:else}
+  <AppShell>
+    <svelte:fragment slot="header"><Header /></svelte:fragment>
+    <!-- Sidebar -->
+    <svelte:fragment slot="sidebarLeft">
+      <Sidebar />
+    </svelte:fragment>
+    <!-- Page Content -->
+    <ModLibrary />
+  </AppShell>
+{/if}
 
 <Modal />
 <DrawersRoot />

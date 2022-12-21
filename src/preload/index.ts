@@ -1,18 +1,19 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer, shell } from 'electron'
-import { BridgedAPI, IUserProfile } from 'shared'
+import { BridgedAPI, IUserProfile, RequestManifestOptions } from 'shared'
 
 console.log('preload')
 
 // Custom APIs for renderer
 const api: BridgedAPI = {
-  requestManifest: (forceNewBuild: boolean = false) =>
-    ipcRenderer.invoke('manifest:request', forceNewBuild),
+  requestManifest: (options: RequestManifestOptions) =>
+    ipcRenderer.invoke('manifest:request', options),
   openLinkInBrowser: (url: string) => openLinkInBrowser(url),
   writeProfile: (profileData: IUserProfile) => ipcRenderer.invoke('profile:write', profileData),
   readProfile: () => ipcRenderer.invoke('profile:read'),
   writeAddonList: (gameDir: string, addonInfo: string) =>
-    ipcRenderer.invoke('addonlist:write', gameDir, addonInfo)
+    ipcRenderer.invoke('addonlist:write', gameDir, addonInfo),
+  selectFolder: () => ipcRenderer.invoke('dialog:openDirectory')
 }
 
 function openLinkInBrowser(url: string) {
