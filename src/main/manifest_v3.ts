@@ -87,7 +87,8 @@ async function buildManifest(options: RequestManifestOptions) {
         let modInfo: IMod = {
           id: id,
           files: [],
-          categories: []
+          categories: [],
+          timemodified: ''
         }
 
         function addCategory(category: string) {
@@ -288,6 +289,36 @@ const fileOccurrencesToCategoryMap: ICategoryMap = {
   nut: ['vscripts'],
   gnome: ['gnome'],
   loading_screen: ['vgui/loadingscreen'],
+  loading_screen_official: [
+    'materials/vgui/loadingscreen_the_sacrifice_widescreen.vtf',
+    'materials/vgui/loadingscreen_the_sacrifice.vtf',
+    'materials/vgui/loadingscreen_nomercy_widescreen.vtf',
+    'materials/vgui/loadingscreen_nomercy.vtf',
+    'materials/vgui/loadingscreen_laststand_widescreen.vtf',
+    'materials/vgui/loadingscreen_laststand.vtf',
+    'materials/vgui/loadingscreen_deathtoll_widescreen.vtf',
+    'materials/vgui/loadingscreen_deathtoll.vtf',
+    'materials/vgui/loadingscreen_deadair_widescreen.vtf',
+    'materials/vgui/loadingscreen_deadair.vtf',
+    'materials/vgui/loadingscreen_crashcourse_widescreen.vtf',
+    'materials/vgui/loadingscreen_crashcourse.vtf',
+    'materials/vgui/loadingscreen_bloodharvest_widescreen.vtf',
+    'materials/vgui/loadingscreen_bloodharvest.vtf',
+    'materials/vgui/loadingscreen_the_sacrifice_standard.vmt',
+    'materials/vgui/loadingscreen_the_sacrifice.vmt',
+    'materials/vgui/loadingscreen_nomercy_widescreen.vmt',
+    'materials/vgui/loadingscreen_nomercy.vmt',
+    'materials/vgui/loadingscreen_laststand_widescreen.vmt',
+    'materials/vgui/loadingscreen_laststand.vmt',
+    'materials/vgui/loadingscreen_deathtoll_widescreen.vmt',
+    'materials/vgui/loadingscreen_deathtoll.vmt',
+    'materials/vgui/loadingscreen_deadair_widescreen.vmt',
+    'materials/vgui/loadingscreen_deadair.vmt',
+    'materials/vgui/loadingscreen_crashcourse_widescreen.vmt',
+    'materials/vgui/loadingscreen_crashcourse.vmt',
+    'materials/vgui/loadingscreen_bloodharvest_widescreen.vmt',
+    'materials/vgui/loadingscreen_bloodharvest.vmt'
+  ],
   vehicles: ['/props_vehicles/'],
   jukebox: ['flu/jukebox/'],
   voice: ['voice'],
@@ -340,7 +371,6 @@ const fileOccurrencesToCategoryMap: ICategoryMap = {
   // Weapons
   weapon: ['weapon'],
   weaponmodel: ['weaponmodel'],
-
   pistol: ['pistol/'],
   deagle: ['desert_eagle/', 'desert_eagle/'],
   military_sniper: ['sniper_military/'],
