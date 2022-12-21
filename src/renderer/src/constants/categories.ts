@@ -40,12 +40,12 @@ const guns: ICategoryToLabelMap = {
 const infected: ICategoryToLabelMap = {
   common_infected: 'Common Infected',
   boomer: 'Boomer',
-  tank: 'Tank',
   boomette: 'Boomette',
   charger: 'Charger',
+  tank: 'Tank',
   jockey: 'Jockey',
   witch: 'Witch',
-  tank_hulk: 'Tank (Hulk)',
+  //tank_hulk: 'Tank (Hulk)',
   spitter: 'Spitter',
   hunter: 'Hunter',
   smoker: 'Smoker'
@@ -67,8 +67,8 @@ const utils: ICategoryToLabelMap = {
   adrenaline: 'Adrenaline',
   pills: 'Pills',
   medkit: 'Medkit',
-  incendiary_ammo_pack: 'Incendiary Ammo Pack',
-  explosive_ammo_pack: 'Explosive Ammo Pack',
+  incendiary_ammopack: 'Incendiary Ammo Pack',
+  explosive_ammopack: 'Explosive Ammo Pack',
   laser_pack: 'Laser Pack'
 }
 
@@ -80,7 +80,7 @@ const grenades: ICategoryToLabelMap = {
 
 const melee: ICategoryToLabelMap = {
   machete: 'Machete',
-  cricket_bat: 'Cricket Bat',
+  cricketbat: 'Cricket Bat',
   bat: 'Bat',
   css_knife: 'CSS Knife',
   chainsaw: 'Chainsaw',
@@ -89,8 +89,7 @@ const melee: ICategoryToLabelMap = {
   guitar: 'Guitar',
   shovel: 'Shovel',
   katana: 'Katana',
-  knife: 'Knife',
-  pan: 'Pan',
+  frying_pan: 'Pan',
   golf_club: 'Golf Club',
   tonfa: 'Tonfa',
   pitchfork: 'Pitchfork'
