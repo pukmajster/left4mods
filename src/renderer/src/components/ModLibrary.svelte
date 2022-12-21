@@ -4,6 +4,7 @@
     paginatedSortedFilteredMods,
     showConflictingView
   } from '../stores/library'
+  import { modManifest } from '../stores/manifest'
   import { activePreset } from '../stores/profile'
   import ModCard from './ModCard.svelte'
   import TopRow from './TopRow.svelte'
@@ -34,6 +35,15 @@
               {/each}
             </div>
           {/each}
+        </div>
+      {:else if Object.keys(modManifest).length == 0}
+        <div class="no-mods-found p-2 pl-8 space-y-2">
+          <h1>No mods installed.</h1>
+        </div>
+      {:else if $paginatedSortedFilteredMods.length == 0}
+        <div class="no-mods-found p-2 pl-8 space-y-2">
+          <h1>No mods found.</h1>
+          <p>Try changing your search query or filters.</p>
         </div>
       {:else}
         <div class="mods-list p-4">
