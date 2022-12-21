@@ -157,11 +157,6 @@
     height: 6px;
   }
 
-  .mod.enabled {
-    opacity: 1;
-    transform: scale(1);
-  }
-
   .mod.enabled .mod-status-bar {
     background: var(--mod-enabled-color);
     box-shadow: 0 0 16px 6px #3bdf3e55;
