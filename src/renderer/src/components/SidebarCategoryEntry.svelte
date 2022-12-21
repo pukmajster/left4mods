@@ -1,10 +1,13 @@
 <script lang="ts">
   import type { Writable } from 'svelte/store'
+  import type { ICategoryToLabelMap } from '../constants/categories'
   export let categoryName: string
-  export let categoryEntries: string[]
+  export let categoryEntries: ICategoryToLabelMap
   export let label: string | undefined = undefined
   export let store: Writable<string>
   export let isVisible: boolean = false
+
+  $: categoryEntriesList = Object.keys(categoryEntries)
 </script>
 
 <div class="entry " class:invisible={!isVisible}>
@@ -16,10 +19,10 @@
       NO FILTER
     </label>
 
-    {#each categoryEntries as entry}
+    {#each categoryEntriesList as entry}
       <label class="flex gap-2 items-center ">
         <input type="radio" bind:group={$store} value={entry} />
-        {entry}
+        {categoryEntries[entry]}
       </label>
     {/each}
   </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { CodeBlock, Divider } from '@skeletonlabs/skeleton'
   import classnames from 'classnames'
+  import { combinedCategoryToLabelMap } from '../constants/categories'
   import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
   import { collections, toggleModInCurrentPresetSafe } from '../stores/profile'
@@ -44,7 +45,9 @@
     <h3>{mod.addontitle}</h3>
     <div class="categories pt-2">
       {#each mod.categories ?? [] as category}
-        <p class="category">{category}</p>
+        {#if combinedCategoryToLabelMap[category] !== undefined}
+          <p class="category">{combinedCategoryToLabelMap[category]}</p>
+        {/if}
       {/each}
     </div>
 

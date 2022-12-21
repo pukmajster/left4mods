@@ -4,7 +4,7 @@ import { release } from 'os'
 import * as path from 'path'
 import { IUserProfile, RequestManifestOptions } from 'shared'
 import { writeAddonList } from './addoninfo'
-import { requestManifest } from './manifest_v2'
+import { requestManifest } from './manifest_v3'
 import { readProfile, writeProfile } from './profile'
 
 // Disable GPU Acceleration for Windows 7

@@ -5,6 +5,7 @@
 
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   import { CheckCircle2 } from 'lucide-svelte'
+  import { combinedCategoryToLabelMap } from '../constants/categories'
   export let mod: IMod
 
   let showHoverbox = false
@@ -90,7 +91,9 @@
 
       <div class="categories">
         {#each mod.categories ?? [] as category}
-          <p class="category">{category}</p>
+          {#if combinedCategoryToLabelMap[category] !== undefined}
+            <p class="category">{combinedCategoryToLabelMap[category]}</p>
+          {/if}
         {/each}
       </div>
     </div>

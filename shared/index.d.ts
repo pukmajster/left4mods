@@ -82,3 +82,9 @@ export interface IMod {
   categories: string[]
   timemodified: string
 }
+
+export type CategoryKey = string
+export type CategoryFileOccurrence = string
+export interface ICategoryMap {
+  [key: CategoryKey]: CategoryFileOccurrence[]
+}

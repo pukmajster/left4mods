@@ -2,7 +2,7 @@ const VPK = require('vpk')
 import fetch from 'electron-fetch'
 import FormData from 'form-data'
 import * as fs from 'fs'
-import { IMod, IModManifest, ModId, RequestManifestOptions } from 'shared'
+import { ICategoryMap, IMod, IModManifest, ModId, RequestManifestOptions } from 'shared'
 const path = require('path')
 const vdf = require('node-vdf')
 const { app } = require('electron')
@@ -109,14 +109,22 @@ async function buildManifest(options: RequestManifestOptions) {
           if (commonVpkAddonFiles.includes(includedFile)) continue
           modInfo.files.push(includedFile)
 
-          for (let categoryTest in fileToCategoryMap) {
-            if (includedFile.includes(categoryTest)) {
-              let categoriesToAdd = fileToCategoryMap[categoryTest]
-              for (let catToAdd of categoriesToAdd) {
-                addCategory(catToAdd)
+          for (const [key, tests] of Object.entries(fileOccurrencesToCategoryMap)) {
+            for (const test of tests) {
+              if (includedFile.includes(test)) {
+                addCategory(key)
               }
             }
           }
+
+          // for (let categoryTest in fileToCategoryMap) {
+          //   if (includedFile.includes(categoryTest)) {
+          //     let categoriesToAdd = fileToCategoryMap[categoryTest]
+          //     for (let catToAdd of categoriesToAdd) {
+          //       addCategory(catToAdd)
+          //     }
+          //   }
+          // }
         }
 
         try {
@@ -254,144 +262,124 @@ const acceptedMetaKeys = [
 // We map these into a category/tag, but only if the value of the key
 //  has been been set to "1" by the mod author.
 const addonContentToCategoryMap = {
-  addoncontent_backgroundmovie: 'Background Movie',
-  addoncontent_bossinfected: 'Special Infected',
-  addoncontent_campaign: 'Campaign',
-  addoncontent_commoninfected: 'Common Infected',
-  addoncontent_map: 'Map',
-  addoncontent_music: 'Music',
-  addoncontent_prefab: 'Prefab',
-  addoncontent_prop: 'Prop',
-  addoncontent_script: 'Script',
-  addoncontent_skin: 'Skin',
-  addoncontent_sound: 'Sound',
-  addoncontent_spray: 'Spray',
-  addoncontent_survivor: 'Survivor',
-  addoncontent_weapon: 'Weapon',
-  addoncontent_weaponmodel: 'Viewmodel'
+  addoncontent_backgroundmovie: 'background_movie',
+  addoncontent_bossinfected: 'special_infected',
+  addoncontent_campaign: 'campaign',
+  addoncontent_commoninfected: 'common_infected',
+  addoncontent_map: 'map',
+  addoncontent_music: 'music',
+  addoncontent_prefab: 'prefab',
+  addoncontent_prop: 'prop',
+  addoncontent_script: 'script',
+  addoncontent_skin: 'skin',
+  addoncontent_sound: 'sound',
+  addoncontent_spray: 'spray',
+  addoncontent_survivor: 'survivor',
+  addoncontent_weapon: 'weapon',
+  addoncontent_weaponmodel: 'viewmodel'
 }
 
-const fileToCategoryMap = {
-  'models/': ['Model'],
-  'sound/': ['Sound'],
-  'materials/': ['Material'],
-  '.phy': ['Material'],
+const fileOccurrencesToCategoryMap: ICategoryMap = {
+  // Misc
+  hud: ['vgui/hud/'],
+  color_correction: ['/correction/'],
+  ui: ['/ui/'],
+  vscript: ['vscripts'],
+  nut: ['vscripts'],
+  gnome: ['gnome'],
+  loading_screen: ['vgui/loadingscreen'],
+  vehicles: ['/props_vehicles/'],
+  jukebox: ['flu/jukebox/'],
+  voice: ['voice'],
+  music: ['music'],
+  water: ['/liquids/water'],
+  flashlight: ['materials/effects/flashlight'],
+  spray: ['scripts/sprays_manifest.txt', 'materials/vgui/logos'],
+  ammo_stack: ['ammo_stack', 'coffeeammo'],
+  medical_cabinet: ['/props_interiors/medicalcabinet'],
+  lil_peanut: ["lil'peanut_cutout001"],
 
-  vgui: ['VGUI'],
-  'vgui/hud/': ['HUD'],
-  '/correction/': ['Colour Correction'],
-  '/ui/': ['UI'],
-  vscripts: ['VScript'],
-  '.nut': ['VScript'],
+  // Survivors
+  nick: ['gambler'],
+  zoey: ['zoey', 'teenangst'],
+  louis: ['louis', 'manager'],
+  namvet: ['bill', 'namvet'],
+  ellis: ['mechanic'],
+  francis: ['biker'],
+  coach: ['coach'],
+  rochelle: ['producer'],
 
-  voice: ['Voice'],
-  music: ['Music'],
+  // Infected
+  smoker: ['smoker'],
+  hunter: ['hunter'],
+  boomer: ['boomer'],
+  jockey: ['jockey'],
+  charger: ['charger'],
+  spitter: ['spitter'],
+  tank: ['tank'],
+  witch: ['witch'],
+  commoninfected: ['commoninfected'],
+  specialinfected: ['specialinfected'],
 
-  gambler: ['Nick'],
-  zoey: ['Zoey'],
-  teenangst: ['Zoey'],
-  louis: ['Louis'],
-  manager: ['Louis'],
-  namvet: ['Bill'],
-  bill: ['Bill'],
-  mechanic: ['Ellis'],
-  biker: ['Francis'],
-  coach: ['Coach'],
-  producer: ['Rochelle'],
+  // Melee
+  cricketbat: ['cricketbat'],
+  crowbar: ['crowbar'],
+  machete: ['machete'],
+  bat: ['bat/', 'bat.'],
+  knife: ['knife.', 'knife/'],
+  chainsaw: ['chainsaw'],
+  axe: ['axe'],
+  guitar: ['guitar'],
+  shovel: ['shoverl'],
+  katana: ['katana'],
+  frying_pan: ['frying_pan', '/pan/'],
+  golf_club: ['golf_club'],
+  tonfa: ['tonfa'],
+  pitchfork: ['pitchfork'],
 
-  'infected/common/': ['Common Infected'],
+  // Weapons
+  weapon: ['weapon'],
+  weaponmodel: ['weaponmodel'],
 
-  boomer: ['Boomer'],
-  '/tank/': ['Tank'],
-  boomette: ['Boomette'],
-  'charger/': ['Charger'],
-  jockey: ['Jockey'],
-  witch: ['Witch'],
-  'hulk/': ['Tank'],
-  spitter: ['Spitter'],
-  'hunter/': ['Hunter'],
-  smoker: ['Smoker'],
+  pistol: ['pistol/'],
+  deagle: ['desert_eagle/', 'desert_eagle/'],
+  military_sniper: ['sniper_military/'],
+  hunting_sniper: ['hunting_rifle/'],
+  css_awp: ['awp/'],
+  scar: ['desert_rifle/', 'rifle_desert/'],
+  ak47: ['ak47/', 'ak-47'],
+  shotgun_chrome: ['shotgun_chrome/'],
+  shotgun_pump: ['shotgun/'],
+  sg552: ['sg552/'],
+  spas: ['shotgun_spas/', 'auto_shotgun_spas/'],
+  m16: ['rifle_m16a2/', '/rifle/'],
+  uzi_silenced: ['smg_a/', 'smg_silenced/'],
+  uzi: ['smg_uzi/', 'smg/'],
+  css_mp5: ['smg_mp5/', 'mp5/'],
+  css_scout: ['scout/', 'snip_scout/'],
+  grenade_launcher: ['grenade_launcher/'],
+  auto_shotgun: ['autoshot_m4super/', 'auto_shotgun/'],
+  m60: ['machinegun_m60/'],
 
-  machete: ['Machete'],
-  cricketbat: ['Cricket Bat'],
-  'bat/': ['Bat'],
-  'bat.': ['Bat'],
-  'knife.': ['CSS Knife'],
-  'knife/': ['CSS Knife'],
-  chainsaw: ['Chainsaw'],
-  axe: ['Axe'],
-  crowbar: ['Crowbar'],
-  guitar: ['Guitar'],
-  shovel: ['Shovel'],
-  katana: ['Katana'],
-  frying_pan: ['Pan'],
-  '/pan/': ['Pan'],
-  golf_club: ['Golf Club'],
-  tonfa: ['Tonfa'],
-  pitchfork: ['Pithcfork'],
+  //  utils
+  defibrillator: ['defibrillator'],
+  adrenaline: ['adrenaline'],
+  pills: ['pain_pills', 'painpills'],
+  medkit: ['medkit'],
+  incendiary_ammopack: ['incendiary_ammopack'],
+  explosive_ammopack: ['explosive_ammopack'],
+  laser_pack: ['laser_pack'],
 
-  pipebomb: ['Pipebomb'],
-  pipe_bomb: ['Pipebomb'],
-  molotov: ['Molotov'],
-  bile_flask: ['Bile'],
+  // nades
+  pipe_bomb: ['pipebomb', 'pipe_bomb'],
+  molotov: ['molotov'],
+  bile: ['bile_flask'],
 
-  incendiary_ammopack: ['Incendiary Ammo Pack'],
-  explosive_ammopack: ['Explosive Ammo Pack'],
-  laser_pack: ['Laser Pack'],
-
-  'pistol/': ['Pistol'],
-  'magnum/': ['Deagle'],
-  'desert_eagle/': ['Deagle'],
-  'sniper_military/': ['Military Sniper'],
-  'hunting_rifle/': ['Hunting Sniper'],
-  'awp/': ['CSS AWP'],
-  'rifle_desert/': ['SCAR'],
-  'desert_rifle/': ['SCAR'],
-  'ak47/': ['AK-47'],
-  'rifle_ak47/': ['AK-47'],
-  'shotgun_chrome/': ['Shotgun Chrome'],
-  'shotgun/': ['Shotgun Pump'],
-  'sg552/': ['SG552'],
-  'auto_shotgun_spas/': ['SPAS'],
-  'shotgun_spas/': ['SPAS'],
-  '/rifle/': ['M16'],
-  'rifle_m16a2/': ['M16'],
-  'smg_silenced/': ['UZI Silenced'],
-  smg_a: ['UZI Silenced'],
-  'smg/': ['UZI'],
-  'smg_uzi/': ['UZI'],
-  'mp5/': ['CSS MP5'],
-  'smg_mp5/': ['CSS MP5'],
-  'scout/': ['CSS Scout'],
-  'snip_scout/': ['CSS Scout'],
-  'grenade_launcher/': ['Grenade Launcher'],
-  'auto_shotgun/': ['Auto Shotgun'],
-  'autoshot_m4super/': ['Auto Shotgun'],
-  'machinegun_m60/': ['M60'],
-
-  defibrillator: ['Defibrillator'],
-  adrenaline: ['Adrenaline'],
-  pain_pills: ['Pills'],
-  painpills: ['Pills'],
-  medkit: ['Medkit'],
-
-  gnome: ['Gnome'],
-  'materials/vgui/loadingscreen': ['Loading Screen'],
-  'media/valve.bik': ['Startup Movie'],
-  '/props_vehicles/': ['Vehicles'],
-  'flu/jukebox/': ['Jukebox'],
-  '/liquids/water': ['Water'],
-  'materials/effects/flashlight': ['Flashlight'],
-
-  'scripts/sprays_manifest.txt': ['Spray'],
-  'materials/vgui/logos': ['Spray'],
-
-  ammo_stack: ['Ammo Stack'],
-  coffeeammo: ['Ammo Stack'],
-
-  '/props_interiors/medicalcabinet': ['Medical Cabinet'],
-
-  "lil'peanut_cutout001": ["Lil' Peanut"]
+  // file types
+  model: ['models/'],
+  sound: ['sound/'],
+  material: ['materials/'],
+  phy: ['.phy']
 }
 
 // Common files found in VPKs that should not result in mod conflictions

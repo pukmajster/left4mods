@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A local package for shared types between main and the renderer",
   "types": "index.d.ts",
-  "main": "",
+  "main": "index.js",
   "scripts": {},
   "author": "",
   "license": "ISC"

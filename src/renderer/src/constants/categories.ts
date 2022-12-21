@@ -1,90 +1,129 @@
-const misc = [
-  'HUD',
-  'UI',
-  'VScript',
-  'Colour Correction',
-  'Loading Screen', // TODO only for official maps?
-  'Startup Movie',
-  'Flashlight',
-  'Spray',
-  'Ammo Stack',
-  'Gnome',
-  'Jukebox',
-  'Vehicles',
-  'Water',
-  'Medical Cabinet',
-  "Lil' Peanut"
-]
-const guns = [
-  'Pistol',
-  'Deagle',
-  'Military Sniper',
-  'Hunting Sniper',
-  'CSS AWP',
-  'SCAR',
-  'AK-47',
-  'Shotgun Chrome',
-  'Shotgun Pump',
-  'SG552',
-  'SPAS',
-  'M16',
-  'UZI Silenced',
-  'UZI',
-  'CSS MP5',
-  'CSS Scout',
-  'Grenade Launcher',
-  'Auto Shotgun',
-  'M60'
-]
+const misc: ICategoryToLabelMap = {
+  hud: 'HUD',
+  ui: 'UI',
+  vscript: 'VScript',
+  color_correction: 'Colour Correction',
+  loading_screen: 'Loading Screen', // TODO only for official maps?
+  flashlight: 'Flashlight',
+  spray: 'Spray',
+  ammo_stack: 'Ammo Stack',
+  gnome: 'Gnome',
+  jukebox: 'Jukebox',
+  vehicles: 'Ve: hicles',
+  water: 'Water',
+  medical_cabinet: 'Medical Cabinet',
+  lil_peanut: "Lil' Peanut"
+}
 
-const infected = [
-  'Common Infected',
-  'Boomer',
-  'Tank',
-  'Boomette',
-  'Charger',
-  'Jockey',
-  'Witch',
-  'Tank (Hulk)',
-  'Spitter',
-  'Hunter',
-  'Smoker'
-]
+const guns: ICategoryToLabelMap = {
+  pistol: 'Pistol',
+  deagle: 'Deagle',
+  military_sniper: 'Military Sniper',
+  hunting_sniper: 'Hunting Sniper',
+  css_awp: 'CSS AWP',
+  scar: 'SCAR',
+  ak47: 'AK-47',
+  shotgun_chrome: 'Shotgun Chrome',
+  shotgun_pump: 'Shotgun Pump',
+  sg552: 'SG552',
+  spas: 'SPAS',
+  m16: 'M16',
+  uzi_silenced: 'UZI Silenced',
+  uzi: 'UZI',
+  css_mp5: 'CSS MP5',
+  css_scout: 'CSS Scout',
+  grenade_launcher: 'Grenade Launcher',
+  auto_shotgun: 'Auto Shotgun',
+  m60: 'M60'
+}
 
-const survivors = ['Nick', 'Zoey', 'Louis', 'Bill', 'Ellis', 'Francis', 'Coach', 'Rochelle']
+const infected: ICategoryToLabelMap = {
+  common_infected: 'Common Infected',
+  boomer: 'Boomer',
+  tank: 'Tank',
+  boomette: 'Boomette',
+  charger: 'Charger',
+  jockey: 'Jockey',
+  witch: 'Witch',
+  tank_hulk: 'Tank (Hulk)',
+  spitter: 'Spitter',
+  hunter: 'Hunter',
+  smoker: 'Smoker'
+}
 
-const utils = [
-  'Defibrillator',
-  'Adrenaline',
-  'Pills',
-  'Medkit',
-  'Incendiary Ammo Pack',
-  'Explosive Ammo Pack',
-  'Laser Pack'
-]
+const survivors: ICategoryToLabelMap = {
+  nick: 'Nick',
+  zoey: 'Zoey',
+  louis: 'Louis',
+  bill: 'Bill',
+  ellis: 'Ellis',
+  francis: 'Francis',
+  coach: 'Coach',
+  rochelle: 'Rochelle'
+}
 
-const grenades = ['Pipebomb', 'Molotov', 'Bile']
+const utils: ICategoryToLabelMap = {
+  defibrillator: 'Defibrillator',
+  adrenaline: 'Adrenaline',
+  pills: 'Pills',
+  medkit: 'Medkit',
+  incendiary_ammo_pack: 'Incendiary Ammo Pack',
+  explosive_ammo_pack: 'Explosive Ammo Pack',
+  laser_pack: 'Laser Pack'
+}
 
-const melee = [
-  'Machete',
-  'Cricket Bat',
-  'Bat',
-  'CSS Knife',
-  'Chainsaw',
-  'Axe',
-  'Crowbar',
-  'Guitar',
-  'Shovel',
-  'Katana',
-  'Pan',
-  'Golf Club',
-  'Tonfa',
-  'Pithcfork'
-]
+const grenades: ICategoryToLabelMap = {
+  pipebomb: 'Pipebomb',
+  molotov: 'Molotov',
+  bile: 'Bile'
+}
 
-const audio = ['Voice', 'Music']
+const melee: ICategoryToLabelMap = {
+  machete: 'Machete',
+  cricket_bat: 'Cricket Bat',
+  bat: 'Bat',
+  css_knife: 'CSS Knife',
+  chainsaw: 'Chainsaw',
+  axe: 'Axe',
+  crowbar: 'Crowbar',
+  guitar: 'Guitar',
+  shovel: 'Shovel',
+  katana: 'Katana',
+  knife: 'Knife',
+  pan: 'Pan',
+  golf_club: 'Golf Club',
+  tonfa: 'Tonfa',
+  pitchfork: 'Pitchfork'
+}
 
-const filetypes = ['Model', 'Sound', 'Material']
+const audio: ICategoryToLabelMap = {
+  voice: 'Voice',
+  music: 'Music'
+}
+
+const filetypes: ICategoryToLabelMap = {
+  model: 'Model',
+  sound: 'Sound',
+  material: 'Material'
+}
+
+export interface ICategoryToLabelMap {
+  [key: string]: string
+}
+
+export const combinedCategoryToLabelMap = {
+  ...misc,
+  ...guns,
+  ...filetypes,
+  ...audio,
+  ...melee,
+  ...grenades,
+  ...utils,
+  ...survivors,
+  ...infected
+}
+
+export const categoriesToIgnore = ['skin', 'weapon', 'phy']
 
 export default {
   misc,
