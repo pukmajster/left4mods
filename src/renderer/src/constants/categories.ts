@@ -3,7 +3,8 @@ const misc: ICategoryToLabelMap = {
   ui: 'UI',
   vscript: 'VScript',
   color_correction: 'Colour Correction',
-  loading_screen: 'Loading Screen', // TODO only for official maps?
+  //loading_screen: 'Loading Screen', // TODO only for official maps?
+  loading_screen_official: 'Loading Screen', // TODO only for official maps?
   flashlight: 'Flashlight',
   spray: 'Spray',
   ammo_stack: 'Ammo Stack',
