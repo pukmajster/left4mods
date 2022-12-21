@@ -37,11 +37,11 @@
           {/each}
         </div>
       {:else if Object.keys(modManifest).length == 0}
-        <div class="no-mods-found p-2 pl-8 space-y-2">
+        <div class="no-mods-found p-2 pl-4 space-y-2">
           <h1>No mods installed.</h1>
         </div>
       {:else if $paginatedSortedFilteredMods.length == 0}
-        <div class="no-mods-found p-2 pl-8 space-y-2">
+        <div class="no-mods-found p-2 pl-4 space-y-2">
           <h1>No mods found.</h1>
           <p>Try changing your search query or filters.</p>
         </div>
