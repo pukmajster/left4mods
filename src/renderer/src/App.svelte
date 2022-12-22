@@ -29,7 +29,7 @@
 
 <Modal />
 <DrawersRoot />
-<Toast />
+<Toast position="br" padding="!px-3 !py-2" />
 
 <style global>
 </style>

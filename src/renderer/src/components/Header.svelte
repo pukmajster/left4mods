@@ -65,13 +65,20 @@
   }
 
   const tooltips = {
-    writeaAddons: {
+    writeAddons: {
       content: 'Save your selected preset to the game.',
-      position: 'bottom'
+      position: 'bottom',
+      regionTooltip: '!text-sm'
     },
     startGame: {
       content: 'Launch the game with your selected preset.',
-      position: 'bottom'
+      position: 'bottom',
+      regionTooltip: '!text-sm'
+    },
+    refreshManifest: {
+      content: 'Refresh the list of installed mods.',
+      position: 'right',
+      regionTooltip: '!text-sm'
     }
   }
 
@@ -83,19 +90,34 @@
 
 <AppBar padding="px-2 py-2">
   <svelte:fragment slot="lead">
-    <button on:click={triggerCustomModal} class="btn btn-sm">
+    <div class="space-x-2">
+      <!--     <button on:click={triggerCustomModal} class="btn btn-sm">
       <Settings size={16} /> <span>Settings</span></button
     >
-    <button
+ -->
+      <button on:click={triggerCustomModal} class="btn-icon btn-icon-sm   ">
+        <Settings size={16} /></button
+      >
+
+      <button
+        on:click={() => attemptRequestManifest(false)}
+        disabled={$isBuildingModManifest}
+        class="btn-icon btn-icon-sm   "
+        use:tooltip={tooltips.refreshManifest}
+      >
+        <RefreshCw size={16} /></button
+      >
+
+      <!--     <button
       on:click={() => attemptRequestManifest(false)}
       disabled={$isBuildingModManifest}
       class="btn btn-sm"
     >
       <RefreshCw size={16} />
       <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
-    >
+    > -->
 
-    <button
+      <!--         <button
       on:click={() => writeAddonlist()}
       disabled={$isWritingAddonlist}
       use:tooltip={tooltips.writeaAddons}
@@ -103,15 +125,33 @@
     >
       <Import size={16} />
       <span>{$isWritingAddonlist ? 'Writing List...' : 'Use These Mods'}</span></button
-    >
+    > -->
 
-    <button
-      on:click={launchGame}
-      use:tooltip={tooltips.startGame}
-      class="btn btn-sm btn-filled-primary ml-2"
-    >
-      <Play size={16} /> <span>Launch L4D2</span></button
-    >
+      <button
+        on:click={() => writeAddonlist()}
+        disabled={$isWritingAddonlist}
+        use:tooltip={tooltips.writeAddons}
+        class="btn-icon btn-icon-sm   "
+      >
+        <Import size={16} /></button
+      >
+
+      <!--       <button
+        on:click={launchGame}
+        use:tooltip={tooltips.startGame}
+        class="btn-icon  btn-icon-sm btn-filled-primary "
+      >
+        <Play size={16} /></button
+      > -->
+
+      <button
+        on:click={launchGame}
+        use:tooltip={tooltips.startGame}
+        class="btn btn-sm  btn-ghost-primary "
+      >
+        <Play size={16} /> <span>Launch L4D2</span></button
+      >
+    </div>
   </svelte:fragment>
 
   <div class=" justify-center hidden">
@@ -123,10 +163,17 @@
   </div>
 
   <svelte:fragment slot="trail">
-    <button class="btn btn-sm" on:click={triggerHelpDialog}
-      ><HelpCircle size={16} /><span>Help</span></button
-    >
+    <button class="btn-icon btn-icon-sm " on:click={triggerHelpDialog}
+      ><HelpCircle size={18} />
+    </button>
 
     <Presets parent={{}} />
   </svelte:fragment>
 </AppBar>
+
+<style>
+  .btn-icon {
+    padding: 0;
+    margin: 0;
+  }
+</style>
