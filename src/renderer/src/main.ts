@@ -4,7 +4,7 @@ import './assets/style.css'
 import '@skeletonlabs/skeleton/styles/all.css'
 import '@skeletonlabs/skeleton/themes/theme-crimson.css'
 
-import './assets/skeleton-theme.css'
+import './assets/skeleton-theme-2.css'
 
 const app = new App({
   // @ts-ignore: ignore an error lol

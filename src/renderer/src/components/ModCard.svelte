@@ -4,7 +4,7 @@
   import { gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
 
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
-  import { CheckCircle2 } from 'lucide-svelte'
+  import { CheckCircle2, Slash } from 'lucide-svelte'
   import { combinedCategoryToLabelMap } from '../constants/categories'
   export let mod: IMod
 
@@ -81,8 +81,19 @@
 >
   <img alt="mod" src={`file://${$gameDir}/left4dead2/addons/workshop/${mod.id}.jpg`} />
 
-  <div class="mod-status-bar-overlay absolute inset-0 h-full overflow-hidden">
+  <div class="mod-status-bar-overlay absolute inset-0 h-full  overflow-hidden">
     <div class="mod-status-bar  absolute bottom-0 left-0 right-0  " />
+    <div class="mod-status-text font-bold absolute bottom-0 left-0 right-0 hidden justify-center">
+      {#if isGroupEnabled}
+        <p class="flex-1 flex justify-center bg-warning-500/95 p-2 rounded-t-lg  ">
+          <span class="flex items-center gap-2"> <Slash size={21} /> Conflicting</span>
+        </p>
+      {:else if enabled}
+        <p class="flex justify-center flex-1 bg-tertiary-600/95 p-2 rounded-t-lg ">
+          <span class="flex items-center gap-2"><CheckCircle2 size={21} /> Enabled</span>
+        </p>
+      {/if}
+    </div>
   </div>
 
   {#if showHoverbox && !userIsSelecting}
@@ -126,6 +137,7 @@
   }
 
   .mod:hover {
+    @aapply shadow-2xl shadow-tertiary-500/70 bg-tertiary-500/100;
     /* transform: scale(1.06); */
   }
 
@@ -150,21 +162,27 @@
     box-shadow: 0 0 16px 3px #ffffff23;
   }
 
-  .mod-status-bar-overlay {
-  }
-
   .mod-status-bar {
-    height: 6px;
+    height: 0px;
   }
 
   .mod.enabled .mod-status-bar {
-    background: var(--mod-enabled-color);
-    box-shadow: 0 0 16px 6px #3bdf3e55;
+    //background: var(--mod-enabled-color);
+    box-shadow: 0 0 16px 4px #3bdf3e55;
+    @apply shadow-tertiary-500/100 bg-tertiary-500/100;
+  }
+
+  .mod.enabled .mod-status-text {
+    display: flex;
+  }
+
+  .mod.enabled .mod-status-text p {
   }
 
   .mod.enabled.conflicting .mod-status-bar {
-    border-bottom: 6px solid var(--mod-conflicting-color);
-    box-shadow: 0 0 16px 6px #ff515169;
+    //border-bottom: 6px solid var(--mod-conflicting-color);
+    box-shadow: 0 0 16px 4px #ff515169;
+    @apply shadow-warning-400/100 bg-warning-400;
   }
 
   .hoverbox {
