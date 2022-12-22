@@ -81,6 +81,7 @@ export interface IMod {
   error?: string
   categories: string[]
   timemodified: string
+  vpksize: number
 }
 
 export type CategoryKey = string

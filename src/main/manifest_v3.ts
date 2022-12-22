@@ -97,7 +97,8 @@ async function buildManifest(options: RequestManifestOptions) {
         }
 
         const stats = await fsp.stat(pakPath)
-        modInfo['timemodified'] = stats.mtime
+        modInfo.timemodified = stats.mtime
+        modInfo.vpksize = stats.size // in bytes
 
         // Open the VPK
         const vpk = new VPK(pakPath)

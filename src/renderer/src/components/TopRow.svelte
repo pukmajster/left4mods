@@ -72,20 +72,22 @@
 >
   <div class=" flex  gap-4 z-10  flex-col flex-1">
     {#if !$showConflictingView}
-      <div class=" flex-col md:flex-row  items-start flex-1 flex justify-start  gap-2">
+      <div class=" flex-col md:flex-row  items-start flex-1 flex justify-start gap-2">
         <select style="max-width: 100px;" bind:value={$perPageCount}>
           <option value={'30'}>30</option>
           <option value={'50'}>50</option>
           <option value={'100'}>100</option>
           <option value={'300'}>300</option>
-          <option value={'999'}>All</option>
+          <option value={'500'}>500</option>
         </select>
 
         <select style="max-width: 210px;  w-full" bind:value={$sortingType}>
           <option value="name_asc">Name (Ascending)</option>
           <option value="name_desc">Name (Descending)</option>
-          <option value="time_newest">Time modified (latest)</option>
-          <option value="time_oldest">Time modified (oldest)</option>
+          <option value="time_newest">Time Modified (Latest)</option>
+          <option value="time_oldest">Time Modified (Oldest)</option>
+          <option value="size_biggest">Size (Largest)</option>
+          <option value="size_smallest">Size (Smallest)</option>
         </select>
 
         <select style="max-width: 130px;" bind:value={$typeToShow}>

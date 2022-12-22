@@ -4,7 +4,13 @@ import { arraysShareValues } from '../utils'
 import { modManifest } from './manifest'
 import { activePreset, collections, presets, selectedCollectionName } from './profile'
 
-type SortingType = 'name_asc' | 'name_desc' | 'time_oldest' | 'time_newest'
+type SortingType =
+  | 'name_asc'
+  | 'name_desc'
+  | 'time_oldest'
+  | 'time_newest'
+  | 'size_smallest'
+  | 'size_biggest'
 type TypeOfMod = 'any' | 'enabled' | 'disabled'
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('name_asc')
@@ -177,6 +183,14 @@ export const sortedFilteredMods = derived(
       tempStorage = tempStorage.sort(
         (a: IMod, b: IMod) => Date.parse(b.timemodified) - Date.parse(a.timemodified)
       )
+    }
+
+    if ($sortingType == 'size_smallest') {
+      tempStorage = tempStorage.sort((a: IMod, b: IMod) => a.vpksize - b.vpksize)
+    }
+
+    if ($sortingType == 'size_biggest') {
+      tempStorage = tempStorage.sort((a: IMod, b: IMod) => b.vpksize - a.vpksize)
     }
 
     return tempStorage

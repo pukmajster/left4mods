@@ -32,6 +32,9 @@
   function toggleModEnabled() {
     toggleModInCurrentPresetSafe(mod.id)
   }
+
+  $: fileSizeMb = mod.vpksize / (1024 * 1024)
+  $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`
 </script>
 
 <div class="mod">
@@ -86,6 +89,12 @@
     {#if mod.addondescription}
       <h4 class="">
         Description <div class="text-xs">{mod.addondescription}</div>
+      </h4>
+    {/if}
+
+    {#if mod.vpksize}
+      <h4 class="">
+        File Size <div class="text-xs">{fileSizeLabel}</div>
       </h4>
     {/if}
 
