@@ -11,6 +11,7 @@
     selectedUtils,
     visibleFilterPanel
   } from '../stores/library'
+  import { darkMode } from '../stores/profile'
 
   export let categoryName: string
 
@@ -42,12 +43,16 @@
 </div>
  -->
 <AppRailTile label={capitalizedCategoryName} title={categoryName} value={categoryName}>
-  <img width="32px" src={`icons/${categoryName}2.png`} />
+  <img class:lightMode={!$darkMode} width="32px" src={`icons/${categoryName}2.png`} />
 </AppRailTile>
 
-<style>
+<style global>
   button {
     text-transform: capitalize;
+  }
+
+  img.lightMode {
+    filter: invert(100%);
   }
 
   /*   .button {
