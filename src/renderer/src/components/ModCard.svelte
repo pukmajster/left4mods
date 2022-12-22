@@ -155,7 +155,8 @@
   }
 
   .mod.selected {
-    outline: 2px solid #6abcffc0;
+    outline: 1px solid #6abcffc0;
+    @apply outline-primary-500;
     border-radius: 2px;
     opacity: 0.9;
 
