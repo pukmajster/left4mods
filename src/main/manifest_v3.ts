@@ -406,7 +406,7 @@ const fileOccurrencesToCategoryMap: ICategoryMap = {
   pistol: ['pistol/'],
   deagle: ['magnum/'],
   military_sniper: ['sniper_military/'],
-  hunting_sniper: ['hunting_rifle/'],
+  hunting_sniper: ['hunting_rifle', 'huntingrifle'],
   css_awp: ['awp/'],
   scar: ['desert_rifle/', 'rifle_desert/'],
   ak47: ['ak47/', 'ak-47'],
