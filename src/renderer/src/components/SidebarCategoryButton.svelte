@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { AppRailTile } from '@skeletonlabs/skeleton'
   import {
     selectedGrenades,
     selectedGuns,
@@ -28,18 +29,28 @@
     selectedInfected.set('')
     selectedMisc.set('')
   }
+
+  $: capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
 </script>
 
-<div
+<!-- <div
   on:click={setVisiblePanel}
   class="button flex justify-center items-center p-1"
   class:selected={$visibleFilterPanel == categoryName}
 >
   <img src={`icons/${categoryName}2.png`} />
 </div>
+ -->
+<AppRailTile label={capitalizedCategoryName} title={categoryName} value={categoryName}>
+  <img width="32px" src={`icons/${categoryName}2.png`} />
+</AppRailTile>
 
 <style>
-  .button {
+  button {
+    text-transform: capitalize;
+  }
+
+  /*   .button {
     cursor: pointer;
     aspect-ratio: 1/1;
     border-radius: 4px;
@@ -65,5 +76,5 @@
   .button.selected img {
     filter: invert(100%);
     transform: scale(1.2);
-  }
+  } */
 </style>

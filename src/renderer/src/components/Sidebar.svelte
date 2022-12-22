@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { AppRail } from '@skeletonlabs/skeleton'
   import categories from '../constants/categories'
   import {
     searchTerm,
@@ -25,7 +26,18 @@
 
     <div class="filter-panels">
       <div class="panel-hovers">
-        <div class="flex flex-col p-2 gap-3 bg-surface-800/90 rounded-md">
+        <AppRail width="w-[30px] sm:w-16" selected={visibleFilterPanel}>
+          <svelte:fragment slot="lead">
+            <SidebarCategoryButton categoryName={'guns'} />
+            <SidebarCategoryButton categoryName={'melee'} />
+            <SidebarCategoryButton categoryName={'grenades'} />
+            <SidebarCategoryButton categoryName={'utils'} />
+            <SidebarCategoryButton categoryName={'survivors'} />
+            <SidebarCategoryButton categoryName={'infected'} />
+            <SidebarCategoryButton categoryName={'misc'} />
+          </svelte:fragment>
+        </AppRail>
+        <!-- <div class="flex flex-col p-2 gap-3 bg-surface-800/90 rounded-md">
           <SidebarCategoryButton categoryName={'guns'} />
           <SidebarCategoryButton categoryName={'melee'} />
           <SidebarCategoryButton categoryName={'grenades'} />
@@ -33,7 +45,7 @@
           <SidebarCategoryButton categoryName={'survivors'} />
           <SidebarCategoryButton categoryName={'infected'} />
           <SidebarCategoryButton categoryName={'misc'} />
-        </div>
+        </div> -->
       </div>
 
       <div class=" relative grid">
@@ -125,6 +137,9 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+
+    overflow: hidden;
+    border-radius: 4px;
     /* transform: rotate(-90deg);
     transform-origin: center; */
   }
