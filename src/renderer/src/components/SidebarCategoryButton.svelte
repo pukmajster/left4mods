@@ -43,7 +43,12 @@
 </div>
  -->
 <AppRailTile label={capitalizedCategoryName} title={categoryName} value={categoryName}>
-  <img class:lightMode={!$darkMode} width="32px" src={`icons/${categoryName}2.png`} />
+  <img
+    class:lightMode={!$darkMode}
+    width="32px"
+    src={`icons/${categoryName}2.png`}
+    alt={capitalizedCategoryName}
+  />
 </AppRailTile>
 
 <style global>
