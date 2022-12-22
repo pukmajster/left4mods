@@ -42,7 +42,12 @@
   <img src={`icons/${categoryName}2.png`} />
 </div>
  -->
-<AppRailTile label={capitalizedCategoryName} title={categoryName} value={categoryName}>
+<AppRailTile
+  on:click={clearCategorySelection}
+  label={capitalizedCategoryName}
+  title={capitalizedCategoryName}
+  value={categoryName}
+>
   <img
     class:lightMode={!$darkMode}
     width="32px"
