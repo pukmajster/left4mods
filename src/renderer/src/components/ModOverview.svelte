@@ -51,12 +51,12 @@
       {/each}
     </div>
 
-    <button class=" w-full btn btn-ghost-primary mt-5" on:click={openModInBrowser}
+    <button class=" w-full btn btn-ghost-primary mt-4" on:click={openModInBrowser}
       >Open in Workshop</button
     >
 
     <button
-      class={classnames(' w-full btn  mt-5', {
+      class={classnames(' w-full btn btn-ghost-surface mt-4', {
         'btn-ghost-primary': isEnabled && !isGroupEnabled,
         'btn-ghost-warning': isEnabled && isGroupEnabled
       })}
@@ -146,7 +146,7 @@
   }
 
   .category {
-    padding: 5px 6px;
+    padding: 5px 8px;
     background-color: rgba(180, 180, 183, 0.141);
     border-radius: 2px;
   }
