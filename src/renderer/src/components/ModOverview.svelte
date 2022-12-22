@@ -56,9 +56,10 @@
     >
 
     <button
-      class={classnames(' w-full btn btn-ghost-surface mt-4', {
+      class={classnames(' w-full btn  mt-4', {
+        'btn-ghost-surface': !isEnabled,
         'btn-ghost-primary': isEnabled && !isGroupEnabled,
-        'btn-ghost-warning': isEnabled && isGroupEnabled
+        'btn-ghost-warning': isGroupEnabled
       })}
       on:click={toggleModEnabled}
       >{isEnabled ? (isGroupEnabled ? 'Enabled (Conflicting)' : 'Enabled') : 'Disabled'}</button
