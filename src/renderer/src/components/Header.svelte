@@ -14,7 +14,6 @@
     Import,
     Library,
     MessageCircle,
-    Play,
     RefreshCw,
     Settings
   } from 'lucide-svelte'
@@ -149,7 +148,9 @@
         use:tooltip={tooltips.startGame}
         class="btn btn-sm  btn-ghost-primary "
       >
-        <Play size={16} /> <span>Launch L4D2</span></button
+        <!--  <Play size={16} /> -->
+        <img width="16px" src={`icons/icon_l4d.png`} alt={'play'} />
+        <span>Launch L4D2</span></button
       >
     </div>
   </svelte:fragment>

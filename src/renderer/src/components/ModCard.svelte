@@ -133,6 +133,8 @@
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
 
+    filter: grayscale(100%);
+
     /* background-color: #262847; */
   }
 
@@ -177,7 +179,8 @@
     display: flex;
   }
 
-  .mod.enabled .mod-status-text p {
+  .mod.enabled {
+    filter: none;
   }
 
   .mod.enabled.conflicting .mod-status-bar {

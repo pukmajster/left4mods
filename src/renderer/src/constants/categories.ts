@@ -4,13 +4,13 @@ const misc: ICategoryToLabelMap = {
   vscript: 'VScript',
   color_correction: 'Colour Correction',
   //loading_screen: 'Loading Screen', // TODO only for official maps?
-  loading_screen_official: 'Loading Screen', // TODO only for official maps?
+  loading_screen_official: 'Loading Screen',
   flashlight: 'Flashlight',
   spray: 'Spray',
   ammo_stack: 'Ammo Stack',
   gnome: 'Gnome',
   jukebox: 'Jukebox',
-  vehicles: 'Ve: hicles',
+  vehicles: 'Vehicles',
   water: 'Water',
   medical_cabinet: 'Medical Cabinet',
   lil_peanut: "Lil' Peanut"
@@ -22,8 +22,8 @@ const guns: ICategoryToLabelMap = {
   sniper_military: 'Military Sniper',
   hutning_rifle: 'Hunting Sniper',
   awp: 'CSS AWP',
-  scar: 'SCAR',
-  ak47: 'AK-47',
+  rifle_desert: 'SCAR',
+  rifle_ak47: 'AK-47',
   shotgun_chrome: 'Shotgun Chrome',
   shotgun_pump: 'Shotgun Pump',
   sg552: 'SG552',

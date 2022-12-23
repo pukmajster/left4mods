@@ -35,6 +35,8 @@
 
   $: fileSizeMb = mod.vpksize / (1024 * 1024)
   $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`
+
+  $: steamProtocolUrl = `steam://url/CommunityFilePage/${mod.id}`
 </script>
 
 <div class="mod">
@@ -54,9 +56,13 @@
       {/each}
     </div>
 
-    <button class=" w-full btn btn-ghost-primary mt-4" on:click={openModInBrowser}
-      >Open in Workshop</button
-    >
+    <div class="flex gap-3">
+      <button class=" w-full btn btn-ghost-primary mt-4" on:click={openModInBrowser}
+        >Open in Browser</button
+      >
+
+      <a href={steamProtocolUrl} class=" w-full btn btn-ghost-primary mt-4">Open in Steam</a>
+    </div>
 
     <button
       class={classnames(' w-full btn  mt-4', {

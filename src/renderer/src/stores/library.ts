@@ -76,7 +76,8 @@ export const filteredMods = derived(
     enabledMods,
     onlyShowModsNotInAnyCollection,
     collections,
-    selectedCollectionName
+    selectedCollectionName,
+    visibleFilterPanel
   ],
   ([
     $searchTerm,
@@ -92,7 +93,8 @@ export const filteredMods = derived(
     $enabledMods,
     $onlyShowModsNotInAnyCollection,
     $collections,
-    $selectedCollectionName
+    $selectedCollectionName,
+    $visibleFilterPanel
   ]) => {
     let tempStorage: IMod[] = []
 
@@ -131,7 +133,10 @@ export const filteredMods = derived(
         if (!modName.toLowerCase().includes($searchTerm.toLowerCase())) return
       }
 
-      if (allFilters.length > 0) {
+      if ($visibleFilterPanel == 'campaign') {
+        if (thisMod.categories == undefined) return
+        if (!thisMod.categories.includes('campaign')) return
+      } else if (allFilters.length > 0) {
         if (thisMod.categories == undefined) return
         let sharedCats = arraysShareValues(allFilters, thisMod.categories)
         if (!sharedCats) return

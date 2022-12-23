@@ -28,13 +28,15 @@
       <div class="panel-hovers">
         <AppRail width="w-[30px] sm:w-16" selected={visibleFilterPanel}>
           <svelte:fragment slot="lead">
-            <SidebarCategoryButton categoryName={'guns'} />
-            <SidebarCategoryButton categoryName={'melee'} />
-            <SidebarCategoryButton categoryName={'grenades'} />
-            <SidebarCategoryButton categoryName={'utils'} />
-            <SidebarCategoryButton categoryName={'survivors'} />
-            <SidebarCategoryButton categoryName={'infected'} />
-            <SidebarCategoryButton categoryName={'misc'} />
+            <SidebarCategoryButton categoryName={'-'} label="All" />
+            <SidebarCategoryButton categoryName={'guns'} label="Guns" />
+            <SidebarCategoryButton categoryName={'melee'} label="Melees" />
+            <SidebarCategoryButton categoryName={'grenades'} label="Grenades" />
+            <SidebarCategoryButton categoryName={'utils'} label="Utils" />
+            <SidebarCategoryButton categoryName={'survivors'} label="Survivors" />
+            <SidebarCategoryButton categoryName={'infected'} label="Infected" />
+            <SidebarCategoryButton categoryName={'misc'} label="Misc." />
+            <SidebarCategoryButton categoryName={'campaign'} label="Campaigns" />
           </svelte:fragment>
         </AppRail>
         <!-- <div class="flex flex-col p-2 gap-3 bg-surface-800/90 rounded-md">
@@ -100,6 +102,14 @@
           store={selectedMisc}
           isVisible={$visibleFilterPanel == 'misc'}
           label={'misc.'}
+        />
+
+        <SidebarCategoryEntry
+          categoryName=""
+          categoryEntries={categories.guns}
+          store={selectedGuns}
+          isVisible={$visibleFilterPanel == 'campaign'}
+          label={'campaigns'}
         />
       </div>
     </div>

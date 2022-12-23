@@ -1,5 +1,6 @@
 <script lang="ts">
   import { AppRailTile } from '@skeletonlabs/skeleton'
+  import { ArrowDownCircle } from 'lucide-svelte'
   import {
     selectedGrenades,
     selectedGuns,
@@ -14,6 +15,7 @@
   import { darkMode } from '../stores/profile'
 
   export let categoryName: string
+  export let label: string
 
   function setVisiblePanel() {
     clearCategorySelection()
@@ -42,18 +44,17 @@
   <img src={`icons/${categoryName}2.png`} />
 </div>
  -->
-<AppRailTile
-  on:click={clearCategorySelection}
-  label={capitalizedCategoryName}
-  title={capitalizedCategoryName}
-  value={categoryName}
->
-  <img
-    class:lightMode={!$darkMode}
-    width="32px"
-    src={`icons/${categoryName}2.png`}
-    alt={capitalizedCategoryName}
-  />
+<AppRailTile on:click={clearCategorySelection} {label} title={label} value={categoryName}>
+  {#if categoryName == '-'}
+    <ArrowDownCircle size={28} />
+  {:else}
+    <img
+      class:lightMode={!$darkMode}
+      width="32px"
+      src={`icons/${categoryName}2.png`}
+      alt={capitalizedCategoryName}
+    />
+  {/if}
 </AppRailTile>
 
 <style global>
