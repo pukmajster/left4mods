@@ -1,5 +1,5 @@
 const misc: ICategoryToLabelMap = {
-  hud: 'HUD',
+  vgui: 'VGUI Icons',
   ui: 'UI',
   vscript: 'VScript',
   color_correction: 'Colour Correction',
@@ -18,24 +18,24 @@ const misc: ICategoryToLabelMap = {
 
 const guns: ICategoryToLabelMap = {
   pistol: 'Pistol',
-  deagle: 'Deagle',
-  military_sniper: 'Military Sniper',
-  hunting_sniper: 'Hunting Sniper',
-  css_awp: 'CSS AWP',
+  magnum: 'Deagle',
+  sniper_military: 'Military Sniper',
+  hutning_rifle: 'Hunting Sniper',
+  awp: 'CSS AWP',
   scar: 'SCAR',
   ak47: 'AK-47',
   shotgun_chrome: 'Shotgun Chrome',
   shotgun_pump: 'Shotgun Pump',
   sg552: 'SG552',
-  spas: 'SPAS',
-  m16: 'M16',
-  uzi_silenced: 'UZI Silenced',
-  uzi: 'UZI',
-  css_mp5: 'CSS MP5',
-  css_scout: 'CSS Scout',
+  auto_shotgun_spas: 'SPAS',
+  rifle_m16a2: 'M16',
+  smg_silenced: 'UZI Silenced',
+  smg: 'UZI',
+  mp5navy: 'CSS MP5',
+  scout: 'CSS Scout',
   grenade_launcher: 'Grenade Launcher',
   auto_shotgun: 'Auto Shotgun',
-  m60: 'M60'
+  machinegun_m60: 'M60'
 }
 
 const infected: ICategoryToLabelMap = {
@@ -66,7 +66,7 @@ const survivors: ICategoryToLabelMap = {
 const utils: ICategoryToLabelMap = {
   defibrillator: 'Defibrillator',
   adrenaline: 'Adrenaline',
-  pills: 'Pills',
+  painpills: 'Pills',
   medkit: 'Medkit',
   incendiary_ammopack: 'Incendiary Ammo Pack',
   explosive_ammopack: 'Explosive Ammo Pack',
