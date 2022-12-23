@@ -3,9 +3,15 @@
   import type { ModalComponent, ModalSettings } from '@skeletonlabs/skeleton/'
   import { Folder } from 'lucide-svelte'
   import { activePreset, presets } from '../stores/profile'
+  import { trimString } from '../utils'
   import PresetsModal from './modals/PresetsModal.svelte'
 
   export let parent: any
+
+  $: trimmedPresetName = trimString(
+    $presets.find((preset) => preset.id == $activePreset)?.label ?? 'None',
+    15
+  )
 
   function triggerCustomModal(): void {
     const modalComponent: ModalComponent = {
@@ -25,7 +31,7 @@
 
 <button on:click={triggerCustomModal} class="btn btn-ghost-primary btn-sm">
   <Folder size={16} />
-  <span>Preset: {$presets.find((preset) => preset.id == $activePreset)?.label}</span>
+  <span>Preset: {trimmedPresetName}</span>
 </button>
 
 <style>
