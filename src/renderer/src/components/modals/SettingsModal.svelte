@@ -16,6 +16,7 @@
     darkMode,
     disableOnlineFetchingOfModData,
     gameDir,
+    grayscaleDisabledMods,
     launchParameters
   } from '../../stores/profile'
   import GameDirectoryManager from '../GameDirectoryManager.svelte'
@@ -126,6 +127,12 @@
       <p>Light theme is supported but it's not quite there yet</p>
       <SlideToggle bind:checked={$darkMode}
         >{$darkMode ? 'Dark Mode' : 'Light Theme (WIP)'}</SlideToggle
+      >
+
+      <h5 class="font-bold">Gray Out Disabled Mods</h5>
+      <p>Disabled mods will appear in black and white for better distinction from enabled mods</p>
+      <SlideToggle bind:checked={$grayscaleDisabledMods}
+        >{$grayscaleDisabledMods ? 'Enabled' : 'Disabled'}</SlideToggle
       >
     {/if}
 

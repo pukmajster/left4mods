@@ -12,6 +12,7 @@ export const launchParameters = writable('')
 export const customCfg = writable('')
 export const darkMode = writable(true)
 export const hasFinishedFirstTimeSetup = writable(true)
+export const grayscaleDisabledMods = writable(false)
 
 // --------------------------------------------------------------------
 // Unsafe methods for mods.

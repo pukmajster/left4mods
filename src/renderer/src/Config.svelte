@@ -9,6 +9,7 @@
     darkMode,
     disableOnlineFetchingOfModData,
     gameDir,
+    grayscaleDisabledMods,
     hasFinishedFirstTimeSetup,
     launchParameters,
     presets
@@ -28,7 +29,8 @@
         preferences: {
           gameDir: '',
           disableOnlineFetchingOfModData: false,
-          darkMode: true
+          darkMode: true,
+          grayscaleDisabledMods: false
         },
         launchParameters: '-novid +exec autoexec.cfg +exec l4d2launcher.cfg',
         customCfg: '',
@@ -48,6 +50,7 @@
       customCfg.set(profile.customCfg ?? '')
       darkMode.set(profile.preferences.darkMode ?? false)
       hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup ?? false)
+      grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods ?? false)
     } catch (e) {
       console.log(e)
     }
@@ -65,7 +68,8 @@
         preferences: {
           gameDir: $gameDir,
           disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData,
-          darkMode: $darkMode
+          darkMode: $darkMode,
+          grayscaleDisabledMods: $grayscaleDisabledMods
         },
         launchParameters: $launchParameters,
         customCfg: $customCfg,

@@ -35,6 +35,7 @@ export interface IUserProfile {
     gameDir: string
     disableOnlineFetchingOfModData: boolean
     darkMode: boolean
+    grayscaleDisabledMods: boolean
   }
   customCfg: string
   launchParameters: string

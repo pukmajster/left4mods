@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { IMod } from 'shared'
   import { enabledMods, groupedEnabledMods, modIdToOverview, selectedMods } from '../stores/library'
-  import { gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
+  import { gameDir, grayscaleDisabledMods, toggleModInCurrentPresetSafe } from '../stores/profile'
 
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   import { CheckCircle2, Slash } from 'lucide-svelte'
@@ -74,6 +74,7 @@
   class:unselected={otherModsSelectedButNotThisOne && !selected}
   class:enabled
   class:conflicting={isGroupEnabled}
+  class:grayscale={!enabled && $grayscaleDisabledMods}
   on:click={handleClick}
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
@@ -133,8 +134,6 @@
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
 
-    filter: grayscale(100%);
-
     /* background-color: #262847; */
   }
 
@@ -179,8 +178,8 @@
     display: flex;
   }
 
-  .mod.enabled {
-    filter: none;
+  .mod.grayscale {
+    filter: grayscale(90%);
   }
 
   .mod.enabled.conflicting .mod-status-bar {
