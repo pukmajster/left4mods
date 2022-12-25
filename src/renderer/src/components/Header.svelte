@@ -89,16 +89,15 @@
 
 <AppBar padding="px-2 py-2">
   <svelte:fragment slot="lead">
-    <div class="space-x-2">
-      <!--     <button on:click={triggerCustomModal} class="btn btn-sm">
-      <Settings size={16} /> <span>Settings</span></button
-    >
- -->
-      <button on:click={triggerCustomModal} class="btn-icon btn-icon-sm   ">
-        <Settings size={16} /></button
+    <div class=" ">
+      <button on:click={triggerCustomModal} class="btn btn-sm">
+        <Settings size={16} /> <span>Settings</span></button
       >
+      <!--       <button on:click={triggerCustomModal} class="btn-icon btn-icon-sm   ">
+        <Settings size={16} /></button
+      > -->
 
-      <button
+      <!--    <button
         on:click={() => attemptRequestManifest(false)}
         disabled={$isBuildingModManifest}
         class="btn-icon btn-icon-sm   "
@@ -106,34 +105,34 @@
       >
         <RefreshCw size={16} /></button
       >
-
-      <!--     <button
-      on:click={() => attemptRequestManifest(false)}
-      disabled={$isBuildingModManifest}
-      class="btn btn-sm"
-    >
-      <RefreshCw size={16} />
-      <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
-    > -->
-
-      <!--         <button
-      on:click={() => writeAddonlist()}
-      disabled={$isWritingAddonlist}
-      use:tooltip={tooltips.writeaAddons}
-      class="btn btn-sm"
-    >
-      <Import size={16} />
-      <span>{$isWritingAddonlist ? 'Writing List...' : 'Use These Mods'}</span></button
-    > -->
+ -->
+      <button
+        on:click={() => attemptRequestManifest(false)}
+        disabled={$isBuildingModManifest}
+        class="btn btn-sm"
+      >
+        <RefreshCw size={16} />
+        <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
+      >
 
       <button
+        on:click={() => writeAddonlist()}
+        disabled={$isWritingAddonlist}
+        use:tooltip={tooltips.writeAddons}
+        class="btn btn-sm"
+      >
+        <Import size={16} />
+        <span>{$isWritingAddonlist ? 'Writing List...' : 'Save Changes'}</span></button
+      >
+
+      <!--      <button
         on:click={() => writeAddonlist()}
         disabled={$isWritingAddonlist}
         use:tooltip={tooltips.writeAddons}
         class="btn-icon btn-icon-sm   "
       >
         <Import size={16} /></button
-      >
+      > -->
 
       <!--       <button
         on:click={launchGame}
