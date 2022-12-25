@@ -36,7 +36,7 @@
             </div>
           {/each}
         </div>
-      {:else if Object.keys(modManifest).length == 0}
+      {:else if Object.keys($modManifest).length == 0}
         <div class="no-mods-found p-2 pl-4 space-y-2">
           <h1>No mods installed.</h1>
         </div>
