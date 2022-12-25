@@ -1,7 +1,6 @@
 <script lang="ts">
   import { drawerStore, Step, Stepper } from '@skeletonlabs/skeleton'
   import { writable } from 'svelte/store'
-  import { requestManifest } from '../functions/manifest'
   import { gameDir, hasFinishedFirstTimeSetup } from '../stores/profile'
   import GameDirectoryManager from './GameDirectoryManager.svelte'
 
@@ -11,7 +10,6 @@
     $gameDir = formData.gameDir
     hasFinishedFirstTimeSetup.set(true)
     drawerStore.close()
-    requestManifest(false)
   }
 
   const formData = {
@@ -85,7 +83,7 @@
             a default preset to work with! How kind indeed.
           </p>
 
-          <h4 class="font-bold pt-3">Colletions</h4>
+          <h4 class="font-bold pt-3">Collections</h4>
           <p>
             Collections are just groups of mods, or like labels slapped onto mods. Got a bunch of
             mods for Halloween? You can neatly organize them in a collection just for that. You'll

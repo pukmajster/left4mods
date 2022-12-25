@@ -81,7 +81,7 @@
   }
 
   $: {
-    if (readyToRequestInitialManifest) {
+    if (readyToRequestInitialManifest && $hasFinishedFirstTimeSetup) {
       // Sync the manifest on startup
       requestManifest(false)
       readyToRequestInitialManifest = false

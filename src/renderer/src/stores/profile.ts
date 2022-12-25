@@ -11,7 +11,7 @@ export const gameDir = writable('')
 export const launchParameters = writable('')
 export const customCfg = writable('')
 export const darkMode = writable(true)
-export const hasFinishedFirstTimeSetup = writable(true)
+export const hasFinishedFirstTimeSetup = writable(false)
 export const grayscaleDisabledMods = writable(false)
 
 // --------------------------------------------------------------------
