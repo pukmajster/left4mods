@@ -1,4 +1,4 @@
-import { app } from 'electron'
+import { app, shell } from 'electron'
 import * as fs from 'fs'
 import { IUserProfile } from 'shared'
 const path = require('path')
@@ -24,5 +24,13 @@ export async function writeProfile(data: IUserProfile) {
     await fs.promises.writeFile(PROFILE_PATH, stringified)
   } catch (err) {
     console.log('ERROR WRITING PROFILE', err)
+  }
+}
+
+export async function openWorkingDirectory() {
+  try {
+    await shell.openPath(app.getPath('userData'))
+  } catch (err) {
+    console.log('ERROR OPENING WORKING DIRECTORY', err)
   }
 }

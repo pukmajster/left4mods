@@ -9,6 +9,7 @@
   } from '@skeletonlabs/skeleton'
 
   import { writable } from 'svelte/store'
+  import { bridgedApi } from '../../api/api'
   import { commonToastOptions } from '../../constants/skeleton'
   import { openInitialSetupDrawer } from '../../functions/drawers'
   import { requestManifest } from '../../functions/manifest'
@@ -137,13 +138,17 @@
     {/if}
 
     {#if $tab == 'misc'}
-      <div class="space-x-2">
+      <div class="space-x-2 space-y-2">
         <button class="btn btn-ghost-warning" on:click={forceFullManifestRefresh}
           >forceFullManifestRefresh</button
         >
 
         <button class="btn btn-ghost-warning" on:click={openInitialSetupDrawer}
           >openInitialSetupDrawer</button
+        >
+
+        <button class="btn btn-ghost-warning" on:click={bridgedApi.openWorkingDirectory}
+          >openWorkingDirectory</button
         >
       </div>
     {/if}

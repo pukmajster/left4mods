@@ -51,5 +51,6 @@ async function writeAddonList(gameDir: string, manifest: IModManifest, preset: I
 
 export const bridgedApi = {
   writeAddonList,
-  requestManifest
+  requestManifest,
+  openWorkingDirectory: () => window.api.openWorkingDirectory()
 }

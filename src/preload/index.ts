@@ -1,6 +1,7 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer, shell } from 'electron'
 import { BridgedAPI, IUserProfile, RequestManifestOptions } from 'shared'
+import { openWorkingDirectory } from '../main/profile'
 
 console.log('preload')
 
@@ -13,7 +14,8 @@ const api: BridgedAPI = {
   readProfile: () => ipcRenderer.invoke('profile:read'),
   writeAddonList: (gameDir: string, addonInfo: string) =>
     ipcRenderer.invoke('addonlist:write', gameDir, addonInfo),
-  selectFolder: () => ipcRenderer.invoke('dialog:openDirectory')
+  selectFolder: () => ipcRenderer.invoke('dialog:openDirectory'),
+  openWorkingDirectory: () => openWorkingDirectory()
 }
 
 function openLinkInBrowser(url: string) {

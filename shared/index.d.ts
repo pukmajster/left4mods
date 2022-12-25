@@ -18,9 +18,10 @@ export interface BridgedAPI {
   openLinkInBrowser: (url: string) => void
   writeProfile: (profileData: IUserProfile) => void
   readProfile: () => Promise<IUserProfile>
-  writeAddonInfo: (gameDir: string, addonInfo: string) => Promise<boolean>
+  writeAddonList: (gameDir: string, addonInfo: string) => Promise<boolean>
   writeCustomCfg: (gameDir: string, customCfg: string) => Promise<boolean>
   selectFolder: () => Promise<string>
+  openWorkingDirectory: () => void
 }
 
 export interface IModManifest {
