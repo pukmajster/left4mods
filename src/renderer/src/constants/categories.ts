@@ -67,7 +67,7 @@ const survivors: ICategoryToLabelMap = {
 const utils: ICategoryToLabelMap = {
   pipebomb: 'Pipebomb',
   molotov: 'Molotov',
-  bile: 'Bile',
+  bile_flask: 'Bile',
   medkit: 'Medkit',
   defibrillator: 'Defibrillator',
   adrenaline: 'Adrenaline',
