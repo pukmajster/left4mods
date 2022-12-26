@@ -155,6 +155,7 @@
 
   img {
     aspect-ratio: 5/3;
+    width: 100%;
   }
 
   .mod.unselected {
