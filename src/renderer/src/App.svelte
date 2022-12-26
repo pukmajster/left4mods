@@ -7,13 +7,11 @@
   import WelcomeStepper from './components/WelcomeStepper.svelte'
   import Config from './Config.svelte'
   import { hasFinishedFirstTimeSetup } from './stores/profile'
-
-  $: shouldShowInitialSetup = $hasFinishedFirstTimeSetup === false
 </script>
 
 <Config />
 
-{#if shouldShowInitialSetup}
+{#if !$hasFinishedFirstTimeSetup}
   <WelcomeStepper />
 {:else}
   <AppShell>

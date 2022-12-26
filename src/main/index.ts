@@ -59,7 +59,7 @@ function createWindow(): void {
       : {}),
     webPreferences: {
       preload: path.join(__dirname, '../preload/index.js'),
-      sandbox: false,
+      sandbox: true,
       nodeIntegration: true, // keep     two    !
       contextIsolation: true, //    these   true
       allowRunningInsecureContent: false,

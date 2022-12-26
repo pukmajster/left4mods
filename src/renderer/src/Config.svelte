@@ -20,7 +20,7 @@
 
   onMount(async () => {
     try {
-      let profile = await window.api.readProfile()
+      let savedProfile = await window.api.readProfile()
 
       let defaultConfig: IUserProfile = {
         activePreset: 'default',
@@ -37,20 +37,18 @@
         hasFinishedFirstTimeSetup: false
       }
 
-      profile = { ...defaultConfig, ...profile }
+      let profile: IUserProfile = { ...defaultConfig, ...savedProfile }
 
-      collections.set(profile.collections ?? [])
-      gameDir.set(profile.preferences.gameDir ?? '')
-      presets.set(profile.presets ?? [])
-      activePreset.set(profile.activePreset ?? '')
-      disableOnlineFetchingOfModData.set(
-        profile.preferences.disableOnlineFetchingOfModData ?? false
-      )
-      launchParameters.set(profile.launchParameters ?? '')
-      customCfg.set(profile.customCfg ?? '')
-      darkMode.set(profile.preferences.darkMode ?? false)
-      hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup ?? false)
-      grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods ?? false)
+      collections.set(profile.collections)
+      gameDir.set(profile.preferences.gameDir)
+      presets.set(profile.presets)
+      activePreset.set(profile.activePreset)
+      disableOnlineFetchingOfModData.set(profile.preferences.disableOnlineFetchingOfModData)
+      launchParameters.set(profile.launchParameters)
+      customCfg.set(profile.customCfg)
+      darkMode.set(profile.preferences.darkMode)
+      hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup)
+      grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods)
     } catch (e) {
       console.log(e)
     }
