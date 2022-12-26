@@ -1,12 +1,13 @@
 <script lang="ts">
   import { CodeBlock, Divider } from '@skeletonlabs/skeleton'
   import classnames from 'classnames'
+  import type { IMod } from 'shared'
   import { combinedCategoryToLabelMap } from '../constants/categories'
   import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
   import { collections, gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
 
-  $: mod = $modManifest.mods[$modIdToOverview]
+  $: mod = $modManifest.mods[$modIdToOverview] as IMod
 
   // Shoutout to https://stackoverflow.com/a/69025425
   let thumbnailFallback = '/images/defaultmodthumbnail.webp'
@@ -57,13 +58,15 @@
       {/each}
     </div>
 
-    <div class="flex gap-3">
-      <button class=" w-full btn btn-ghost-primary mt-4" on:click={openModInBrowser}
-        >Open in Browser</button
-      >
+    {#if mod.fromworkshop}
+      <div class="flex gap-3">
+        <button class=" w-full btn btn-ghost-primary mt-4" on:click={openModInBrowser}
+          >Open in Browser</button
+        >
 
-      <a href={steamProtocolUrl} class=" w-full btn btn-ghost-primary mt-4">Open in Steam</a>
-    </div>
+        <a href={steamProtocolUrl} class=" w-full btn btn-ghost-primary mt-4">Open in Steam</a>
+      </div>
+    {/if}
 
     <button
       class={classnames(' w-full btn  mt-4', {
