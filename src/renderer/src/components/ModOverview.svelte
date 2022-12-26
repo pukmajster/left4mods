@@ -68,7 +68,7 @@
     <button
       class={classnames(' w-full btn  mt-4', {
         'btn-ghost-surface': !isEnabled,
-        'btn-ghost-primary': isEnabled && !isGroupEnabled,
+        'btn-ghost-tertiary': isEnabled && !isGroupEnabled,
         'btn-ghost-warning': isGroupEnabled
       })}
       on:click={toggleModEnabled}
