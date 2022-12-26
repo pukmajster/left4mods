@@ -28,3 +28,11 @@
 <Modal />
 <DrawersRoot />
 <Toast position="br" padding="!px-3 !py-2" />
+
+<style global lang="postcss">
+  select,
+  input[type='text'],
+  textarea {
+    @apply !p-1 !px-2;
+  }
+</style>

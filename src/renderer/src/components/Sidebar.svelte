@@ -48,7 +48,7 @@
         </div> -->
       </div>
 
-      <div class=" relative grid">
+      <div class="relative m-auto flex-1 ml-1 grid">
         <!-- guns -->
         <SidebarCategoryEntry
           categoryName="guns"
@@ -141,17 +141,19 @@
 
     overflow: hidden;
     border-radius: 4px;
+
     /* transform: rotate(-90deg);
     transform-origin: center; */
   }
 
   .panel-hovers {
     width: 64px;
-    margin-right: 1em;
+    margin-right: 0.5em;
   }
 
   .filter-panels {
     width: 100%;
     display: flex;
+    align-items: flex-start;
   }
 </style>

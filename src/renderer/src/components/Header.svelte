@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     AppBar,
+    menu,
     modalStore,
     RadioGroup,
     RadioItem,
@@ -13,6 +14,7 @@
     HelpCircle,
     Import,
     Library,
+    Menu,
     MessageCircle,
     RefreshCw,
     Settings
@@ -71,7 +73,7 @@
     },
     startGame: {
       content: 'Launch the game with your selected preset.',
-      position: 'bottom',
+      position: 'right',
       regionTooltip: '!text-sm'
     },
     refreshManifest: {
@@ -87,12 +89,36 @@
   }
 </script>
 
-<AppBar padding="px-2 py-2">
+<nav class=" p-2 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
+  <div class="!flex flex-col gap-2  ">
+    <button on:click={triggerCustomModal} class="flex-1 btn text-left">
+      <Settings size={16} /> <span>Settings</span></button
+    >
+
+    <button
+      on:click={() => attemptRequestManifest(false)}
+      disabled={$isBuildingModManifest}
+      class="btn  "
+    >
+      <RefreshCw size={16} />
+      <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
+    >
+
+    <button on:click={() => writeAddonlist()} disabled={$isWritingAddonlist} class="btn  ">
+      <Import size={16} />
+      <span>{$isWritingAddonlist ? 'Writing List...' : 'Save Changes'}</span></button
+    >
+  </div>
+</nav>
+
+<AppBar padding="px-4 py-2">
   <svelte:fragment slot="lead">
-    <div class=" ">
-      <button on:click={triggerCustomModal} class="btn btn-sm">
-        <Settings size={16} /> <span>Settings</span></button
-      >
+    <div class=" space-x-1">
+      <button use:menu={{ menu: 'example' }} class=" menubutton btn btn-sm ">
+        <Menu size={16} />
+        <span> Menu</span>
+      </button>
+
       <!--       <button on:click={triggerCustomModal} class="btn-icon btn-icon-sm   ">
         <Settings size={16} /></button
       > -->
@@ -106,24 +132,6 @@
         <RefreshCw size={16} /></button
       >
  -->
-      <button
-        on:click={() => attemptRequestManifest(false)}
-        disabled={$isBuildingModManifest}
-        class="btn btn-sm"
-      >
-        <RefreshCw size={16} />
-        <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
-      >
-
-      <button
-        on:click={() => writeAddonlist()}
-        disabled={$isWritingAddonlist}
-        use:tooltip={tooltips.writeAddons}
-        class="btn btn-sm"
-      >
-        <Import size={16} />
-        <span>{$isWritingAddonlist ? 'Writing List...' : 'Save Changes'}</span></button
-      >
 
       <!--      <button
         on:click={() => writeAddonlist()}
@@ -171,9 +179,18 @@
   </svelte:fragment>
 </AppBar>
 
-<style>
+<style lang="postcss">
   .btn-icon {
     padding: 0;
     margin: 0;
+  }
+
+  nav button {
+    @apply justify-start gap-1;
+  }
+
+  nav button:hover,
+  .menubutton:hover {
+    @apply bg-zinc-600/70;
   }
 </style>

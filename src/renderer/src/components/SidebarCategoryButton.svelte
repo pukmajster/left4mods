@@ -7,7 +7,6 @@
     selectedInfected,
     selectedMelees,
     selectedMisc,
-    selectedMods,
     selectedSurvivors,
     selectedUtils,
     visibleFilterPanel
@@ -16,12 +15,6 @@
 
   export let categoryName: string
   export let label: string
-
-  function setVisiblePanel() {
-    clearCategorySelection()
-    selectedMods.set([])
-    visibleFilterPanel.set(categoryName)
-  }
 
   function clearCategorySelection() {
     selectedGuns.set('')
@@ -32,6 +25,8 @@
     selectedInfected.set('')
     selectedMisc.set('')
   }
+
+  visibleFilterPanel
 
   $: capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
 </script>
@@ -49,7 +44,7 @@
     <ArrowDownCircle size={28} />
   {:else}
     <img
-      class:lightMode={!$darkMode}
+      class:lightMode={!$darkMode && $visibleFilterPanel != categoryName}
       width="32px"
       src={`icons/${categoryName}2.png`}
       alt={capitalizedCategoryName}
@@ -65,32 +60,4 @@
   img.lightMode {
     filter: invert(100%);
   }
-
-  /*   .button {
-    cursor: pointer;
-    aspect-ratio: 1/1;
-    border-radius: 4px;
-
-    transition: background-color 0.1s ease-in-out;
-  }
-
-  .button:hover {
-    @apply bg-surface-900;
-  }
-
-  .button.selected {
-    cursor: pointer;
-
-    border: 2px solid transparent;
-    background-color: rgb(255, 255, 255);
-  }
-
-  img {
-    aspect-ratio: 1/1;
-  }
-
-  .button.selected img {
-    filter: invert(100%);
-    transform: scale(1.2);
-  } */
 </style>
