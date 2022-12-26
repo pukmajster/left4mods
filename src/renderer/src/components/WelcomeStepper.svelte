@@ -21,12 +21,12 @@
 
 <div class="flex justify-center p-8 space-y-8 overflow-y-scroll min-h-full">
   <div class="wrapper">
-    <h1 class="mb-8">Initial Setup</h1>
+    <h1 class="mb-8">Setup Left 4 Mods</h1>
 
     <Stepper {currentStep} length={6} on:complete={onComplete}>
       <Step index={0}>
         <svelte:fragment slot="header">Welcome</svelte:fragment>
-        Welcome to Left 4 Mods! Before you can start, you just need to go throught a quick set up procees.
+        Welcome to Left 4 Mods! Before you can start, we just need to go through a quick setup procees.
         Let's start by clicking Next!
         <br />
       </Step>
@@ -34,12 +34,12 @@
         <svelte:fragment slot="header">Game Directory</svelte:fragment>
         <p>
           For Left 4 Mods to work, you need to specify the location of your Left 4 Dead 2 game
-          directory. Rather obvious...
+          directory.
         </p>
 
         <p>
-          If you don't know where exactly to find it: go to your Steam library, right click on Left
-          4 Dead 2, and click "Properties". Then click on the "Local Files" tab and click "Browse
+          If you don't know where exactly to find it: go to your Steam library, right click on "Left
+          4 Dead 2", and click "Properties". Then click on the "Local Files" tab and click "Browse
           Local Files". This will open up the game directory in your file browser.
         </p>
 
@@ -53,15 +53,15 @@
           <h4 class="font-bold">Enabled mods</h4>
           <img src="/images/enabledmod.png" width="154" alt="Enabled mod" />
 
-          <p>Mods you enable will have a green line at the bottom.</p>
+          <p>Mods you enable will have a green bar at the bottom.</p>
 
           <h4 class="font-bold pt-3">Conflicting mods</h4>
           <img src="/images/conflictingmods.png" width="312" alt="Conflicting mods" />
 
           <p>
-            Enabled mods that end up conflicting with other mods will have this red line at the
-            bottom. Usually, most your mods will still work fine, but you can easily sort out
-            conflicts by viewing the "Conflicts" page via the annoyingly red button!
+            Enabled mods that end up conflicting with other mods will have this orange bar at the
+            bottom. You can easily sort out conflicts by viewing the "Conflicts" page via the
+            annoyingly orange button!
           </p>
           <img src="/images/conflicts.png" width="156" alt="Enabled mod" />
         </div>
@@ -75,28 +75,29 @@
           <p>
             A preset is a selection of mods you want enabled in-game. Imagine it as a like a mod
             pack. You can have multiple, but only one may be selected at a time. I'm even giving you
-            a default preset to work with! How kind indeed.
+            a default preset to start with, plus a "Vanilla" (No Mods) preset! How kind indeed.
           </p>
 
           <h4 class="font-bold pt-3">Collections</h4>
           <p>
             Collections are just groups of mods, or like labels slapped onto mods. Got a bunch of
             mods for Halloween? You can neatly organize them in a collection just for that. You'll
-            already have a "Favorites" collection from the get go. My generosity is endless!
+            already have a "Favourites" collection from the get go. My generosity is endless!
           </p>
 
-          <h4 class="font-bold  pt-3">Refreshing mods</h4>
+          <h4 class="font-bold  pt-3">Refreshing the Mods Manifest</h4>
           <p>
-            The app needs to build a list of all installed mods on your system before you can start
-            using anything. This will happen automatically when you start the app, and when you
-            finish this setup. You can also manually refresh the mods list whenever you want by
-            clicking the "Refresh Mods" button. Usefull when you've downloaded more mods.
+            L4M needs to build a list of all installed mods (a.k.a the manifeset) on your system
+            before you can start using anything. This will happen automatically whenever you start
+            the app, and when you finish this setup. You can also manually refresh the mods list
+            whenever you want by clicking the "Refresh Mods" button from the menu. Useful when
+            you've installed more mods.
           </p>
         </div>
       </Step>
 
       <Step index={4}>
-        <svelte:fragment slot="header">The Basics: More than 2 and less than 4?</svelte:fragment>
+        <svelte:fragment slot="header">The Basics: More Than 2 and Less Than 4?</svelte:fragment>
 
         <div class="space-y-2">
           <h4 class="font-bold">Selection</h4>
