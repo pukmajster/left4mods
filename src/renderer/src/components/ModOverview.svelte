@@ -3,6 +3,7 @@
   import classnames from 'classnames'
   import type { IMod } from 'shared'
   import { combinedCategoryToLabelMap } from '../constants/categories'
+  import thumbnailFallback from '../constants/thumbnailFallback'
   import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
   import { collections, gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
@@ -10,7 +11,6 @@
   $: mod = $modManifest.mods[$modIdToOverview] as IMod
 
   // Shoutout to https://stackoverflow.com/a/69025425
-  let thumbnailFallback = '/media/defaultmodthumbnail.webp'
   $: thumbnail = `file://${$gameDir}/left4dead2/addons/${mod?.fromworkshop ? 'workshop/' : ''}${
     mod.id
   }.jpg`

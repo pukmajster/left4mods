@@ -15,6 +15,7 @@
 
   export let categoryName: string
   export let label: string
+  export let image: string
 
   function clearCategorySelection() {
     selectedGuns.set('')
@@ -46,7 +47,7 @@
     <img
       class:lightMode={!$darkMode && $visibleFilterPanel != categoryName}
       width="32px"
-      src={`media/icons/${categoryName}2.png`}
+      src={image}
       alt={capitalizedCategoryName}
     />
   {/if}

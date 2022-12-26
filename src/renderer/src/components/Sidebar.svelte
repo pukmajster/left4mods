@@ -17,6 +17,14 @@
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
 
+  import campaign from '../assets/media/icons/campaign.png'
+  import guns from '../assets/media/icons/guns.png'
+  import infected from '../assets/media/icons/infected.png'
+  import melee from '../assets/media/icons/melee.png'
+  import misc from '../assets/media/icons/misc.png'
+  import survivors from '../assets/media/icons/survivors.png'
+  import utils from '../assets/media/icons/utils.png'
+
   $: searchTerm && selectedMods.set([])
 </script>
 
@@ -29,29 +37,19 @@
       <div class="panel-hovers">
         <AppRail width="sm:w-18" selected={visibleFilterPanel}>
           <svelte:fragment slot="lead">
-            <SidebarCategoryButton categoryName={'-'} label="All" />
-            <SidebarCategoryButton categoryName={'guns'} label="Guns" />
-            <SidebarCategoryButton categoryName={'melee'} label="Melees" />
-            <SidebarCategoryButton categoryName={'utils'} label="Utils" />
-            <SidebarCategoryButton categoryName={'survivors'} label="Survivors" />
-            <SidebarCategoryButton categoryName={'infected'} label="Infected" />
-            <SidebarCategoryButton categoryName={'misc'} label="Misc." />
-            <SidebarCategoryButton categoryName={'campaign'} label="Maps" />
+            <SidebarCategoryButton categoryName={'-'} label="All" image={''} />
+            <SidebarCategoryButton categoryName={'guns'} label="Guns" image={guns} />
+            <SidebarCategoryButton categoryName={'melee'} label="Melees" image={melee} />
+            <SidebarCategoryButton categoryName={'utils'} label="Utils" image={utils} />
+            <SidebarCategoryButton categoryName={'survivors'} label="Survivors" image={survivors} />
+            <SidebarCategoryButton categoryName={'infected'} label="Infected" image={infected} />
+            <SidebarCategoryButton categoryName={'misc'} label="Misc." image={misc} />
+            <SidebarCategoryButton categoryName={'campaign'} label="Maps" image={campaign} />
           </svelte:fragment>
         </AppRail>
-        <!-- <div class="flex flex-col p-2 gap-3 bg-surface-800/90 rounded-md">
-          <SidebarCategoryButton categoryName={'guns'} />
-          <SidebarCategoryButton categoryName={'melee'} />
-          <SidebarCategoryButton categoryName={'grenades'} />
-          <SidebarCategoryButton categoryName={'utils'} />
-          <SidebarCategoryButton categoryName={'survivors'} />
-          <SidebarCategoryButton categoryName={'infected'} />
-          <SidebarCategoryButton categoryName={'misc'} />
-        </div> -->
       </div>
 
       <div class="relative m-auto flex-1 ml-1 grid">
-        <!-- guns -->
         <SidebarCategoryEntry
           categoryName="guns"
           categoryEntries={categories.guns}
@@ -146,9 +144,6 @@
 
     overflow: hidden;
     border-radius: 4px;
-
-    /* transform: rotate(-90deg);
-    transform-origin: center; */
   }
 
   .panel-hovers {

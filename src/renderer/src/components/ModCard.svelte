@@ -6,12 +6,12 @@
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   import { CheckCircle2, Slash } from 'lucide-svelte'
   import { combinedCategoryToLabelMap } from '../constants/categories'
+  import thumbnailFallback from '../constants/thumbnailFallback'
   export let mod: IMod
 
   let showHoverbox = false
 
   // Shoutout to https://stackoverflow.com/a/69025425
-  let thumbnailFallback = '/media/defaultmodthumbnail.webp'
   $: thumbnail = `file://${$gameDir}/left4dead2/addons/${mod?.fromworkshop ? 'workshop/' : ''}${
     mod.id
   }.jpg`

@@ -63,10 +63,20 @@ async function openGameDirectory() {
   await window.api.openDirectory(get(gameDir))
 }
 
+function getPath() {
+  return window.api.getPath()
+}
+
+function getPathJoin(file: string) {
+  return window.api.getPathJoin(file)
+}
+
 export const bridgedApi = {
   writeAddonList,
   requestManifest,
   openWorkingDirectory: () => window.api.openWorkingDirectory(),
   writeCustomCfg,
-  openGameDirectory
+  openGameDirectory,
+  getPath,
+  getPathJoin
 }

@@ -29,6 +29,8 @@
   import { isBuildingModManifest, isWritingAddonlist } from '../stores/manifest'
   import { launchParameters } from '../stores/profile'
 
+  import l4d2logo from '../assets/media/icons/icon_l4d.png'
+
   let store = writable('library')
 
   async function attemptRequestManifest(forceNewBuild: boolean = false) {
@@ -156,7 +158,7 @@
         class="btn btn-sm  btn-ghost-primary "
       >
         <!--  <Play size={16} /> -->
-        <img width="16px" src={`media/icons/icon_l4d.png`} alt={'play'} />
+        <img width="16px" src={l4d2logo} alt={'play'} />
         <span>Launch L4D2</span></button
       >
     </div>

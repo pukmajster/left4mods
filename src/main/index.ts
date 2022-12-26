@@ -48,13 +48,17 @@ ipcMain.handle('profile:openWorkingDirectory', async (_e) => {
   return openWorkingDirectory()
 })
 
-ipcMain.handle('profile:writeCustomCfg', async (_e, gameDir: string, customCfg: string) => {
+ipcMain.handle('profile:writeCustomCfg', (_e, gameDir: string, customCfg: string) => {
   return writeCustomCfg(gameDir, customCfg)
 })
 
-ipcMain.handle('profile:openDirectory', async (_e, directory: string) => {
+ipcMain.handle('profile:openDirectory', (_e, directory: string) => {
   return openDirectory(directory)
 })
+
+ipcMain.handle('getPath', () => app.getPath('appData'))
+
+ipcMain.handle('getPathJoin', (_e, file: string) => path.join(app.getPath('appData'), file))
 
 function createWindow(): void {
   // Create the browser window.

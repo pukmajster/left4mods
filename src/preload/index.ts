@@ -17,7 +17,9 @@ const api: BridgedAPI = {
   openWorkingDirectory: () => ipcRenderer.invoke('profile:openWorkingDirectory'),
   writeCustomCfg: (gameDir, customCfg) =>
     ipcRenderer.invoke('profile:writeCustomCfg', gameDir, customCfg),
-  openDirectory: (directory: string) => ipcRenderer.invoke('profile:openDirectory', directory)
+  openDirectory: (directory: string) => ipcRenderer.invoke('profile:openDirectory', directory),
+  getPath: () => ipcRenderer.invoke('getPath'),
+  getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file)
 }
 
 function openLinkInBrowser(url: string) {
@@ -28,15 +30,9 @@ function openLinkInBrowser(url: string) {
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
-if (process.contextIsolated) {
-  try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
-  } catch (error) {
-    console.error(error)
-  }
-} else {
-  // @ts-ignore (define in dts)
-  window.electron = electronAPI
-  window.api = api
+try {
+  contextBridge.exposeInMainWorld('electron', electronAPI)
+  contextBridge.exposeInMainWorld('api', api)
+} catch (error) {
+  console.error(error)
 }

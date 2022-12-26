@@ -23,6 +23,8 @@ export interface BridgedAPI {
   selectFolder: () => Promise<string>
   openWorkingDirectory: () => void
   openDirectory: (directory: string) => void
+  getPath: () => Promise<string>
+  getPathJoin: (file: string) => Promise<string>
 }
 
 export interface IModManifest {

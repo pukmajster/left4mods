@@ -4,6 +4,11 @@
   import { gameDir, hasFinishedFirstTimeSetup } from '../stores/profile'
   import GameDirectoryManager from './GameDirectoryManager.svelte'
 
+  import conflictingMods from './../assets/media/conflictingmods.png'
+  import conflicts from './../assets/media/conflicts.png'
+  import enabledMod from './../assets/media/enabledmod.png'
+  import selections from './../assets/media/selections.png'
+
   const currentStep = writable(0)
 
   const onComplete: any = () => {
@@ -53,19 +58,19 @@
 
         <div class="space-y-2">
           <h4 class="font-bold">Enabled mods</h4>
-          <img src="/media/enabledmod.png" width="154" alt="Enabled mod" />
+          <img src={enabledMod} width="154" alt="Enabled mod" />
 
           <p>Mods you enable will have a green bar at the bottom.</p>
 
           <h4 class="font-bold pt-3">Conflicting mods</h4>
-          <img src="/media/conflictingmods.png" width="312" alt="Conflicting mods" />
+          <img src={conflictingMods} width="312" alt="Conflicting mods" />
 
           <p>
             Enabled mods that end up conflicting with other mods will have this orange bar at the
             bottom. You can easily sort out conflicts by viewing the "Conflicts" page via the
             annoyingly orange button!
           </p>
-          <img src="/media/conflicts.png" width="156" alt="Enabled mod" />
+          <img src={conflicts} width="156" alt="Enabled mod" />
         </div>
       </Step>
 
@@ -103,7 +108,7 @@
 
         <div class="space-y-2">
           <h4 class="font-bold">Selection</h4>
-          <img src="/media/selections.png" width="420" alt="Enabled mod" />
+          <img src={selections} width="420" alt="Enabled mod" />
           <p>You can select multiple mods by holding down the Ctrl key and clicking on them!</p>
         </div>
       </Step>
