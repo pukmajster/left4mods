@@ -19,48 +19,49 @@ const misc: ICategoryToLabelMap = {
 const guns: ICategoryToLabelMap = {
   pistol: 'Pistol',
   magnum: 'Deagle',
-  sniper_military: 'Military Sniper',
-  hutning_rifle: 'Hunting Sniper',
-  awp: 'CSS AWP',
-  rifle_desert: 'SCAR',
-  rifle_ak47: 'AK-47',
+  smg: 'UZI',
+  smg_silenced: 'UZI Silenced',
   shotgun_chrome: 'Shotgun Chrome',
   shotgun_pump: 'Shotgun Pump',
-  sg552: 'SG552',
   auto_shotgun_spas: 'SPAS',
-  rifle_m16a2: 'M16',
-  smg_silenced: 'UZI Silenced',
-  smg: 'UZI',
-  mp5navy: 'CSS MP5',
-  scout: 'CSS Scout',
-  grenade_launcher: 'Grenade Launcher',
   auto_shotgun: 'Auto Shotgun',
-  machinegun_m60: 'M60'
+  rifle_m16a2: 'M16',
+  rifle_ak47: 'AK-47',
+  rifle_desert: 'SCAR',
+  hutning_rifle: 'Hunting Sniper',
+  sniper_military: 'Military Sniper',
+  grenade_launcher: 'Grenade Launcher',
+  machinegun_m60: 'M60',
+  mp5navy: 'CSS MP5',
+  sg552: 'CSS SG552',
+  scout: 'CSS Scout',
+  awp: 'CSS AWP'
 }
 
 const infected: ICategoryToLabelMap = {
   common_infected: 'Common Infected',
+  hunter: 'Hunter',
+  smoker: 'Smoker',
   boomer: 'Boomer',
   boomette: 'Boomette',
   charger: 'Charger',
-  tank: 'Tank',
   jockey: 'Jockey',
-  witch: 'Witch',
   //tank_hulk: 'Tank (Hulk)',
   spitter: 'Spitter',
-  hunter: 'Hunter',
-  smoker: 'Smoker'
+  witch: 'Witch',
+  tank: 'Tank'
 }
 
 const survivors: ICategoryToLabelMap = {
-  nick: 'Nick',
-  zoey: 'Zoey',
-  louis: 'Louis',
-  bill: 'Bill',
-  ellis: 'Ellis',
-  francis: 'Francis',
+  teenangst: 'Zoey',
+  namvet: 'Bill',
+  biker: 'Francis',
+  manager: 'Louis',
+
+  producer: 'Rochelle',
+  mechanic: 'Ellis',
   coach: 'Coach',
-  rochelle: 'Rochelle'
+  gambler: 'Nick'
 }
 
 const utils: ICategoryToLabelMap = {
@@ -80,17 +81,17 @@ const melee: ICategoryToLabelMap = {
   machete: 'Machete',
   cricketbat: 'Cricket Bat',
   bat: 'Bat',
-  css_knife: 'CSS Knife',
   chainsaw: 'Chainsaw',
   axe: 'Axe',
   crowbar: 'Crowbar',
   guitar: 'Guitar',
-  shovel: 'Shovel',
   katana: 'Katana',
   frying_pan: 'Pan',
   golf_club: 'Golf Club',
   tonfa: 'Tonfa',
-  pitchfork: 'Pitchfork'
+  pitchfork: 'Pitchfork',
+  shovel: 'Shovel',
+  css_knife: 'CSS Knife'
 }
 
 const audio: ICategoryToLabelMap = {

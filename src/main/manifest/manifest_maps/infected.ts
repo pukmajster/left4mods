@@ -64,6 +64,8 @@ export const survivors = [
 ]
 
 export const infectedFiles: ICategoryMap = {
+  common_infected: ['infected/common/'],
+
   smoker_l4d1: genericSpecialInfectedL4D1Files('smoker'),
   hunter_l4d1: genericSpecialInfectedL4D1Files('hunter'),
   boomer_l4d1: genericSpecialInfectedL4D1Files('boomer'),
