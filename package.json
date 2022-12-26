@@ -8,9 +8,13 @@
   "build": {
     "productName": "Left 4 Mods",
     "appId": "left4mods",
-    "extraResources": [
-      "./assets/**"
-    ],
+    "extraResources": {
+      "from": "./renderer/src/assets",
+      "to": "assets",
+      "filter": [
+        "**/*"
+      ]
+    },
     "nsis": {
       "runAfterFinish": false
     }

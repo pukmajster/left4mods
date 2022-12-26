@@ -156,7 +156,7 @@
         class="btn btn-sm  btn-ghost-primary "
       >
         <!--  <Play size={16} /> -->
-        <img width="16px" src={`images/icons/icon_l4d.png`} alt={'play'} />
+        <img width="16px" src={`media/icons/icon_l4d.png`} alt={'play'} />
         <span>Launch L4D2</span></button
       >
     </div>
