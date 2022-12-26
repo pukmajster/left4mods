@@ -1,22 +1,14 @@
 <script lang="ts">
-  import { Alert } from '@skeletonlabs/skeleton'
   import classnames from 'classnames'
-  import { AlertTriangle } from 'lucide-svelte'
-  import type { IMod } from 'shared'
   import { pickCollection } from '../functions/modals'
   import {
-    enabledMods,
     paginatedSortedFilteredMods,
     perPageCount,
-    searchTerm,
-    selectedMisc,
     selectedMods,
     showConflictingView,
     sortingType,
-    typeToShow,
-    visibleFilterPanel
+    typeToShow
   } from '../stores/library'
-  import { modManifest } from '../stores/manifest'
   import {
     batchAddModsToCollection,
     batchDisableModsInCurrentPreset,
@@ -26,6 +18,7 @@
     selectedCollectionName
   } from '../stores/profile'
   import ToggleViewButton from './ToggleViewButton.svelte'
+  import VscriptAlert from './VscriptAlert.svelte'
 
   function unselectAll() {
     selectedMods.set([])
@@ -70,28 +63,6 @@
     if ($selectedMods.length > 0) {
       unselectAll()
     } else selectAll()
-  }
-
-  // ------------------------------------
-  //  VScript warning
-  // ------------------------------------
-
-  let presetContainsVScriptMods = false
-
-  $: {
-    let modsToCheck: IMod[] = []
-    for (let id in $enabledMods) {
-      modsToCheck.push($modManifest[id])
-    }
-
-    presetContainsVScriptMods = modsToCheck.some((mod) => mod.categories.includes('vscript'))
-  }
-
-  function showVscriptCategory() {
-    visibleFilterPanel.set('misc')
-    selectedMisc.set('vscript')
-    selectedCollectionName.set('')
-    searchTerm.set('')
   }
 </script>
 
@@ -164,20 +135,7 @@
         </div>
       </div>
 
-      <Alert
-        background="bg-yellow-500/50"
-        border="border-warning-400"
-        visible={!presetContainsVScriptMods}
-      >
-        <svelte:fragment slot="lead"><AlertTriangle size={32} /></svelte:fragment>
-        <svelte:fragment slot="title">VScript mods enabled</svelte:fragment>
-        <span>You won't be able to play online as long as these are enabled.</span>
-        <svelte:fragment slot="trail">
-          <button on:click={showVscriptCategory} class="btn-filled btn btn-sm"
-            >View VScript mods</button
-          >
-        </svelte:fragment>
-      </Alert>
+      <VscriptAlert />
     {/if}
   </div>
 

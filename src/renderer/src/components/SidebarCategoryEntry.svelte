@@ -61,7 +61,7 @@
   }
 
   .category-entry {
-    padding: 0.2rem 0.6rem;
+    padding: 0.3rem 0.6rem;
     transition: padding 0.2s ease-in-out;
   }
 

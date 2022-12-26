@@ -9,7 +9,7 @@
 
 <button
   on:click={toggleView}
-  class="btn btn-sm "
+  class="btn btn-sm"
   class:btn-ghost-warning={$totalConflictingMods > 0}
   class:btn-ghost-primary={$totalConflictingMods == 0 && $showConflictingView}
 >
