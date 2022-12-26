@@ -164,7 +164,7 @@ async function buildManifest(options: RequestManifestOptions) {
   // ----------------------------------------------------------------
 
   // TODO: remove indent for final version
-  fsp.writeFile(MANIFEST_PATH, JSON.stringify(tempManifest, null, 4))
+  fsp.writeFile(MANIFEST_PATH, JSON.stringify(tempManifest))
 
   return tempManifest
 }
