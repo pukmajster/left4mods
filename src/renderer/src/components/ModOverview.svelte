@@ -10,9 +10,9 @@
   $: mod = $modManifest.mods[$modIdToOverview] as IMod
 
   // Shoutout to https://stackoverflow.com/a/69025425
-  let thumbnailFallback = '/images/defaultmodthumbnail.webp'
-  let thumbnail = `file://${$gameDir}/left4dead2/addons/${mod?.fromworkshop ? 'workshop' : ''}/${
-    mod?.id
+  let thumbnailFallback = '/media/defaultmodthumbnail.webp'
+  $: thumbnail = `file://${$gameDir}/left4dead2/addons/${mod?.fromworkshop ? 'workshop/' : ''}${
+    mod.id
   }.jpg`
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
