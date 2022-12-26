@@ -18,7 +18,7 @@
       modsToCheck.push($modManifest[id])
     }
 
-    presetContainsVScriptMods = modsToCheck.some((mod) => mod.categories.includes('vscript'))
+    presetContainsVScriptMods = modsToCheck.some((mod) => mod?.categories.includes('vscript'))
   }
 
   function showVscriptCategory() {
