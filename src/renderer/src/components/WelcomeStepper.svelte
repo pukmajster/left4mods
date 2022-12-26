@@ -19,8 +19,10 @@
   let isGameDirValid = false
 </script>
 
-<div class="flex justify-center p-8 space-y-8 overflow-y-scroll min-h-full">
-  <div class="wrapper">
+<div
+  class="flex justify-center p-8 space-y-8 min-w-full overflow-y-scroll min-h-screen max-h-screen"
+>
+  <div class="wrapper ">
     <h1 class="mb-8">Setup Left 4 Mods</h1>
 
     <Stepper {currentStep} length={6} on:complete={onComplete}>
