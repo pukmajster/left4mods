@@ -14,7 +14,8 @@ function genericSpecialInfectedFiles(id: string): CategoryFiles {
     `models/v_models/weapons/v_claw_${id}.`,
     `models/infected/${id}.`,
     `models/infected/${id}`,
-    `sound/npc/${id}/voice`
+    `sound/npc/${id}/voice`,
+    `sound/player/${id}/voice`
   ]
 }
 
