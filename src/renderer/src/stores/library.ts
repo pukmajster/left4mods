@@ -50,7 +50,7 @@ export const enabledMods = derived(
     if (!activePreset) return tempStorage
 
     activePreset.enabledMods.map((modId) => {
-      if ($modManifest[modId]) {
+      if ($modManifest.mods[modId]) {
         tempStorage.push(modId)
       }
     })
@@ -108,12 +108,12 @@ export const filteredMods = derived(
       $selectedMisc
     ].filter((filter) => filter != '')
 
-    Object.keys($modManifest).map((keyName: string) => {
+    Object.keys($modManifest.mods).map((keyName: string) => {
       let modName =
-        $modManifest[keyName]?.addontitle ??
+        $modManifest.mods[keyName]?.addontitle ??
         //profileAllOnlineAddoninfos[keyName]?.title ??
-        $modManifest[keyName].id
-      let thisMod = $modManifest[keyName] as IMod
+        $modManifest.mods[keyName].id
+      let thisMod = $modManifest.mods[keyName] as IMod
 
       // Check for mod type
       switch ($typeToShow) {
@@ -218,7 +218,7 @@ export const groupedEnabledMods = derived(
     let tempStorage: IMod[][] = []
 
     $enabledMods.map((modId) => {
-      let thisMod = $modManifest[modId] as IMod
+      let thisMod = $modManifest.mods[modId] as IMod
 
       let foundGroup = false
 

@@ -4,7 +4,7 @@ import { release } from 'os'
 import * as path from 'path'
 import { IUserProfile, RequestManifestOptions } from 'shared'
 import { writeAddonList } from './addoninfo'
-import { requestManifest } from './manifest/manifest_v4'
+import { requestManifest } from './manifest/manifest_v5'
 import {
   openDirectory,
   openWorkingDirectory,

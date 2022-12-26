@@ -15,7 +15,7 @@
   $: {
     let modsToCheck: IMod[] = []
     for (let id in $enabledMods) {
-      modsToCheck.push($modManifest[id])
+      modsToCheck.push($modManifest.mods[id])
     }
 
     presetContainsVScriptMods = modsToCheck.some((mod) => mod?.categories.includes('vscript'))

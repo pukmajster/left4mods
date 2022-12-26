@@ -1,5 +1,6 @@
 import type { IModManifest, IPreset, IUserProfile, RequestManifestOptions } from 'shared'
 import { get } from 'svelte/store'
+import { emptyManifest } from '../constants/manifest'
 import { customCfg, gameDir } from '../stores/profile'
 
 async function requestManifest(options: RequestManifestOptions) {
@@ -11,7 +12,7 @@ async function requestManifest(options: RequestManifestOptions) {
   } catch (e) {
     let err = e as Error
     console.log(err)
-    return {}
+    return emptyManifest
   }
 }
 
@@ -39,10 +40,13 @@ async function writeAddonList(gameDir: string, manifest: IModManifest, preset: I
   let outputVdfString = `"AddonList"\n{\n`
   let enabledMods = preset.enabledMods
 
-  for (let mod in manifest) {
-    let modId = manifest[mod].id
+  for (let mod in manifest.mods) {
+    let modId = manifest.mods[mod].id
     let enabled = enabledMods.includes(modId) ? '1' : '0'
-    outputVdfString += `\t"workshop\\${modId}.vpk"\t\t\t"${enabled}"\n`
+
+    if (manifest.mods[mod].fromworkshop)
+      outputVdfString += `\t"workshop\\${modId}.vpk"\t\t\t"${enabled}"\n`
+    else outputVdfString += `\t"${modId}.vpk"\t\t\t"${enabled}"\n`
   }
 
   outputVdfString += '}'

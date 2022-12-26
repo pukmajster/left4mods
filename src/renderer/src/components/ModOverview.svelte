@@ -6,7 +6,7 @@
   import { modManifest } from '../stores/manifest'
   import { collections, gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
 
-  $: mod = $modManifest[$modIdToOverview]
+  $: mod = $modManifest.mods[$modIdToOverview]
 
   // Shoutout to https://stackoverflow.com/a/69025425
   let thumbnailFallback = '/images/defaultmodthumbnail.webp'
@@ -24,8 +24,8 @@
   $: otherModsBySameAuthor =
     mod?.addonauthor == null
       ? []
-      : Object.keys($modManifest)
-          .filter((id) => $modManifest[id].addonauthor == mod.addonauthor)
+      : Object.keys($modManifest.mods)
+          .filter((id) => $modManifest.mods[id].addonauthor == mod.addonauthor)
           .filter((id) => id != mod.id)
 
   $: isEnabled = $enabledMods.includes(mod.id)

@@ -31,7 +31,6 @@ export async function writeAddonlist() {
     )
 
     triggerAlertToast('Addonlist written!')
-
     bridgedApi.writeCustomCfg()
   } catch (e) {
     console.log(e)

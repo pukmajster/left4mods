@@ -26,7 +26,12 @@ export interface BridgedAPI {
 }
 
 export interface IModManifest {
-  [id: ModId]: IMod
+  metadata: {
+    lastUpdated: string
+  }
+  mods: {
+    [id: ModId]: IMod
+  }
 }
 
 export interface IUserProfile {
@@ -58,6 +63,7 @@ export interface IModCollection {
 
 export interface IMod {
   id: ModId
+  pureId: string
   addontitle?: string
   addonversion?: string
   addonauthor?: string
@@ -66,6 +72,7 @@ export interface IMod {
   addonauthorsteamid?: string
   addondescription?: string
   files: ModFile[]
+  fromworkshop: boolean
   addoncontent_backgroundmovie?: string
   addoncontent_bossinfected?: string
   addoncontent_campaign?: string
