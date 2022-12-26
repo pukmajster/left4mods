@@ -68,11 +68,12 @@ function createWindow(): void {
     minWidth: 840,
     minHeight: 670,
     show: false,
+    icon: path.join(__dirname, '../../build/icon.icns'),
     title: 'Left 4 Mods',
     autoHideMenuBar: true,
     ...(process.platform === 'linux'
       ? {
-          icon: path.join(__dirname, '../../build/icon.png')
+          icon: path.join(__dirname, '../../build/icon.icns')
         }
       : {}),
     webPreferences: {
