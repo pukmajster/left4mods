@@ -163,8 +163,8 @@ async function buildManifest(options: RequestManifestOptions) {
   // Write the manifest to disk
   // ----------------------------------------------------------------
 
-  // TODO: remove indent for final version?
-  const f = fs.writeFileSync(MANIFEST_PATH, JSON.stringify(tempManifest, null, 4))
+  // TODO: remove indent for final version
+  fsp.writeFile(MANIFEST_PATH, JSON.stringify(tempManifest, null, 4))
 
   return tempManifest
 }
@@ -279,6 +279,8 @@ async function getModsFromDirectory(
     console.log("FATAL couldn't read addons dir")
     return {}
   }
+
+  console.log('Found ' + newIdCount + ' new mods')
 
   return mods
 }

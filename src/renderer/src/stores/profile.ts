@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { IModCollection, IPreset, ModId } from 'shared'
 import { get, writable } from 'svelte/store'
 

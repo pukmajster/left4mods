@@ -1,5 +1,5 @@
 import { ICategoryMap } from 'shared'
-import { CategoryFiles } from '../manifest_v4'
+import { CategoryFiles } from '../manifest_v5'
 
 function genericGunFiles(soundId: string, worldId: string, viewmodelId: string): CategoryFiles {
   return [
@@ -10,7 +10,7 @@ function genericGunFiles(soundId: string, worldId: string, viewmodelId: string):
 }
 
 function genericGunVguiFiles(id: string): CategoryFiles {
-  return []
+  return [`----------TODO ${id}`]
 }
 
 export type Gun =
@@ -84,5 +84,5 @@ export const gunFiles: ICategoryMap = {
   auto_shotgun: genericGunFiles('auto_shotgun', 'autoshot_m4super', 'autoshotgun'),
   machinegun_m60: genericGunFiles('machinegun_m60', 'm60', 'm60'),
 
-  guns_vgui: []
+  guns_vgui: genericGunVguiFiles('pistol')
 }

@@ -1,5 +1,5 @@
 import { ICategoryMap } from 'shared'
-import { CategoryFiles } from '../manifest_v4'
+import { CategoryFiles } from '../manifest_v5'
 
 function genericLoadingScreenFiles(id: string): CategoryFiles {
   return [`materials/vgui/loadingscreen_${id}`]

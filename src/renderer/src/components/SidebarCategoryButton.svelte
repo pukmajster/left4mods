@@ -46,7 +46,7 @@
     <img
       class:lightMode={!$darkMode && $visibleFilterPanel != categoryName}
       width="32px"
-      src={`icons/${categoryName}2.png`}
+      src={`images/icons/${categoryName}2.png`}
       alt={capitalizedCategoryName}
     />
   {/if}

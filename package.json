@@ -5,6 +5,16 @@
   "main": "./out/main/index.js",
   "author": "https://github.com/pukmajster",
   "homepage": "https://github.com/pukmajster/left4mods",
+  "build": {
+    "productName": "Left 4 Mods",
+    "appId": "left4mods",
+    "extraResources": [
+      "./assets/**"
+    ],
+    "nsis": {
+      "runAfterFinish": false
+    }
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",

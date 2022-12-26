@@ -1,5 +1,5 @@
 import { ICategoryMap } from 'shared'
-import { CategoryFiles } from '../manifest_v4'
+import { CategoryFiles } from '../manifest_v5'
 
 function genericSpecialInfectedL4D1Files(id: string): CategoryFiles {
   return [
@@ -20,7 +20,7 @@ function genericSpecialInfectedFiles(id: string): CategoryFiles {
 
 // TODO: add files
 function genericSpecialInfectedVguiFiles(id: string): CategoryFiles {
-  return []
+  return [`----------TODO ${id}`]
 }
 
 export type Infected =

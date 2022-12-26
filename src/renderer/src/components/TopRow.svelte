@@ -54,10 +54,7 @@
 
   function clearSelection() {
     selectedMods.set([])
-    batchCollectionName = ''
   }
-
-  let batchCollectionName = ''
 
   function handleSelectedButtonClick() {
     if ($selectedMods.length > 0) {

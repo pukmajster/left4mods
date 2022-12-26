@@ -24,35 +24,35 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
-ipcMain.handle('manifest:request', async (e, options: RequestManifestOptions) => {
+ipcMain.handle('manifest:request', async (_e, options: RequestManifestOptions) => {
   return requestManifest(options)
 })
 
-ipcMain.handle('external:openLinkInBrowser', async (e, url: string) => {
+ipcMain.handle('external:openLinkInBrowser', async (__e, url: string) => {
   return shell.openExternal(url)
 })
 
-ipcMain.handle('profile:write', async (e, profileData: IUserProfile) => {
+ipcMain.handle('profile:write', async (_e, profileData: IUserProfile) => {
   return writeProfile(profileData)
 })
 
-ipcMain.handle('profile:read', async (e) => {
+ipcMain.handle('profile:read', async (_e) => {
   return readProfile()
 })
 
-ipcMain.handle('addonlist:write', async (e, gameDir: string, addonInfo: string) => {
+ipcMain.handle('addonlist:write', async (_e, gameDir: string, addonInfo: string) => {
   return writeAddonList(gameDir, addonInfo)
 })
 
-ipcMain.handle('profile:openWorkingDirectory', async (e) => {
+ipcMain.handle('profile:openWorkingDirectory', async (_e) => {
   return openWorkingDirectory()
 })
 
-ipcMain.handle('profile:writeCustomCfg', async (e, gameDir: string, customCfg: string) => {
+ipcMain.handle('profile:writeCustomCfg', async (_e, gameDir: string, customCfg: string) => {
   return writeCustomCfg(gameDir, customCfg)
 })
 
-ipcMain.handle('profile:openDirectory', async (e, directory: string) => {
+ipcMain.handle('profile:openDirectory', async (_e, directory: string) => {
   return openDirectory(directory)
 })
 

@@ -1,5 +1,5 @@
 import { ICategoryMap } from 'shared'
-import { CategoryFiles, GenericFilesBuilderReturn } from '../manifest_v4'
+import { CategoryFiles, GenericFilesBuilderReturn } from '../manifest_v5'
 
 function genericMeleeFiles(
   soundId: string,
@@ -78,5 +78,5 @@ export const meleeFiles: ICategoryMap = {
   // The knife is SPECIAL
   knife: knifeMeleeFiles(),
 
-  melee_vgui: []
+  melee_vgui: genericMeleeVguiFiles('cricketbat')
 }

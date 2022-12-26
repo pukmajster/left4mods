@@ -1,5 +1,5 @@
 import { ICategoryMap } from 'shared'
-import { CategoryFiles } from '../manifest_v4'
+import { CategoryFiles } from '../manifest_v5'
 
 function genericNadeFiles(id: Nade): CategoryFiles {
   return [`models/w_models/weapons/w_eq_${id}.`, `models/v_models/v_${id}.`]
