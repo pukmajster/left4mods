@@ -21,7 +21,7 @@
         </div>
       {:else if $showConflictingView}
         {#if $groupedEnabledMods.length == 0}
-          <div class="no-conflicting-mods p-2 pl-8 space-y-2">
+          <div class="no-conflicting-mods p-2 pl-4 space-y-2">
             <h1>No conflicting mods</h1>
             <p>There are no conflicting mods in your preset.</p>
           </div>
@@ -96,7 +96,6 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding-left: 1em;
   }
 
   .conflicting-mods-group {

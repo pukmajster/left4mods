@@ -10,17 +10,19 @@
     selectedMods,
     selectedSurvivors,
     selectedUtils,
+    showConflictingView,
     visibleFilterPanel
   } from '../stores/library'
-  import Collections from './Collections.svelte'
+  import Collections2 from './Collections2.svelte'
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
 
   $: searchTerm && selectedMods.set([])
 </script>
 
-<div class="sidebar">
+<div class="sidebar" class:disabled={$showConflictingView}>
   <div class="sidebar-inner">
+    <Collections2 />
     <input type="text" placeholder="Search" bind:value={$searchTerm} class="my-4" />
 
     <div class="filter-panels">
@@ -111,8 +113,6 @@
 
     <div style="height: 1em" />
   </div>
-
-  <Collections />
 </div>
 
 <style lang="postcss">
@@ -120,13 +120,18 @@
     padding: 1em;
     padding-top: 0;
     padding-bottom: 0;
-    min-width: 320px;
-    max-width: 320px;
+    min-width: 360px;
+    max-width: 360px;
     height: 100%;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .sidebar.disabled {
+    pointer-events: none;
+    opacity: 0.3;
   }
 
   .sidebar-inner {

@@ -20,6 +20,7 @@
     <svelte:fragment slot="sidebarLeft">
       <Sidebar />
     </svelte:fragment>
+
     <!-- Page Content -->
     <ModLibrary />
   </AppShell>
