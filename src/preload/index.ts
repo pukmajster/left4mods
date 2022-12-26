@@ -15,7 +15,8 @@ const api: BridgedAPI = {
     ipcRenderer.invoke('addonlist:write', gameDir, addonInfo),
   selectFolder: () => ipcRenderer.invoke('dialog:openDirectory'),
   openWorkingDirectory: () => ipcRenderer.invoke('profile:openWorkingDirectory'),
-  writeCustomCfg: (gameDir, customCfg) => ipcRenderer.invoke('customcfg:write', gameDir, customCfg)
+  writeCustomCfg: (gameDir, customCfg) =>
+    ipcRenderer.invoke('profile:writeCustomCfg', gameDir, customCfg)
 }
 
 function openLinkInBrowser(url: string) {
@@ -30,7 +31,6 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
-    console.log('exposed! :D')
   } catch (error) {
     console.error(error)
   }

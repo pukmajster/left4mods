@@ -1,4 +1,6 @@
 import type { IModManifest, IPreset, IUserProfile, RequestManifestOptions } from 'shared'
+import { get } from 'svelte/store'
+import { customCfg, gameDir } from '../stores/profile'
 
 async function requestManifest(options: RequestManifestOptions) {
   console.log('manifest')
@@ -49,8 +51,13 @@ async function writeAddonList(gameDir: string, manifest: IModManifest, preset: I
   return res
 }
 
+async function writeCustomCfg() {
+  await window.api.writeCustomCfg(get(gameDir), get(customCfg))
+}
+
 export const bridgedApi = {
   writeAddonList,
   requestManifest,
-  openWorkingDirectory: () => window.api.openWorkingDirectory()
+  openWorkingDirectory: () => window.api.openWorkingDirectory(),
+  writeCustomCfg
 }

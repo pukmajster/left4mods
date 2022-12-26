@@ -34,3 +34,11 @@ export async function openWorkingDirectory() {
     console.log('ERROR OPENING WORKING DIRECTORY', err)
   }
 }
+
+export async function writeCustomCfg(gameDir: string, cfg: string) {
+  try {
+    await fs.promises.writeFile(path.join(gameDir, '/left4dead2/cfg/left4mods.cfg'), cfg)
+  } catch (err) {
+    console.log('ERROR WRITING CUSTOM.CFG', err)
+  }
+}

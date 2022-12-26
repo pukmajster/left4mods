@@ -5,7 +5,7 @@ import * as path from 'path'
 import { IUserProfile, RequestManifestOptions } from 'shared'
 import { writeAddonList } from './addoninfo'
 import { requestManifest } from './manifest_v4/manifest_v4'
-import { openWorkingDirectory, readProfile, writeProfile } from './profile'
+import { openWorkingDirectory, readProfile, writeCustomCfg, writeProfile } from './profile'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -40,6 +40,10 @@ ipcMain.handle('addonlist:write', async (e, gameDir: string, addonInfo: string) 
 
 ipcMain.handle('profile:openWorkingDirectory', async (e) => {
   return openWorkingDirectory()
+})
+
+ipcMain.handle('profile:writeCustomCfg', async (e, gameDir: string, customCfg: string) => {
+  return writeCustomCfg(gameDir, customCfg)
 })
 
 function createWindow(): void {
