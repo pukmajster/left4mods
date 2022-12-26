@@ -11,7 +11,9 @@
 
   // Shoutout to https://stackoverflow.com/a/69025425
   let thumbnailFallback = '/images/defaultmodthumbnail.webp'
-  let thumbnail = `file://${$gameDir}/left4dead2/addons/workshop/${mod?.id}.jpg`
+  let thumbnail = `file://${$gameDir}/left4dead2/addons/${mod?.fromworkshop ? 'workshop' : ''}/${
+    mod?.id
+  }.jpg`
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   function openModInBrowser() {
