@@ -4,9 +4,14 @@
   import { combinedCategoryToLabelMap } from '../constants/categories'
   import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
-  import { collections, toggleModInCurrentPresetSafe } from '../stores/profile'
+  import { collections, gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
 
   $: mod = $modManifest[$modIdToOverview]
+
+  // Shoutout to https://stackoverflow.com/a/69025425
+  let thumbnailFallback = '/images/defaultmodthumbnail.webp'
+  let thumbnail = `file://${$gameDir}/left4dead2/addons/workshop/${mod?.id}.jpg`
+  const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   function openModInBrowser() {
     window.api.openLinkInBrowser(`https://steamcommunity.com/sharedfiles/filedetails/?id=${mod.id}`)
@@ -40,11 +45,7 @@
 </script>
 
 <div class="mod">
-  <img
-    alt="mod"
-    src={`file:///home/kry/.local/share/Steam/steamapps/common/Left%204%20Dead%202/left4dead2/addons/workshop/${mod.id}.jpg`}
-    class="shadow-lg"
-  />
+  <img alt="mod" src={thumbnail} on:error={handleMissingThumbnail} class="shadow-lg" />
 
   <div class="credits p-4">
     <h3>{mod.addontitle}</h3>
