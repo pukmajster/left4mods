@@ -11,7 +11,6 @@ export async function requestManifest(forceNewBuild: boolean = false) {
   }
 
   isBuildingModManifest.set(true)
-  triggerAlertToast('Refreshing mods...')
 
   try {
     let manifest = await bridgedApi.requestManifest({
