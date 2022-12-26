@@ -4,6 +4,16 @@
   export let state = ''
   export let isValid = false
 
+  const validGameDirEndings = [
+    // Unix / Darwin
+    'common/Left 4 Dead 2',
+    'common/Left 4 Dead 2/',
+
+    // Windows
+    'common\\Left 4 Dead 2',
+    'common\\Left 4 Dead 2\\'
+  ]
+
   async function browseGameDir() {
     let result = await window.api.selectFolder()
     if (result) {
@@ -12,7 +22,8 @@
   }
 
   $: {
-    isValid = state.endsWith('common/Left 4 Dead 2') || state.endsWith('common/Left 4 Dead 2/')
+    //isValid = state.endsWith('common/Left 4 Dead 2') || state.endsWith('common/Left 4 Dead 2/')
+    isValid = validGameDirEndings.some((ending) => state.endsWith(ending))
   }
 </script>
 
@@ -35,5 +46,9 @@
 {/if}
 
 {#if !state}
-  <span class="text-primary-500 pl-4 text-xs"> Browse for a directory! </span>
+  <span class=" pl-4 text-xs"> Browse for a directory! </span>
+{/if}
+
+{#if isValid && state}
+  <span class="text-green-500 pl-4 text-xs"> Good directory! </span>
 {/if}
