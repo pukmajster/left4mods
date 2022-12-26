@@ -14,6 +14,7 @@
   import { openInitialSetupDrawer } from '../../functions/drawers'
   import { requestManifest } from '../../functions/manifest'
   import {
+    customCfg,
     darkMode,
     disableOnlineFetchingOfModData,
     gameDir,
@@ -29,7 +30,8 @@
   let formData = {
     gameDir: $gameDir,
     disableOnlineFetchingOfModData: $disableOnlineFetchingOfModData,
-    launchParameters: $launchParameters
+    launchParameters: $launchParameters,
+    customCfg: $customCfg
   }
 
   // We've created a custom submit function to pass the response and close the modal.
@@ -38,6 +40,7 @@
     gameDir.set(formData.gameDir)
     disableOnlineFetchingOfModData.set(formData.disableOnlineFetchingOfModData)
     launchParameters.set(formData.launchParameters)
+    customCfg.set(formData.customCfg)
     modalStore.close()
     triggerToast()
   }
@@ -71,7 +74,7 @@
 <div class="modal-example-form {cBase}">
   <TabGroup selected={tab}>
     <Tab value="manifest">General</Tab>
-    <Tab value="launchparameters">Launch Parameters</Tab>
+    <Tab value="launchparameters">Commands</Tab>
     <Tab value="Appearance">Appearance</Tab>
     <Tab value="misc">Dev</Tab>
   </TabGroup>
@@ -82,11 +85,6 @@
       <p>
         The directory is needed to access and write to the game files. We won't be snooping outside
         of this directory even if an invalid l4d2 directory has been supplied.
-      </p>
-
-      <p>
-        The end of the directory should look like this: <br />
-        <span class="p-4 pt-5 font-bold">.../common/Left 4 Dead 2/left4dead2/</span>
       </p>
 
       <GameDirectoryManager bind:state={formData.gameDir} />
@@ -121,6 +119,12 @@
         <li>-novid (skips the intro cutscene)</li>
         <li>+exec l4d2launcher.cfg (executes your custom config)</li>
       </ul>
+
+      <h5 class="font-bold">Config</h5>
+      <p>Write your custom config here...</p>
+      <div class="flex gap-4">
+        <textarea rows="5" rowspan="5" bind:value={formData.customCfg} class="flex-1 w-full" />
+      </div>
     {/if}
 
     {#if $tab == 'Appearance'}
@@ -164,5 +168,9 @@
 <style>
   .modal-content {
     min-height: 480px;
+  }
+
+  textarea {
+    resize: none;
   }
 </style>

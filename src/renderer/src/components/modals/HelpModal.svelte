@@ -37,7 +37,7 @@
       href="https://github.com/pukmajster/l4d2-launcher/issues"
       target="_blank"
     >
-      <Github size={16} /> github</a
+      <Github size={16} /> GitHub</a
     > issues page and report there!
   </p>
 

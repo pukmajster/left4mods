@@ -64,19 +64,16 @@ const survivors: ICategoryToLabelMap = {
 }
 
 const utils: ICategoryToLabelMap = {
+  pipebomb: 'Pipebomb',
+  molotov: 'Molotov',
+  bile: 'Bile',
+  medkit: 'Medkit',
   defibrillator: 'Defibrillator',
   adrenaline: 'Adrenaline',
   painpills: 'Pills',
-  medkit: 'Medkit',
   incendiary_ammopack: 'Incendiary Ammo Pack',
   explosive_ammopack: 'Explosive Ammo Pack',
   laser_pack: 'Laser Pack'
-}
-
-const grenades: ICategoryToLabelMap = {
-  pipebomb: 'Pipebomb',
-  molotov: 'Molotov',
-  bile: 'Bile'
 }
 
 const melee: ICategoryToLabelMap = {
@@ -117,7 +114,6 @@ export const combinedCategoryToLabelMap = {
   ...filetypes,
   ...audio,
   ...melee,
-  ...grenades,
   ...utils,
   ...survivors,
   ...infected
@@ -131,7 +127,6 @@ export default {
   filetypes,
   audio,
   melee,
-  grenades,
   utils,
   survivors,
   infected

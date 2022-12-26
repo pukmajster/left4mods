@@ -38,7 +38,7 @@ ipcMain.handle('addonlist:write', async (e, gameDir: string, addonInfo: string) 
   return writeAddonList(gameDir, addonInfo)
 })
 
-ipcMain.handle('profile:openInOs', async (e) => {
+ipcMain.handle('profile:openWorkingDirectory', async (e) => {
   return openWorkingDirectory()
 })
 
@@ -59,7 +59,7 @@ function createWindow(): void {
       : {}),
     webPreferences: {
       preload: path.join(__dirname, '../preload/index.js'),
-      sandbox: true,
+      sandbox: false,
       nodeIntegration: true, // keep     two    !
       contextIsolation: true, //    these   true
       allowRunningInsecureContent: false,

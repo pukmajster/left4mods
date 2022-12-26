@@ -19,39 +19,44 @@
   let readyToRequestInitialManifest = false
 
   onMount(async () => {
-    try {
-      let savedProfile = await window.api.readProfile()
+    let savedProfile: IUserProfile
 
-      let defaultConfig: IUserProfile = {
-        activePreset: 'default',
-        collections: [{ id: 'favourites', label: 'Favourites', mods: [] }],
-        presets: [{ id: 'default', label: 'Default', enabledMods: [] }],
-        preferences: {
-          gameDir: '',
-          disableOnlineFetchingOfModData: false,
-          darkMode: true,
-          grayscaleDisabledMods: false
-        },
-        launchParameters: '-novid +exec autoexec.cfg +exec l4d2launcher.cfg',
-        customCfg: '',
-        hasFinishedFirstTimeSetup: false
-      }
-
-      let profile: IUserProfile = { ...defaultConfig, ...savedProfile }
-
-      collections.set(profile.collections)
-      gameDir.set(profile.preferences.gameDir)
-      presets.set(profile.presets)
-      activePreset.set(profile.activePreset)
-      disableOnlineFetchingOfModData.set(profile.preferences.disableOnlineFetchingOfModData)
-      launchParameters.set(profile.launchParameters)
-      customCfg.set(profile.customCfg)
-      darkMode.set(profile.preferences.darkMode)
-      hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup)
-      grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods)
-    } catch (e) {
-      console.log(e)
+    let defaultConfig: IUserProfile = {
+      activePreset: 'default',
+      collections: [{ id: 'favourites', label: 'Favourites', mods: [] }],
+      presets: [
+        { id: 'default', label: 'Default', enabledMods: [] },
+        { id: 'nomods', label: 'Vanilla (No Mods)', enabledMods: [] }
+      ],
+      preferences: {
+        gameDir: '',
+        disableOnlineFetchingOfModData: false,
+        darkMode: true,
+        grayscaleDisabledMods: false
+      },
+      launchParameters: '-novid +exec autoexec.cfg +exec l4d2launcher.cfg',
+      customCfg: 'bind p "toggleconsole"',
+      hasFinishedFirstTimeSetup: false
     }
+
+    try {
+      savedProfile = await window.api.readProfile()
+    } catch (e) {
+      savedProfile = defaultConfig
+    }
+
+    let profile: IUserProfile = { ...defaultConfig, ...savedProfile }
+
+    collections.set(profile.collections)
+    gameDir.set(profile.preferences.gameDir)
+    presets.set(profile.presets)
+    activePreset.set(profile.activePreset)
+    disableOnlineFetchingOfModData.set(profile.preferences.disableOnlineFetchingOfModData)
+    launchParameters.set(profile.launchParameters)
+    customCfg.set(profile.customCfg)
+    darkMode.set(profile.preferences.darkMode)
+    hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup)
+    grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods)
 
     ready = true
     readyToRequestInitialManifest = true
@@ -74,7 +79,11 @@
         hasFinishedFirstTimeSetup: $hasFinishedFirstTimeSetup
       }
 
-      window.api.writeProfile(profileData)
+      try {
+        window.api.writeProfile(profileData)
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 

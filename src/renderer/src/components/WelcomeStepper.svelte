@@ -43,11 +43,6 @@
           Local Files". This will open up the game directory in your file browser.
         </p>
 
-        <p>
-          The end of the directory should look like this:
-          <span class="pl-4 font-bold">.../common/Left 4 Dead 2/left4dead2/</span>
-        </p>
-
         <GameDirectoryManager bind:state={formData.gameDir} bind:isValid={isGameDirValid} />
       </Step>
 

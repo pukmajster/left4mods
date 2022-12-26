@@ -3,7 +3,6 @@
   import categories from '../constants/categories'
   import {
     searchTerm,
-    selectedGrenades,
     selectedGuns,
     selectedInfected,
     selectedMelees,
@@ -31,7 +30,6 @@
             <SidebarCategoryButton categoryName={'-'} label="All" />
             <SidebarCategoryButton categoryName={'guns'} label="Guns" />
             <SidebarCategoryButton categoryName={'melee'} label="Melees" />
-            <SidebarCategoryButton categoryName={'grenades'} label="Nades" />
             <SidebarCategoryButton categoryName={'utils'} label="Utils" />
             <SidebarCategoryButton categoryName={'survivors'} label="Survivors" />
             <SidebarCategoryButton categoryName={'infected'} label="Infected" />
@@ -65,14 +63,6 @@
           store={selectedMelees}
           isVisible={$visibleFilterPanel == 'melee'}
           label={'melees'}
-        />
-
-        <SidebarCategoryEntry
-          categoryName="grenades"
-          categoryEntries={categories.grenades}
-          store={selectedGrenades}
-          isVisible={$visibleFilterPanel == 'grenades'}
-          label="Nades"
         />
 
         <SidebarCategoryEntry

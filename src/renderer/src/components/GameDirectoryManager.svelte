@@ -16,6 +16,11 @@
   }
 </script>
 
+<p>
+  The end of the directory should look like this:
+  <span class="pl-4 font-bold">.../common/Left 4 Dead 2/</span>
+</p>
+
 <div class="flex gap-4">
   <input bind:value={state} type="text" class="flex-1" />
   <button class="btn" on:click={browseGameDir}>
