@@ -75,7 +75,7 @@
   }
 </script>
 
-<div
+<button
   class="mod"
   class:selected
   class:unselected={otherModsSelectedButNotThisOne && !selected}
@@ -126,7 +126,7 @@
       </div>
     </div>
   {/if}
-</div>
+</button>
 
 <style lang="postcss">
   .mod {
