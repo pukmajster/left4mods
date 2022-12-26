@@ -1,10 +1,10 @@
 {
   "name": "left4mods",
-  "version": "1.0.0",
-  "description": "An Electron application with Svelte and TypeScript",
+  "version": "0.1.0",
+  "description": "A full-blown Left 4 Dead 2 mod manager",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://www.electronjs.org",
+  "author": "https://github.com/pukmajster",
+  "homepage": "https://github.com/pukmajster/left4mods",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -22,19 +22,14 @@
   "dependencies": {
     "@electron-toolkit/preload": "^1.0.2",
     "@electron-toolkit/utils": "^1.0.2",
-    "@types/node-fetch": "^2.6.2",
     "classnames": "^2.3.2",
-    "cross-fetch": "^3.1.5",
     "electron-fetch": "^1.9.1",
     "electron-updater": "^5.3.0",
     "form-data": "^4.0.0",
-    "formdata-node": "^5.0.0",
     "lucide-svelte": "^0.104.0",
     "nanoid": "^4.0.0",
-    "node-fetch": "^2.6.6",
     "node-vdf": "^0.0.3",
     "shared": "file:./shared",
-    "svelte-fa": "^3.0.3",
     "vpk": "^0.2.0"
   },
   "devDependencies": {

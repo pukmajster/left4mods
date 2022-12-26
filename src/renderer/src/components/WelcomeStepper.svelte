@@ -75,7 +75,7 @@
           <p>
             A preset is a selection of mods you want enabled in-game. Imagine it as a like a mod
             pack. You can have multiple, but only one may be selected at a time. I'm even giving you
-            a default preset to start with, plus a "Vanilla" (No Mods) preset! How kind indeed.
+            a default preset to start with, plus a "Vanilla (No Mods)" preset! How kind indeed.
           </p>
 
           <h4 class="font-bold pt-3">Collections</h4>

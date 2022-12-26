@@ -35,7 +35,7 @@
         grayscaleDisabledMods: false
       },
       launchParameters: '-novid +exec autoexec.cfg +exec left4mods.cfg',
-      customCfg: 'bind p "toggleconsole"',
+      customCfg: '// Left4Mods Custom Config\n',
       hasFinishedFirstTimeSetup: false
     }
 
