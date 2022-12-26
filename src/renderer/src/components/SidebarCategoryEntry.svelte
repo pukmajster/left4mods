@@ -10,12 +10,13 @@
   export let isVisible: boolean = false
 
   $: categoryEntriesList = Object.keys(categoryEntries)
+
   $: {
     $store && selectedMods.set([])
   }
 
   function selectThisCategory(entry: string) {
-    store.set(entry)
+    $store = entry
   }
 </script>
 
@@ -24,25 +25,15 @@
 
   {#if categoryName}
     <div class="flex flex-col rounded-md overflow-hidden">
-      <!--    <label class="flex gap-2 items-center ">
-        <input type="radio" bind:group={$store} value={''} />
-        NO FILTER
-      </label> -->
-
-      <!--  {#each categoryEntriesList as entry}
-        <label class="flex gap-2 items-center ">
-          <input type="radio" bind:group={$store} value={entry} />
-          {categoryEntries[entry]}
-        </label>
-      {/each} -->
-
       {#each categoryEntriesList as entry}
+        {@const isSelected = $store == entry}
+
         <button
           class="category-entry flex gap-2 items-center py-1 bg-surface-800/30  pl-4 cursor-pointer hover:bg-surface-700/50"
-          class:selected={$store == entry}
-          on:click={() => selectThisCategory(entry)}
+          class:selected={isSelected}
+          on:click={() => selectThisCategory(isSelected ? '' : entry)}
         >
-          {#if $store == entry}
+          {#if isSelected}
             <CheckCircle size={14} />
           {:else}
             <Circle size={14} />
