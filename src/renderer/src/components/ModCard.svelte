@@ -198,6 +198,7 @@
   .hoverbox {
     pointer-events: none;
     position: absolute;
+    text-align: left;
     left: 0;
     top: 100%;
     right: 0px;
@@ -216,7 +217,7 @@
   }
 
   .category {
-    padding: 0 6px;
+    padding: 4px 8px;
     background-color: rgba(180, 180, 183, 0.141);
     border-radius: 2px;
   }
@@ -224,6 +225,6 @@
   .author,
   .version,
   .categories p {
-    font-size: 9px;
+    font-size: 14px;
   }
 </style>
