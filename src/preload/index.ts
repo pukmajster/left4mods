@@ -16,7 +16,8 @@ const api: BridgedAPI = {
   selectFolder: () => ipcRenderer.invoke('dialog:openDirectory'),
   openWorkingDirectory: () => ipcRenderer.invoke('profile:openWorkingDirectory'),
   writeCustomCfg: (gameDir, customCfg) =>
-    ipcRenderer.invoke('profile:writeCustomCfg', gameDir, customCfg)
+    ipcRenderer.invoke('profile:writeCustomCfg', gameDir, customCfg),
+  openDirectory: (directory: string) => ipcRenderer.invoke('profile:openDirectory', directory)
 }
 
 function openLinkInBrowser(url: string) {

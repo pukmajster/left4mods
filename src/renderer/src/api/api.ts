@@ -55,9 +55,14 @@ async function writeCustomCfg() {
   await window.api.writeCustomCfg(get(gameDir), get(customCfg))
 }
 
+async function openGameDirectory() {
+  await window.api.openDirectory(get(gameDir))
+}
+
 export const bridgedApi = {
   writeAddonList,
   requestManifest,
   openWorkingDirectory: () => window.api.openWorkingDirectory(),
-  writeCustomCfg
+  writeCustomCfg,
+  openGameDirectory
 }

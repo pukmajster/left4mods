@@ -142,7 +142,7 @@
     {/if}
 
     {#if $tab == 'misc'}
-      <div class="space-x-2 space-y-2">
+      <div class="flex flex-col space-y-2">
         <button class="btn btn-ghost-warning" on:click={forceFullManifestRefresh}
           >forceFullManifestRefresh</button
         >
@@ -153,6 +153,10 @@
 
         <button class="btn btn-ghost-warning" on:click={bridgedApi.openWorkingDirectory}
           >openWorkingDirectory</button
+        >
+
+        <button class="btn btn-ghost-warning" on:click={bridgedApi.openGameDirectory}
+          >openGameDirectory</button
         >
       </div>
     {/if}

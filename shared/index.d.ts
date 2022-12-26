@@ -22,6 +22,7 @@ export interface BridgedAPI {
   writeCustomCfg: (gameDir: string, customCfg: string) => Promise<boolean>
   selectFolder: () => Promise<string>
   openWorkingDirectory: () => void
+  openDirectory: (directory: string) => void
 }
 
 export interface IModManifest {
