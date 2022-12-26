@@ -34,7 +34,7 @@
         darkMode: true,
         grayscaleDisabledMods: false
       },
-      launchParameters: '-novid +exec autoexec.cfg +exec l4d2launcher.cfg',
+      launchParameters: '-novid +exec autoexec.cfg +exec left4mods.cfg',
       customCfg: 'bind p "toggleconsole"',
       hasFinishedFirstTimeSetup: false
     }

@@ -34,7 +34,7 @@
   <p class="flex gap-2">
     You can visit the <a
       class=" inline flex items-center gap-1"
-      href="https://github.com/pukmajster/l4d2-launcher/issues"
+      href="https://github.com/pukmajster/left4mods/issues"
       target="_blank"
     >
       <Github size={16} /> GitHub</a

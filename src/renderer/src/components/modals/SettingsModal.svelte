@@ -117,7 +117,7 @@
 
       <ul class="pl-4">
         <li>-novid (skips the intro cutscene)</li>
-        <li>+exec l4d2launcher.cfg (executes your custom config)</li>
+        <li>+exec left4mods.cfg (executes your custom config)</li>
       </ul>
 
       <h5 class="font-bold">Config</h5>

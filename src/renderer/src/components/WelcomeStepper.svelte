@@ -26,14 +26,14 @@
     <Stepper {currentStep} length={6} on:complete={onComplete}>
       <Step index={0}>
         <svelte:fragment slot="header">Welcome</svelte:fragment>
-        Welcome to L4D2-Launcher! Before you can start, you just need to go throught a quick set up procees.
+        Welcome to Left 4 Mods! Before you can start, you just need to go throught a quick set up procees.
         Let's start by clicking Next!
         <br />
       </Step>
       <Step index={1} locked={!isGameDirValid}>
         <svelte:fragment slot="header">Game Directory</svelte:fragment>
         <p>
-          For L4D2-Launcher to work, you need to specify the location of your Left 4 Dead 2 game
+          For Left 4 Mods to work, you need to specify the location of your Left 4 Dead 2 game
           directory. Rather obvious...
         </p>
 

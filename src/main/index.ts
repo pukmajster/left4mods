@@ -50,7 +50,7 @@ function createWindow(): void {
     minWidth: 840,
     minHeight: 670,
     show: false,
-    title: 'L4d2 Launcher',
+    title: 'Left 4 Mods',
     autoHideMenuBar: true,
     ...(process.platform === 'linux'
       ? {
@@ -102,7 +102,7 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.l4d2-launcher.Pukmajster')
+  electronApp.setAppUserModelId('com.left4mods.Pukmajster')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

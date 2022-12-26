@@ -1,4 +1,4 @@
-# l4d2-launcher
+# left4mods
 
 An Electron application with Svelte and TypeScript
 
