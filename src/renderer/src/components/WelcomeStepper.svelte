@@ -13,7 +13,7 @@
   }
 
   const formData = {
-    gameDir: $gameDir
+    gameDir: ''
   }
 
   let isGameDirValid = false
