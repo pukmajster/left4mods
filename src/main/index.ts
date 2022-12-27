@@ -19,6 +19,7 @@ if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 // Set application name for Windows 10+ notifications
 if (process.platform === 'win32') app.setAppUserModelId(app.getName())
 
+// Darwin case
 if (!app.requestSingleInstanceLock()) {
   app.quit()
   process.exit(0)
@@ -60,9 +61,10 @@ ipcMain.handle('getPath', () => app.getPath('appData'))
 
 ipcMain.handle('getPathJoin', (_e, file: string) => path.join(app.getPath('appData'), file))
 
+let mainWindow: BrowserWindow | null = null
 function createWindow(): void {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     minWidth: 840,
@@ -87,7 +89,7 @@ function createWindow(): void {
   })
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+    if (mainWindow) mainWindow.show()
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -97,6 +99,8 @@ function createWindow(): void {
 
   // Handle for directory dialog
   ipcMain.handle('dialog:openDirectory', async () => {
+    if (!mainWindow) return
+
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
       properties: ['openDirectory']
     })
@@ -143,8 +147,16 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
+  mainWindow = null
+  if (process.platform !== 'darwin') app.quit()
+})
+
+// Focus on the main instance if possible
+app.on('second-instance', () => {
+  if (mainWindow) {
+    // Focus on the main window if the user tried to open another
+    if (mainWindow.isMinimized()) mainWindow.restore()
+    mainWindow.focus()
   }
 })
 
