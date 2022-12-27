@@ -140,8 +140,6 @@
 
     transition: transform 0.12s ease-in-out;
     cursor: pointer;
-
-    /* background-color: #262847; */
   }
 
   .mod:hover {
@@ -223,8 +221,6 @@
     border-radius: 2px;
   }
 
-  .author,
-  .version,
   .categories p {
     font-size: 14px;
   }
