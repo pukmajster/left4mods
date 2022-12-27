@@ -61,6 +61,7 @@ ipcMain.handle('getPath', () => app.getPath('appData'))
 
 ipcMain.handle('getPathJoin', (_e, file: string) => path.join(app.getPath('appData'), file))
 
+let firstPassFinished = false
 let mainWindow: BrowserWindow | null = null
 function createWindow(): void {
   // Create the browser window.
@@ -97,19 +98,23 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
-  // Handle for directory dialog
-  ipcMain.handle('dialog:openDirectory', async () => {
-    if (!mainWindow) return
+  if (!firstPassFinished) {
+    // Handle for directory dialog
+    ipcMain.handle('dialog:openDirectory', async () => {
+      if (!mainWindow) return
 
-    const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
-      properties: ['openDirectory']
+      const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+        properties: ['openDirectory']
+      })
+      if (canceled) {
+        return
+      } else {
+        return filePaths[0]
+      }
     })
-    if (canceled) {
-      return
-    } else {
-      return filePaths[0]
-    }
-  })
+
+    firstPassFinished = true
+  }
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
