@@ -24,6 +24,7 @@
   import misc from '../assets/media/icons/misc.png'
   import survivors from '../assets/media/icons/survivors.png'
   import utils from '../assets/media/icons/utils.png'
+  import Stats from './Stats.svelte'
 
   $: searchTerm && selectedMods.set([])
 </script>
@@ -109,8 +110,9 @@
       <button on:click={clearCategorySelection}>Clear Selection</button>
     </div> -->
 
-    <div style="height: 1em" />
+    <div style="height: 0.5rem" />
   </div>
+  <Stats />
 </div>
 
 <style lang="postcss">
