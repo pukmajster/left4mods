@@ -8,7 +8,7 @@
 	<div class="space-y-10 text-center flex items-center flex-col">
 		<h2 class="font-bold">A full-blown mod manager for <span class="text-primary-500">Left 4 Dead 2.</span></h2>
 
-		<h3>View, manage and organize your mods installed from the workshop or elsewere.</h3>
+		<h3>View, manage and organize your mods installed from the workshop or elsewhere.</h3>
 		
 		<div class="app-preview-wrapper flex justify-center  items-center m-2">
 			<img class="app-preview" src="l4m.png" alt="App Preview">
@@ -47,7 +47,7 @@
 		<div class="flex flex-col justify-center space-x-2 py-5 gap-4">
 			<h2>Downloads</h2>
 
-			<div class="downloads flex gap-8 my-4" >
+			<div class="downloads flex flex-col items-center md:flex-row gap-8 my-4" >
 				<a class="download-link" rel="noreferrer" href="https://github.com/pukmajster/left4mods/releases" target="_blank" >
 					<div class="os"><DiWindows /></div>
 					Windows 10/11
