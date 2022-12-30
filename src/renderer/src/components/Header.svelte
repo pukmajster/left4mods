@@ -91,7 +91,7 @@
   }
 </script>
 
-<nav class=" p-2 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
+<nav class=" p-4 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
   <div class="!flex flex-col gap-2  ">
     <button on:click={triggerCustomModal} class="flex-1 btn text-left">
       <Settings size={16} /> <span>Settings</span></button
@@ -116,7 +116,7 @@
 <AppBar padding="px-4 py-2">
   <svelte:fragment slot="lead">
     <div class=" space-x-1">
-      <button use:menu={{ menu: 'example' }} class=" menubutton btn btn-sm ">
+      <button use:menu={{ menu: 'example' }} class=" menubutton btn btn-sm btn-filled-surface">
         <Menu size={16} />
         <span> Menu</span>
       </button>
