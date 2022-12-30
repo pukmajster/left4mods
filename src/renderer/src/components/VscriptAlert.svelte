@@ -12,9 +12,11 @@
 
   let presetContainsVScriptMods = false
 
-  $: {
+  $: $enabledMods && $modManifest && checkForVScriptMods()
+
+  function checkForVScriptMods() {
     let modsToCheck: IMod[] = []
-    for (let id in $enabledMods) {
+    for (let id of $enabledMods) {
       modsToCheck.push($modManifest.mods[id])
     }
 
@@ -29,15 +31,18 @@
   }
 </script>
 
-<Alert
-  background="bg-yellow-500/50"
-  border="border-warning-400"
-  visible={presetContainsVScriptMods}
->
-  <svelte:fragment slot="lead"><AlertTriangle size={32} /></svelte:fragment>
-  <svelte:fragment slot="title">VScript mods enabled!</svelte:fragment>
+<div>
+  <Alert
+    background="bg-yellow-500/50"
+    border="border-warning-400"
+    visible={presetContainsVScriptMods}
+  >
+    <svelte:fragment slot="lead"><AlertTriangle size={32} /></svelte:fragment>
+    <svelte:fragment slot="title">VScript mods enabled!</svelte:fragment>
     <span>You won't be able to play online as long as these are enabled.</span>
-  <svelte:fragment slot="trail">
-    <button on:click={showVscriptCategory} class="btn-filled btn btn-sm">View VScript mods</button>
-  </svelte:fragment>
-</Alert>
+    <svelte:fragment slot="trail">
+      <button on:click={showVscriptCategory} class="btn-filled btn btn-sm">View VScript mods</button
+      >
+    </svelte:fragment>
+  </Alert>
+</div>
