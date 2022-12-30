@@ -6,7 +6,8 @@
     selectedGuns,
     selectedInfected,
     selectedMelees,
-    selectedMisc, selectedSurvivors,
+    selectedMisc,
+    selectedSurvivors,
     selectedUtils,
     showConflictingView,
     visibleFilterPanel
@@ -34,7 +35,7 @@
       <div class="panel-hovers">
         <AppRail width="sm:w-18" selected={visibleFilterPanel}>
           <svelte:fragment slot="lead">
-            <SidebarCategoryButton categoryName={'-'} label="All" image={''} />
+            <SidebarCategoryButton categoryName={'all'} label="All" image={''} />
             <SidebarCategoryButton categoryName={'guns'} label="Guns" image={guns} />
             <SidebarCategoryButton categoryName={'melee'} label="Melees" image={melee} />
             <SidebarCategoryButton categoryName={'utils'} label="Utils" image={utils} />
@@ -42,6 +43,7 @@
             <SidebarCategoryButton categoryName={'infected'} label="Infected" image={infected} />
             <SidebarCategoryButton categoryName={'misc'} label="Misc." image={misc} />
             <SidebarCategoryButton categoryName={'campaign'} label="Maps" image={campaign} />
+            <SidebarCategoryButton categoryName={'?'} label="?" image={''} />
           </svelte:fragment>
         </AppRail>
       </div>

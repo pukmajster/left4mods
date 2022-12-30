@@ -36,16 +36,15 @@ export const selectedSurvivors_multi = writable<string[]>([])
 export const selectedInfected_multi = writable<string[]>([])
 export const selectedMisc_multi = writable<string[]>([])
 
-export const visibleFilterPanel = writable('guns')
+export const visibleFilterPanel = writable('all')
 
 export const modIdToOverview = writable<ModId>('99999999999')
 
 export const enabledMods = derived(
   [modManifest, presets, activePreset],
   ([$modManifest, $presets, $activePreset]) => {
-    let tempStorage: ModId[] = []
-
-    let activePreset = $presets.find((preset) => preset.id == $activePreset)
+    const tempStorage: ModId[] = []
+    const activePreset = $presets.find((preset) => preset.id == $activePreset)
 
     if (!activePreset) return tempStorage
 
@@ -96,9 +95,9 @@ export const filteredMods = derived(
     $selectedCollectionName,
     $visibleFilterPanel
   ]) => {
-    let tempStorage: IMod[] = []
+    const tempStorage: IMod[] = []
 
-    let allFilters = [
+    const allFilters = [
       $selectedGuns,
       $selectedMelees,
       $selectedGrenades,
@@ -109,11 +108,11 @@ export const filteredMods = derived(
     ].filter((filter) => filter != '')
 
     Object.keys($modManifest.mods).map((keyName: string) => {
-      let modName =
+      const modName =
         $modManifest.mods[keyName]?.addontitle ??
         //profileAllOnlineAddoninfos[keyName]?.title ??
         $modManifest.mods[keyName].id
-      let thisMod = $modManifest.mods[keyName] as IMod
+      const thisMod = $modManifest.mods[keyName] as IMod
 
       // Check for mod type
       switch ($typeToShow) {
@@ -136,9 +135,11 @@ export const filteredMods = derived(
       if ($visibleFilterPanel == 'campaign') {
         if (thisMod.categories == undefined) return
         if (!thisMod.categories.includes('campaign')) return
+      } else if ($visibleFilterPanel == '?') {
+        if (thisMod.categories.length > 0) return
       } else if (allFilters.length > 0) {
         if (thisMod.categories == undefined) return
-        let sharedCats = arraysShareValues(allFilters, thisMod.categories)
+        const sharedCats = arraysShareValues(allFilters, thisMod.categories)
         if (!sharedCats) return
       }
 
@@ -159,7 +160,7 @@ export const sortedFilteredMods = derived(
     let tempStorage: IMod[] = $filteredMods
 
     if ($selectedCollectionName != '') {
-      let modsInCollection = $collections.find(
+      const modsInCollection = $collections.find(
         (collection) => collection.id == $selectedCollectionName
       )?.mods
 
@@ -205,7 +206,7 @@ export const sortedFilteredMods = derived(
 export const paginatedSortedFilteredMods = derived(
   [sortedFilteredMods, perPageCount],
   ([$sortedFilteredMods, $perPageCount]) => {
-    let tempStorage: IMod[] = $sortedFilteredMods
+    const tempStorage: IMod[] = $sortedFilteredMods
 
     return tempStorage.slice(0, parseInt($perPageCount))
   }
@@ -218,7 +219,7 @@ export const groupedEnabledMods = derived(
     let tempStorage: IMod[][] = []
 
     $enabledMods.map((modId) => {
-      let thisMod = $modManifest.mods[modId] as IMod
+      const thisMod = $modManifest.mods[modId] as IMod
 
       let foundGroup = false
 

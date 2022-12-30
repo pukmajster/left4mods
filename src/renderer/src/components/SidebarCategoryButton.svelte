@@ -1,6 +1,6 @@
 <script lang="ts">
   import { AppRailTile } from '@skeletonlabs/skeleton'
-  import { ArrowDownCircle } from 'lucide-svelte'
+  import { ArrowDownCircle, FileQuestion } from 'lucide-svelte'
   import {
     selectedGrenades,
     selectedGuns,
@@ -39,8 +39,10 @@
 </div>
  -->
 <AppRailTile on:click={clearCategorySelection} {label} title={label} value={categoryName}>
-  {#if categoryName == '-'}
+  {#if categoryName == 'all'}
     <ArrowDownCircle size={28} />
+  {:else if categoryName == '?'}
+    <FileQuestion size={28} />
   {:else}
     <img
       class:lightMode={!$darkMode && $visibleFilterPanel != categoryName}
