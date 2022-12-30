@@ -241,23 +241,30 @@ async function getModsFromDirectory(
           if (!addoninfoFile) {
             throw new Error('Missing addoninfo.txt')
           }
+
           let addoninfo = addoninfoFile.toString('utf-8')
 
+          let cleanedUpAddonInfo = addoninfo.replace(/^\/\/.*$/gm, '')
+
           // Read the file buffer and turn it into a string our VDF parser can read
-          let addoninfoData = vdf.parse(addoninfo).AddonInfo
+          let addoninfoData = vdf.parse(cleanedUpAddonInfo)?.AddonInfo
+
+          if (!addoninfoData) {
+            throw new Error('Missing AddonInfo object in addoninfo.txt')
+          }
 
           // Take a look at the addoninfo.txt file and see what useful information we can snatch
           for (let item in addoninfoData) {
             let key = item.toLocaleLowerCase()
             let value = addoninfoData[item].toString()
 
-            // If the value of the key is 0 we don't care about it
-            if (value == '0') continue
-
             if (acceptedMetaKeys.includes(key)) {
               // Just copy over certain keys
               modInfo[key] = value
             } else if (addonContentToCategoryMap.hasOwnProperty(key)) {
+              // If the value of the key is 0 we don't care about it
+              if (value == '0') continue
+
               // Map the contentAddon property into a category
               addCategory(addonContentToCategoryMap[key])
             }
