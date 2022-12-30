@@ -29,7 +29,7 @@
         {@const isSelected = $store == entry}
 
         <button
-          class="category-entry flex gap-2 items-center py-1 bg-surface-800/30  pl-4 cursor-pointer hover:bg-surface-700/50"
+          class="category-entry flex gap-2 items-center py-1 bg-surface-700/50  pl-4 cursor-pointer hover:bg-surface-500"
           class:selected={isSelected}
           on:click={() => selectThisCategory(isSelected ? '' : entry)}
         >

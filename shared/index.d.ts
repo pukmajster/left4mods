@@ -49,6 +49,7 @@ export interface IUserProfile {
   customCfg: string
   launchParameters: string
   hasFinishedFirstTimeSetup: boolean
+  hiddenMods: ModId[]
 }
 
 export interface IPreset {

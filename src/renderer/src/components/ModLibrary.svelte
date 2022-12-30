@@ -2,12 +2,17 @@
   import {
     groupedEnabledMods,
     paginatedSortedFilteredMods,
+    searchTerm,
+    selectedMods,
     showConflictingView
   } from '../stores/library'
   import { modManifest } from '../stores/manifest'
-  import { activePreset } from '../stores/profile'
+  import { activePreset, selectedCollectionName } from '../stores/profile'
   import ModCard from './ModCard.svelte'
   import TopRow from './TopRow.svelte'
+
+  // Clears mod selection when certain dependencies change
+  $: [$selectedCollectionName, $activePreset, $showConflictingView, $modManifest, $paginatedSortedFilteredMods, $searchTerm] && selectedMods.set([])
 </script>
 
 <ul class="library">

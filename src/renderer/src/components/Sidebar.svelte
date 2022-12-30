@@ -6,9 +6,7 @@
     selectedGuns,
     selectedInfected,
     selectedMelees,
-    selectedMisc,
-    selectedMods,
-    selectedSurvivors,
+    selectedMisc, selectedSurvivors,
     selectedUtils,
     showConflictingView,
     visibleFilterPanel
@@ -25,8 +23,6 @@
   import survivors from '../assets/media/icons/survivors.png'
   import utils from '../assets/media/icons/utils.png'
   import Stats from './Stats.svelte'
-
-  $: searchTerm && selectedMods.set([])
 </script>
 
 <div class="sidebar" class:disabled={$showConflictingView}>

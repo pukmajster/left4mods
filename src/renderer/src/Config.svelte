@@ -11,6 +11,7 @@
     gameDir,
     grayscaleDisabledMods,
     hasFinishedFirstTimeSetup,
+    hiddenMods,
     launchParameters,
     presets
   } from './stores/profile'
@@ -36,7 +37,8 @@
       },
       launchParameters: '-novid +exec autoexec.cfg +exec left4mods.cfg',
       customCfg: '// Left4Mods Custom Config\n',
-      hasFinishedFirstTimeSetup: false
+      hasFinishedFirstTimeSetup: false,
+      hiddenMods: []
     }
 
     try {
@@ -57,7 +59,9 @@
     darkMode.set(profile.preferences.darkMode)
     hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup)
     grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods)
+    hiddenMods.set(profile.hiddenMods)
 
+    // The user config has been read.
     ready = true
     readyToRequestInitialManifest = true
   })
@@ -76,7 +80,8 @@
         },
         launchParameters: $launchParameters,
         customCfg: $customCfg,
-        hasFinishedFirstTimeSetup: $hasFinishedFirstTimeSetup
+        hasFinishedFirstTimeSetup: $hasFinishedFirstTimeSetup,
+        hiddenMods: $hiddenMods
       }
 
       try {

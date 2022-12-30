@@ -1,6 +1,5 @@
 <script>
   import { enabledMods } from '../stores/library'
-
   import { modManifest } from '../stores/manifest'
 </script>
 

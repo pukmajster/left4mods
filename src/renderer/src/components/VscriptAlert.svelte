@@ -36,7 +36,7 @@
 >
   <svelte:fragment slot="lead"><AlertTriangle size={32} /></svelte:fragment>
   <svelte:fragment slot="title">VScript mods enabled!</svelte:fragment>
-  <span>You won't be able to play online as long as these are enabled.</span>
+    <span>You won't be able to play online as long as these are enabled.</span>
   <svelte:fragment slot="trail">
     <button on:click={showVscriptCategory} class="btn-filled btn btn-sm">View VScript mods</button>
   </svelte:fragment>

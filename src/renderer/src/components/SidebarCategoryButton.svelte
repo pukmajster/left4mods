@@ -27,8 +27,6 @@
     selectedMisc.set('')
   }
 
-  visibleFilterPanel
-
   $: capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1)
 </script>
 

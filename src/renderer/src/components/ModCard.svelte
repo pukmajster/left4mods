@@ -12,6 +12,7 @@
   let showHoverbox = false
 
   // Shoutout to https://stackoverflow.com/a/69025425
+  // We attempt to access the mod's local thumbnail, but in case it fails to find a file, we revert to a default asset.
   $: thumbnail = `file://${$gameDir}/left4dead2/addons/${mod?.fromworkshop ? 'workshop/' : ''}${
     mod.id
   }.jpg`
