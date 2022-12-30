@@ -24,7 +24,9 @@
   import GameDirectoryManager from '../GameDirectoryManager.svelte'
 
   export let parent: any
-  const tab = writable<'manifest' | 'Appearance' | 'launchparameters' | 'misc'>('manifest')
+  const tab = writable<'manifest' | 'Appearance' | 'launchparameters' | 'config' | 'misc'>(
+    'manifest'
+  )
 
   // Form Data
   let formData = {
@@ -74,7 +76,8 @@
 <div class="modal-example-form {cBase}">
   <TabGroup selected={tab}>
     <Tab value="manifest">General</Tab>
-    <Tab value="launchparameters">Commands</Tab>
+    <Tab value="launchparameters">Launch Paramaters</Tab>
+    <Tab value="config">Config</Tab>
     <Tab value="Appearance">Appearance</Tab>
     <Tab value="misc">Dev</Tab>
   </TabGroup>
@@ -119,11 +122,13 @@
         <li>-novid (skips the intro cutscene)</li>
         <li>+exec left4mods.cfg (executes your custom config)</li>
       </ul>
+    {/if}
 
+    {#if $tab == 'config'}
       <h5 class="font-bold">Config</h5>
       <p>Write your custom config here...</p>
       <div class="flex gap-4">
-        <textarea rows="5" rowspan="5" bind:value={formData.customCfg} class="flex-1 w-full" />
+        <textarea rows="15" rowspan="15" bind:value={formData.customCfg} class="flex-1 w-full" />
       </div>
     {/if}
 
