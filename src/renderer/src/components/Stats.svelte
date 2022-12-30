@@ -19,7 +19,6 @@
 
 <style lang="postcss">
   .stats {
-    opacity: 0.5;
     @apply flex gap-7 my-2 px-4 py-2;
   }
 
