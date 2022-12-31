@@ -86,7 +86,7 @@ const melee: ICategoryToLabelMap = {
   crowbar: 'Crowbar',
   guitar: 'Guitar',
   katana: 'Katana',
-  frying_pan: 'Pan',
+  pan: 'Pan',
   golf_club: 'Golf Club',
   tonfa: 'Tonfa',
   pitchfork: 'Pitchfork',

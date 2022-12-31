@@ -30,9 +30,12 @@ export const miscFiles: ICategoryMap = {
   vgui: ['vgui/hud/'],
   vscript: ['vscripts'],
   color_correction: ['/correction/'],
+  skybox: ['materials/skybox'],
+  props: ['materials/models/props/', 'models/props'],
+  particles: ['materials/particle'],
   gnome: ['gnome'],
   vehicles: ['/props_vehicles/'],
-  jukebox: ['flu/jukebox/'],
+  jukebox: ['flu/jukebox/', 'jukebox01'],
   voice: ['voice'],
   music: ['music'],
   water: ['/liquids/water'],
@@ -41,6 +44,7 @@ export const miscFiles: ICategoryMap = {
   ammo_stack: ['ammo_stack', 'coffeeammo'],
   medical_cabinet: ['/props_interiors/medicalcabinet'],
   lil_peanut: ["lil'peanut_cutout001"],
+  xdr: ['xdreanims'],
 
   loading_screen_official: loading_screens_official
 }

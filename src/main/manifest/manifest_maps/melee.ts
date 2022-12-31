@@ -39,7 +39,7 @@ export type Melee =
   | 'guitar'
   | 'shovel'
   | 'katana'
-  | 'frying_pan'
+  | 'pan'
   | 'golf_club'
   | 'tonfa'
   | 'pitchfork'
@@ -55,7 +55,7 @@ export const survivors: Melee[] = [
   'guitar',
   'shovel',
   'katana',
-  'frying_pan',
+  'pan',
   'golf_club',
   'tonfa',
   'pitchfork'

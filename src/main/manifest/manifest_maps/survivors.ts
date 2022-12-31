@@ -2,7 +2,7 @@ import { ICategoryMap } from 'shared'
 import { CategoryFiles } from '../manifest_v5'
 
 function genericSurvivorFiles(id: string): CategoryFiles {
-  return [`models/survivors/survivor_${id}.`]
+  return [`models/survivors/survivor_${id}.`, `/survivors/${id}/`]
 }
 
 function genericSurvivorVguiFiles(id: string): CategoryFiles {
