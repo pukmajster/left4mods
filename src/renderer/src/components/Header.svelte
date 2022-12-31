@@ -11,6 +11,8 @@
     type ModalSettings
   } from '@skeletonlabs/skeleton'
   import {
+    Album,
+    Eye,
     FileCog,
     HelpCircle,
     Import,
@@ -30,6 +32,7 @@
   import { isBuildingModManifest, isWritingAddonlist } from '../stores/manifest'
 
   import l4d2logo from '../assets/media/icons/icon_l4d.png'
+  import { onlyShowModsNotInAnyCollection } from '../stores/library'
 
   let store = writable('library')
 
@@ -90,6 +93,10 @@
     //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
     window.api.openLinkInBrowser(`steam://rungameid/550/`)
   }
+
+  function toggleOnlyShowModsNotInAnyCollection() {
+    onlyShowModsNotInAnyCollection.set(!$onlyShowModsNotInAnyCollection)
+  }
 </script>
 
 <nav class=" p-2 px-2 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
@@ -121,12 +128,29 @@
   </div>
 </nav>
 
+<nav class=" p-2 px-2 card shadow-xl mt-14 ml-24" data-menu="view">
+  <div class="!flex flex-col gap-2  ">
+    <!-- <button on:click={triggerCustomModal} class="flex-1 btn text-left">
+      <EyeOff size={16} /> <span>Show/hide hidden mods</span></button
+    > -->
+
+    <button on:click={toggleOnlyShowModsNotInAnyCollection} class="flex-1 btn text-left">
+      <Album size={16} /> <span>Only show mods in no collection</span></button
+    >
+  </div>
+</nav>
+
 <AppBar padding="px-4 py-2">
   <svelte:fragment slot="lead">
     <div class=" space-x-1">
       <button use:menu={{ menu: 'example' }} class=" menubutton btn btn-sm btn-filled-surface">
         <Menu size={16} />
         <span> Menu</span>
+      </button>
+
+      <button use:menu={{ menu: 'view' }} class=" menubutton btn btn-sm btn-filled-surface">
+        <Eye size={16} />
+        <span> View</span>
       </button>
 
       <!--       <button on:click={triggerCustomModal} class="btn-icon btn-icon-sm   ">
