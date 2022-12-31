@@ -155,20 +155,20 @@
     {/if}
 
     {#if $tab == 'misc'}
-      <div class="flex flex-col space-y-2">
-        <button class="btn btn-ghost-warning" on:click={forceFullManifestRefresh}
+      <div class="space-y-4 space-x-2">
+        <button class="btn  btn-sm btn-ghost-warning" on:click={forceFullManifestRefresh}
           >forceFullManifestRefresh</button
         >
 
-        <button class="btn btn-ghost-warning" on:click={openInitialSetupDrawer}
+        <button class="btn  btn-sm btn-ghost-warning" on:click={openInitialSetupDrawer}
           >openInitialSetupDrawer</button
         >
 
-        <button class="btn btn-ghost-warning" on:click={bridgedApi.openWorkingDirectory}
+        <button class="btn  btn-sm btn-ghost-warning" on:click={bridgedApi.openWorkingDirectory}
           >openWorkingDirectory</button
         >
 
-        <button class="btn btn-ghost-warning" on:click={bridgedApi.openGameDirectory}
+        <button class="btn  btn-sm btn-ghost-warning" on:click={bridgedApi.openGameDirectory}
           >openGameDirectory</button
         >
       </div>
@@ -177,8 +177,8 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>Cancel</button>
-    <button class="btn btn-ghost-primary" on:click={onFormSubmit}> Save</button>
+    <button class="btn btn-sm btn-filled-surface" on:click={parent.onClose}>Cancel</button>
+    <button class="btn btn-sm btn-filled-primary" on:click={onFormSubmit}> Save</button>
   </footer>
 </div>
 

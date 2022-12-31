@@ -32,7 +32,7 @@
       <CollectionSelectOptions />
     </select>
 
-    <button class="btn btn-sm btn-ghost-primary" on:click={triggerCustomModal}>
+    <button class="btn btn-sm btn-filled-primary" on:click={triggerCustomModal}>
       <Album size={16} />
       <span>Manage</span></button
     >

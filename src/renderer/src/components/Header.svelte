@@ -108,7 +108,7 @@
     <button
       on:click={() => attemptRequestManifest(false)}
       disabled={$isBuildingModManifest}
-      class="btn  "
+      class="btn "
     >
       <RefreshCw size={16} />
       <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
@@ -187,7 +187,7 @@
       <button
         on:click={launchGame}
         use:tooltip={tooltips.startGame}
-        class="btn btn-sm  btn-ghost-primary "
+        class="btn btn-sm  btn-filled-primary "
       >
         <!--  <Play size={16} /> -->
         <img width="16px" src={l4d2logo} alt={'play'} />

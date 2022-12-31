@@ -29,7 +29,7 @@
   }
 </script>
 
-<button on:click={triggerCustomModal} class="btn btn-ghost-primary btn-sm">
+<button on:click={triggerCustomModal} class="btn btn-filled-primary btn-sm">
   <Folder size={16} />
   <span>Preset: {trimmedPresetName}</span>
 </button>

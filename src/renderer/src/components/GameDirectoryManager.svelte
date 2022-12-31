@@ -32,10 +32,10 @@
   <span class="pl-4 font-bold">.../common/Left 4 Dead 2/</span>
 </p>
 
-<div class="flex gap-4">
+<div class="flex gap-2">
   <input bind:value={state} type="text" class="flex-1" />
-  <button class="btn" on:click={browseGameDir}>
-    <FolderSearch />
+  <button class="btn btn-sm btn-filled-surface" on:click={browseGameDir}>
+    <FolderSearch size={16} />
 
     <span>Browse</span>
   </button>

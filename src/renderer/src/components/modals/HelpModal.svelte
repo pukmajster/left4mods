@@ -43,7 +43,7 @@
 
   <!-- prettier-ignore -->
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn btn-ghost-primary" on:click={parent.onClose}>Close</button>
+    <button class="btn btn-sm btn-filled-primary" on:click={parent.onClose}>Close</button>
   </footer>
 </div>
 

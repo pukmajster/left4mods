@@ -29,9 +29,11 @@
   </select>
 
   <footer class="modal-footer {parent.regionFooter}">
-    <button class="btn btn-ghost-surface" on:click={parent.onClose}>Close</button>
-    <button class="btn btn-ghost-primary" disabled={!formData.collection} on:click={onFormSubmit}
-      >Add to Collection</button
+    <button class="btn btn-sm btn-filled-surface" on:click={parent.onClose}>Close</button>
+    <button
+      class="btn btn-sm btn-filled-primary"
+      disabled={!formData.collection}
+      on:click={onFormSubmit}>Add to Collection</button
     >
   </footer>
 </div>

@@ -60,25 +60,27 @@
       {/each}
     </div>
 
-    {#if mod.fromworkshop}
-      <div class="flex gap-3">
-        <button class=" w-full btn btn-ghost-primary mt-4" on:click={openModInBrowser}
-          >Open in Browser</button
-        >
-
-        <a href={steamProtocolUrl} class=" w-full btn btn-ghost-primary mt-4">Open in Steam</a>
-      </div>
-    {/if}
-
     <button
-      class={classnames(' w-full btn  mt-4', {
-        'btn-ghost-surface': !isEnabled,
-        'btn-ghost-tertiary': isEnabled && !isGroupEnabled,
-        'btn-ghost-warning': isGroupEnabled
+      class={classnames(' w-full btn btn-sm  mt-4', {
+        'btn-filled-surface': !isEnabled,
+        'btn-filled-tertiary': isEnabled && !isGroupEnabled,
+        'btn-filled-warning': isGroupEnabled
       })}
       on:click={toggleModEnabled}
       >{isEnabled ? (isGroupEnabled ? 'Enabled (Conflicting)' : 'Enabled') : 'Disabled'}</button
     >
+
+    {#if mod.fromworkshop}
+      <div class="flex gap-3">
+        <button class=" w-full btn btn-sm  btn-filled-primary mt-4" on:click={openModInBrowser}
+          >Open in Browser</button
+        >
+
+        <a href={steamProtocolUrl} class=" w-full btn btn-sm  btn-filled-primary mt-4"
+          >Open in Steam</a
+        >
+      </div>
+    {/if}
 
     {#if mod.addonauthor}
       <h4>
