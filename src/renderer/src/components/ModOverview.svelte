@@ -112,29 +112,32 @@
 
     <Divider margin="mt-7" />
 
-    {#if collectionsThatFeatureThisMod.length > 0}
-      <h4 class="">
-        Fun fact <div class="text-xs">
-          Featured in {collectionsThatFeatureThisMod.length} collection{collectionsThatFeatureThisMod.length >
-          2
-            ? 's'
-            : ''}.
-        </div>
-      </h4>
+    {#if collectionsThatFeatureThisMod.length > 0 || otherModsBySameAuthor.length > 0}
+      {#if collectionsThatFeatureThisMod.length > 0}
+        <h4 class="">
+          Fun fact <div class="text-xs">
+            Featured in {collectionsThatFeatureThisMod.length} collection{collectionsThatFeatureThisMod.length >
+            2
+              ? 's'
+              : ''}.
+          </div>
+        </h4>
+      {/if}
+
+      {#if otherModsBySameAuthor.length > 0}
+        <h4 class="">
+          Fun fact <div class="text-xs">
+            You have subscribed to {otherModsBySameAuthor.length} other mod{otherModsBySameAuthor.length >
+            2
+              ? 's'
+              : ''} by this author!
+          </div>
+        </h4>
+      {/if}
+
+      <Divider margin="mt-5" />
     {/if}
 
-    {#if otherModsBySameAuthor.length > 0}
-      <h4 class="">
-        Fun fact <div class="text-xs">
-          You have subscribed to {otherModsBySameAuthor.length} other mod{otherModsBySameAuthor.length >
-          2
-            ? 's'
-            : ''} by this author!
-        </div>
-      </h4>
-    {/if}
-
-    <Divider margin="mt-5" />
     <div class="pt-6" />
     <CodeBlock language="Files" text="text-xs" code={mod.files.join('\n')} />
   </div>
