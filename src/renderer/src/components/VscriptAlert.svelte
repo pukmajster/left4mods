@@ -2,7 +2,13 @@
   import { Alert } from '@skeletonlabs/skeleton'
   import { AlertTriangle } from 'lucide-svelte'
   import type { IMod } from 'shared'
-  import { enabledMods, searchTerm, selectedMisc, visibleFilterPanel } from '../stores/library'
+  import {
+    enabledMods,
+    searchTerm,
+    selectedMisc,
+    typeToShow,
+    visibleFilterPanel
+  } from '../stores/library'
   import { modManifest } from '../stores/manifest'
   import { selectedCollectionName } from '../stores/profile'
 
@@ -28,21 +34,25 @@
     selectedMisc.set('vscript')
     selectedCollectionName.set('')
     searchTerm.set('')
+    typeToShow.set('any')
   }
 </script>
 
 <div>
   <Alert
-    background="bg-yellow-500/50"
+    background="bg-yellow-400/80 text-black"
     border="border-warning-400"
     visible={presetContainsVScriptMods}
   >
     <svelte:fragment slot="lead"><AlertTriangle size={32} /></svelte:fragment>
     <svelte:fragment slot="title">VScript mods enabled!</svelte:fragment>
-    <span>You won't be able to play online as long as these are enabled.</span>
+    <span>You won't be able to play online as long as they're enabled.</span>
     <svelte:fragment slot="trail">
       <button on:click={showVscriptCategory} class="btn-filled btn btn-sm">View VScript mods</button
       >
     </svelte:fragment>
   </Alert>
 </div>
+
+<style>
+</style>
