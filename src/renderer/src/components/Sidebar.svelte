@@ -43,7 +43,7 @@
             <SidebarCategoryButton categoryName={'infected'} label="Infected" image={infected} />
             <SidebarCategoryButton categoryName={'misc'} label="Misc." image={misc} />
             <SidebarCategoryButton categoryName={'campaign'} label="Maps" image={campaign} />
-            <SidebarCategoryButton categoryName={'?'} label="?" image={''} />
+            <SidebarCategoryButton categoryName={'?'} label="Unknown" image={''} />
           </svelte:fragment>
         </AppRail>
       </div>
