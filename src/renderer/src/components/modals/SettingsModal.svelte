@@ -55,6 +55,10 @@
     toastStore.trigger(t)
   }
 
+  function openGameProperties() {
+    window.api.openLinkInBrowser(`steam://open/settings`)
+  }
+
   // Base Classes
   const cBase = 'space-y-4'
 
@@ -76,7 +80,7 @@
 <div class="modal-example-form {cBase}">
   <TabGroup selected={tab}>
     <Tab value="manifest">General</Tab>
-    <Tab value="launchparameters">Launch Paramaters</Tab>
+    <!-- <Tab value="launchparameters">Launch Paramaters</Tab> -->
     <Tab value="config">Config</Tab>
     <Tab value="Appearance">Appearance</Tab>
     <Tab value="misc">Dev</Tab>
@@ -104,7 +108,7 @@
       >
     {/if}
 
-    {#if $tab == 'launchparameters'}
+    <!-- {#if $tab == 'launchparameters'}
       <h5 class="font-bold">Launch Parameters</h5>
       <p>Launch parameters to use when launching the game directly from the app.</p>
       <div class="flex gap-4">
@@ -122,11 +126,15 @@
         <li>-novid (skips the intro cutscene)</li>
         <li>+exec left4mods.cfg (executes your custom config)</li>
       </ul>
-    {/if}
+    {/if} -->
 
     {#if $tab == 'config'}
       <h5 class="font-bold">Config</h5>
-      <p>Write your custom config here...</p>
+      <p>
+        Add <code>+exec left4mods.cfg</code> to L4D2's launch options in Steam to run this config everytime
+        you launch the game.
+      </p>
+
       <div class="flex gap-4">
         <textarea rows="15" rowspan="15" bind:value={formData.customCfg} class="flex-1 w-full" />
       </div>
