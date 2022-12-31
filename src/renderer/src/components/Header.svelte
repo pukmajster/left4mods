@@ -27,7 +27,6 @@
 
   import { writeAddonlist } from '../functions/writeAddonlist'
   import { isBuildingModManifest, isWritingAddonlist } from '../stores/manifest'
-  import { launchParameters } from '../stores/profile'
 
   import l4d2logo from '../assets/media/icons/icon_l4d.png'
 
@@ -87,7 +86,8 @@
 
   async function launchGame() {
     await writeAddonlist()
-    window.api.openLinkInBrowser(`steam://run/550/${$launchParameters}`)
+    //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
+    window.api.openLinkInBrowser(`steam://rungameid/550/`)
   }
 </script>
 
