@@ -16,12 +16,11 @@
 {:else}
   <AppShell>
     <svelte:fragment slot="header"><Header /></svelte:fragment>
-    <!-- Sidebar -->
+
     <svelte:fragment slot="sidebarLeft">
       <Sidebar />
     </svelte:fragment>
 
-    <!-- Page Content -->
     <ModLibrary />
   </AppShell>
 {/if}
