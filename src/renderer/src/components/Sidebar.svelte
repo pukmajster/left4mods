@@ -16,6 +16,7 @@
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
 
+  import { Search, Slash } from 'lucide-svelte'
   import campaign from '../assets/media/icons/campaign.png'
   import guns from '../assets/media/icons/guns.png'
   import infected from '../assets/media/icons/infected.png'
@@ -24,12 +25,35 @@
   import survivors from '../assets/media/icons/survivors.png'
   import utils from '../assets/media/icons/utils.png'
   import Stats from './Stats.svelte'
+
+  function clearSearchTerm() {
+    searchTerm.set('')
+  }
 </script>
 
 <div class="sidebar" class:disabled={$showConflictingView}>
   <div class="sidebar-inner">
     <Collections2 />
-    <input type="text" placeholder="Search" bind:value={$searchTerm} class="my-4" />
+
+    <label class="relative block my-4">
+      <input
+        type="text"
+        placeholder="Search"
+        bind:value={$searchTerm}
+        class="  bg-white placeholder:font-italitc border indent-7 border-slate-300 py-2 pl-10 pr-4 focus:outline-none"
+      />
+
+      <span class="absolute p-2 pl-3 inset-y-0 left-0  z-10 ">
+        <Search size={16} />
+      </span>
+
+      <button
+        on:click={clearSearchTerm}
+        class=" btn btn-sm  absolute  p-2  top-0 bottom-0 right-0  z-10"
+      >
+        <Slash size={16} /></button
+      >
+    </label>
 
     <div class="filter-panels">
       <div class="panel-hovers">
