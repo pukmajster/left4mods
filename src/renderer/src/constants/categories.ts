@@ -3,6 +3,11 @@ const misc: ICategoryToLabelMap = {
   ui: 'UI',
   vscript: 'VScript',
   color_correction: 'Colour Correction',
+  skybox: 'Skybox',
+  props: 'Props',
+  particles: 'Particles',
+  voice: 'Voice',
+  music: 'Music',
   //loading_screen: 'Loading Screen', // TODO only for official maps?
   loading_screen_official: 'Loading Screen',
   flashlight: 'Flashlight',
@@ -13,7 +18,8 @@ const misc: ICategoryToLabelMap = {
   vehicles: 'Vehicles',
   water: 'Water',
   medical_cabinet: 'Medical Cabinet',
-  lil_peanut: "Lil' Peanut"
+  lil_peanut: "Lil' Peanut",
+  xdr: 'xdReanims'
 }
 
 const guns: ICategoryToLabelMap = {

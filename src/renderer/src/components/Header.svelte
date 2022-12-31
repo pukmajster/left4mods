@@ -1,6 +1,7 @@
 <script lang="ts">
   import {
     AppBar,
+    Divider,
     menu,
     modalStore,
     RadioGroup,
@@ -91,7 +92,7 @@
   }
 </script>
 
-<nav class=" p-4 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
+<nav class=" p-2 px-2 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
   <div class="!flex flex-col gap-2  ">
     <button on:click={triggerCustomModal} class="flex-1 btn text-left">
       <Settings size={16} /> <span>Settings</span></button
@@ -110,6 +111,13 @@
       <Import size={16} />
       <span>{$isWritingAddonlist ? 'Writing List...' : 'Save Changes'}</span></button
     >
+
+    <Divider />
+
+    <button class="btn" on:click={triggerHelpDialog}
+      ><HelpCircle size={16} />
+      <span>Help</span>
+    </button>
   </div>
 </nav>
 
@@ -173,10 +181,6 @@
   </div>
 
   <svelte:fragment slot="trail">
-    <button class="btn-icon btn-icon-sm " on:click={triggerHelpDialog}
-      ><HelpCircle size={18} />
-    </button>
-
     <Presets parent={{}} />
   </svelte:fragment>
 </AppBar>
