@@ -12,7 +12,14 @@
   import TopRow from './TopRow.svelte'
 
   // Clears mod selection when certain dependencies change
-  $: [$selectedCollectionName, $activePreset, $showConflictingView, $modManifest, $paginatedSortedFilteredMods, $searchTerm] && selectedMods.set([])
+  $: [
+    $selectedCollectionName,
+    $activePreset,
+    $showConflictingView,
+    $modManifest,
+    $paginatedSortedFilteredMods,
+    $searchTerm
+  ] && selectedMods.set([])
 </script>
 
 <ul class="library">
@@ -31,7 +38,7 @@
             <p>There are no conflicting mods in your preset.</p>
           </div>
         {/if}
-        <div class="conflicting-mods">
+        <div class="conflicting-mods  px-4">
           {#each $groupedEnabledMods as group, i}
             <h3>Conflicting mods #{i + 1}</h3>
             <div class="conflicting-mods-group mt-2 mb-5">
