@@ -32,7 +32,7 @@ export const miscFiles: ICategoryMap = {
   color_correction: ['/correction/'],
   skybox: ['materials/skybox'],
   props: ['materials/models/props/', 'models/props'],
-  particles: ['materials/particle'],
+  particles: ['.pcf'],
   gnome: ['gnome'],
   vehicles: ['/props_vehicles/'],
   jukebox: ['flu/jukebox/', 'jukebox01'],
