@@ -135,8 +135,14 @@
     > -->
 
     <button on:click={toggleOnlyShowModsNotInAnyCollection} class="flex-1 btn text-left">
-      <Album size={16} /> <span>Only show mods in no collection</span></button
-    >
+      <Album size={16} />
+
+      {#if $onlyShowModsNotInAnyCollection}
+        <span>Show all mods</span>
+      {:else}
+        <span>Only show mods in no collection</span>
+      {/if}
+    </button>
   </div>
 </nav>
 
