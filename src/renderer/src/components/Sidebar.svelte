@@ -40,17 +40,14 @@
         type="text"
         placeholder="Search"
         bind:value={$searchTerm}
-        class="  bg-white placeholder:font-italitc border indent-7 border-slate-300 py-2 pl-10 pr-4 focus:outline-none"
+        class="placeholder:font-italitc border indent-7 border-slate-300 py-2 pl-10 pr-4 focus:outline-none"
       />
 
-      <span class="absolute p-2 pl-3 inset-y-0 left-0  z-10 ">
+      <span class="absolute p-2 pl-3 inset-y-0 left-0">
         <Search size={16} />
       </span>
 
-      <button
-        on:click={clearSearchTerm}
-        class=" btn btn-sm  absolute  p-2  top-0 bottom-0 right-0  z-10"
-      >
+      <button on:click={clearSearchTerm} class="btn absolute p-2 top-0 bottom-0 right-1">
         <Slash size={16} /></button
       >
     </label>
