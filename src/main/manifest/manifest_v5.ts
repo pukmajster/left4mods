@@ -44,8 +44,8 @@ interface IModsList {
   [id: string]: IMod
 }
 
-async function buildManifest(options: RequestManifestOptions) {
-  let defaultReturn: IModManifest = {
+async function buildManifest(options: RequestManifestOptions): Promise<IModManifest> {
+  const defaultReturn: IModManifest = {
     metadata: {
       lastUpdated: new Date().toISOString()
     },
@@ -53,7 +53,7 @@ async function buildManifest(options: RequestManifestOptions) {
   }
 
   // Prep a dummy manifest
-  let tempManifest: IModManifest = {
+  const tempManifest: IModManifest = {
     metadata: {
       lastUpdated: new Date().toISOString()
     },
@@ -79,7 +79,7 @@ async function buildManifest(options: RequestManifestOptions) {
   try {
     if (!options.forceNewBuild) {
       await fsp.access(MANIFEST_PATH)
-      let data: IModManifest = JSON.parse(await fsp.readFile(MANIFEST_PATH, 'utf8'))
+      const data: IModManifest = JSON.parse(await fsp.readFile(MANIFEST_PATH, 'utf8'))
 
       tempManifest.mods = data.mods
       tempManifest.metadata = data.metadata
@@ -96,8 +96,12 @@ async function buildManifest(options: RequestManifestOptions) {
   // ----------------------------------------------------------------
   // Look for new mods
   // ----------------------------------------------------------------
-  let newWorkshopMods = await getModsFromDirectory(ADDONS_WORKSHOP_DIR, 'workshop', existingModIds)
-  let newLocalMods = await getModsFromDirectory(ADDONS_LOCAL_DIR, 'local', existingModIds)
+  const newWorkshopMods = await getModsFromDirectory(
+    ADDONS_WORKSHOP_DIR,
+    'workshop',
+    existingModIds
+  )
+  const newLocalMods = await getModsFromDirectory(ADDONS_LOCAL_DIR, 'local', existingModIds)
 
   // ----------------------------------------------------------------
   // Update our dummy manifest with the new data
@@ -108,10 +112,10 @@ async function buildManifest(options: RequestManifestOptions) {
   // ----------------------------------------------------------------
   // Fetch online workshop mod metadata
   // ----------------------------------------------------------------
-  let modIdsWithoutValidAddonInfo: ModId[] = []
+  const modIdsWithoutValidAddonInfo: ModId[] = []
 
   // Check for mods that are missing a title
-  for (let mod in tempManifest.mods) {
+  for (const mod in tempManifest.mods) {
     if (!tempManifest.mods[mod].addontitle && tempManifest.mods[mod].fromworkshop) {
       console.log('Missing mod title for mod ' + mod)
       modIdsWithoutValidAddonInfo.push(mod)
@@ -122,7 +126,7 @@ async function buildManifest(options: RequestManifestOptions) {
     const fd = new FormData()
     let i = 0
     fd.append('itemcount', `${modIdsWithoutValidAddonInfo.length}`)
-    for (let id of modIdsWithoutValidAddonInfo) {
+    for (const id of modIdsWithoutValidAddonInfo) {
       fd.append(`publishedfileids[${i}]`, id)
       i++
     }
@@ -130,7 +134,7 @@ async function buildManifest(options: RequestManifestOptions) {
     console.log('Fetching mod titles from Steam Workshop...')
 
     try {
-      let res = await fetch(
+      const res = await fetch(
         'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1',
         {
           // @ts-ignore
@@ -138,15 +142,15 @@ async function buildManifest(options: RequestManifestOptions) {
           method: 'POST'
         }
       )
-      let data: IOnlineAddoninfoResponse = await res.json()
+      const data: IOnlineAddoninfoResponse = await res.json()
 
-      for (let publishedFile of data.response.publishedfiledetails) {
-        let id = publishedFile.publishedfileid.toString()
+      for (const publishedFile of data.response.publishedfiledetails) {
+        const id = publishedFile.publishedfileid.toString()
         if (modIdsWithoutValidAddonInfo.includes(id))
           tempManifest.mods[id].addontitle = publishedFile.title
 
         // TODO: get rid of this
-        // @ts-ignore
+        // @ts-ignore:
         tempManifest.mods[id].fullonlinemeta = publishedFile
       }
 
@@ -174,15 +178,15 @@ async function getModsFromDirectory(
   mode: DirectoryMode,
   existingIds: ModId[]
 ): Promise<IModsList> {
-  let newIds: ModId[] = []
+  const newIds: ModId[] = []
   let newIdCount = 0
-  let mods = {}
+  const mods = {}
 
   try {
-    let files = await fsp.readdir(directory)
-    for (let file of files) {
+    const files = await fsp.readdir(directory)
+    for (const file of files) {
       if (!file.endsWith('.vpk')) continue
-      let id = file.split('.')[0]
+      const id = file.split('.')[0]
 
       if (existingIds.includes(id)) continue
 
@@ -197,7 +201,7 @@ async function getModsFromDirectory(
         const pakPath = path.join(directory, file)
         console.log(' ----------- parsing ' + pakPath + ' ----------')
 
-        let modInfo: IMod = {
+        const modInfo: IMod = {
           id: id,
           files: [],
           categories: [],
@@ -222,7 +226,7 @@ async function getModsFromDirectory(
 
         // Get a list of all the files the mod supplies and provide appropriate categories
         //   based on said files
-        for (let includedFile of vpk.files) {
+        for (const includedFile of vpk.files) {
           // We skip common addon files because they should not cause conflicts with other files
           if (commonVpkAddonFiles.includes(includedFile)) continue
           modInfo.files.push(includedFile)
@@ -237,26 +241,25 @@ async function getModsFromDirectory(
         }
 
         try {
-          let addoninfoFile = vpk.getFile('addoninfo.txt')
+          const addoninfoFile = vpk.getFile('addoninfo.txt')
           if (!addoninfoFile) {
             throw new Error('Missing addoninfo.txt')
           }
 
-          let addoninfo = addoninfoFile.toString('utf-8')
-
-          let cleanedUpAddonInfo = addoninfo.replace(/^\/\/.*$/gm, '')
+          const addoninfo = addoninfoFile.toString('utf-8')
+          const cleanedUpAddonInfo = addoninfo.replace(/^\/\/.*$/gm, '')
 
           // Read the file buffer and turn it into a string our VDF parser can read
-          let addoninfoData = vdf.parse(cleanedUpAddonInfo)?.AddonInfo
+          const addoninfoData = vdf.parse(cleanedUpAddonInfo)?.AddonInfo
 
           if (!addoninfoData) {
             throw new Error('Missing AddonInfo object in addoninfo.txt')
           }
 
           // Take a look at the addoninfo.txt file and see what useful information we can snatch
-          for (let item in addoninfoData) {
-            let key = item.toLocaleLowerCase()
-            let value = addoninfoData[item].toString()
+          for (const item in addoninfoData) {
+            const key = item.toLocaleLowerCase()
+            const value = addoninfoData[item].toString()
 
             if (acceptedMetaKeys.includes(key)) {
               // Just copy over certain keys
