@@ -3,6 +3,7 @@
   import DrawersRoot from './components/DrawersRoot.svelte'
   import Header from './components/Header.svelte'
   import ModLibrary from './components/ModLibrary.svelte'
+  import RefreshingManifestOverlay from './components/RefreshingManifestOverlay.svelte'
   import Sidebar from './components/Sidebar.svelte'
   import WelcomeStepper from './components/WelcomeStepper.svelte'
   import Config from './Config.svelte'
@@ -23,6 +24,7 @@
 
     <ModLibrary />
   </AppShell>
+  <RefreshingManifestOverlay />
 {/if}
 
 <Modal />
