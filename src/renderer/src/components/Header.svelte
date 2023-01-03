@@ -101,27 +101,27 @@
 
 <nav class=" p-2 px-2 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
   <div class="!flex flex-col gap-2  ">
-    <button on:click={triggerCustomModal} class="flex-1 btn text-left">
+    <button on:click={triggerCustomModal} class="flex-1 btn btn-sm text-left">
       <Settings size={16} /> <span>Settings</span></button
     >
 
     <button
       on:click={() => attemptRequestManifest(false)}
       disabled={$isBuildingModManifest}
-      class="btn "
+      class="btn btn-sm "
     >
       <RefreshCw size={16} />
       <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
     >
 
-    <button on:click={() => writeAddonlist()} disabled={$isWritingAddonlist} class="btn  ">
+    <button on:click={() => writeAddonlist()} disabled={$isWritingAddonlist} class="btn btn-sm  ">
       <Import size={16} />
       <span>{$isWritingAddonlist ? 'Writing List...' : 'Save Changes'}</span></button
     >
 
     <Divider />
 
-    <button class="btn" on:click={triggerHelpDialog}
+    <button class="btn btn-sm" on:click={triggerHelpDialog}
       ><HelpCircle size={16} />
       <span>Help</span>
     </button>
@@ -134,7 +134,7 @@
       <EyeOff size={16} /> <span>Show/hide hidden mods</span></button
     > -->
 
-    <button on:click={toggleOnlyShowModsNotInAnyCollection} class="flex-1 btn text-left">
+    <button on:click={toggleOnlyShowModsNotInAnyCollection} class="flex-1 btn btn-sm text-left">
       <Album size={16} />
 
       {#if $onlyShowModsNotInAnyCollection}
