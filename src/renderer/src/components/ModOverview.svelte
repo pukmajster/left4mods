@@ -7,6 +7,7 @@
   import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
   import { collections, gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
+  import CategoryChip from './CategoryChip.svelte'
 
   $: mod = $modManifest.mods[$modIdToOverview] as IMod
 
@@ -55,7 +56,8 @@
     <div class="categories pt-2">
       {#each mod.categories ?? [] as category}
         {#if combinedCategoryToLabelMap[category] !== undefined}
-          <p class="category">{combinedCategoryToLabelMap[category]}</p>
+          <!-- <p class="category">{combinedCategoryToLabelMap[category]}</p> -->
+          <CategoryChip {category} />
         {/if}
       {/each}
     </div>
