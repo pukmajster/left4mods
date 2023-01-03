@@ -1,16 +1,7 @@
 <script lang="ts">
   import { AppRailTile } from '@skeletonlabs/skeleton'
   import { ArrowDownCircle, FileQuestion } from 'lucide-svelte'
-  import {
-    selectedGrenades,
-    selectedGuns,
-    selectedInfected,
-    selectedMelees,
-    selectedMisc,
-    selectedSurvivors,
-    selectedUtils,
-    visibleFilterPanel
-  } from '../stores/library'
+  import { activeCategoriesToFilterBy, visibleFilterPanel } from '../stores/library'
   import { darkMode } from '../stores/profile'
 
   export let categoryName: string
@@ -18,13 +9,7 @@
   export let image: string
 
   function clearCategorySelection() {
-    selectedGuns.set('')
-    selectedMelees.set('')
-    selectedGrenades.set('')
-    selectedUtils.set('')
-    selectedSurvivors.set('')
-    selectedInfected.set('')
-    selectedMisc.set('')
+    activeCategoriesToFilterBy.set([])
   }
 
   $: capitalizedCategoryName = categoryName.charAt(0).toUpperCase() + categoryName.slice(1)

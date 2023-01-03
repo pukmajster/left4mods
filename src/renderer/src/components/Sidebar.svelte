@@ -1,17 +1,7 @@
 <script lang="ts">
   import { AppRail } from '@skeletonlabs/skeleton'
   import categories from '../constants/categories'
-  import {
-    searchTerm,
-    selectedGuns,
-    selectedInfected,
-    selectedMelees,
-    selectedMisc,
-    selectedSurvivors,
-    selectedUtils,
-    showConflictingView,
-    visibleFilterPanel
-  } from '../stores/library'
+  import { searchTerm, showConflictingView, visibleFilterPanel } from '../stores/library'
   import Collections2 from './Collections2.svelte'
   import SidebarCategoryButton from './SidebarCategoryButton.svelte'
   import SidebarCategoryEntry from './SidebarCategoryEntry.svelte'
@@ -73,14 +63,12 @@
         <SidebarCategoryEntry
           categoryName="guns"
           categoryEntries={categories.guns}
-          store={selectedGuns}
           isVisible={$visibleFilterPanel == 'guns'}
         />
 
         <SidebarCategoryEntry
           categoryName="melee"
           categoryEntries={categories.melee}
-          store={selectedMelees}
           isVisible={$visibleFilterPanel == 'melee'}
           label={'melees'}
         />
@@ -88,7 +76,6 @@
         <SidebarCategoryEntry
           categoryName="utils"
           categoryEntries={categories.utils}
-          store={selectedUtils}
           isVisible={$visibleFilterPanel == 'utils'}
           label={'utilities'}
         />
@@ -96,21 +83,18 @@
         <SidebarCategoryEntry
           categoryName="survivors"
           categoryEntries={categories.survivors}
-          store={selectedSurvivors}
           isVisible={$visibleFilterPanel == 'survivors'}
         />
 
         <SidebarCategoryEntry
           categoryName="infected"
           categoryEntries={categories.infected}
-          store={selectedInfected}
           isVisible={$visibleFilterPanel == 'infected'}
         />
 
         <SidebarCategoryEntry
           categoryName="misc"
           categoryEntries={categories.misc}
-          store={selectedMisc}
           isVisible={$visibleFilterPanel == 'misc'}
           label={'misc.'}
         />
@@ -118,7 +102,6 @@
         <SidebarCategoryEntry
           categoryName=""
           categoryEntries={categories.guns}
-          store={selectedGuns}
           isVisible={$visibleFilterPanel == 'campaign'}
           label={'Maps'}
         />

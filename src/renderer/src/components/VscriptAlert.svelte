@@ -3,9 +3,9 @@
   import { AlertTriangle } from 'lucide-svelte'
   import type { IMod } from 'shared'
   import {
+    activeCategoriesToFilterBy,
     enabledMods,
     searchTerm,
-    selectedMisc,
     typeToShow,
     visibleFilterPanel
   } from '../stores/library'
@@ -31,7 +31,7 @@
 
   function showVscriptCategory() {
     visibleFilterPanel.set('misc')
-    selectedMisc.set('vscript')
+    activeCategoriesToFilterBy.set(['vscript'])
     selectedCollectionName.set('')
     searchTerm.set('')
     typeToShow.set('any')
@@ -40,13 +40,13 @@
 
 <div>
   <Alert
-    background="bg-yellow-400/80 text-black"
+    background="bg-warning-500"
     border="border-warning-400"
     visible={presetContainsVScriptMods}
   >
     <svelte:fragment slot="lead"><AlertTriangle size={32} /></svelte:fragment>
     <svelte:fragment slot="title">VScript mods enabled!</svelte:fragment>
-    <span>You won't be able to play online as long as they're enabled.</span>
+    <span>These mods might cause consistency issues when playing online.</span>
     <svelte:fragment slot="trail">
       <button on:click={showVscriptCategory} class="btn-filled btn btn-sm">View VScript mods</button
       >
