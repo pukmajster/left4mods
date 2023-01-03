@@ -48,7 +48,14 @@
   $: steamProtocolUrl = `steam://url/CommunityFilePage/${mod.id}`
 </script>
 
-<div class="mod">
+<div class="mod relative h-full">
+  <img
+    alt="blurred-bg"
+    src={thumbnail}
+    on:error={handleMissingThumbnail}
+    class="blurred-bg shadow-lg absolute inset-0 blur-2xl h-full  pointer-events-none "
+  />
+
   <img alt="mod" src={thumbnail} on:error={handleMissingThumbnail} class="shadow-lg" />
 
   <div class="credits p-4">
@@ -186,5 +193,9 @@
 
   .credits h4 {
     @apply mt-4 mb-1;
+  }
+
+  .blurred-bg {
+    opacity: 0.05 !important;
   }
 </style>
