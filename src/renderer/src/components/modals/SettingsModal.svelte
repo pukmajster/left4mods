@@ -55,11 +55,6 @@
     toastStore.trigger(t)
   }
 
-  function openGameProperties() {
-    window.api.openLinkInBrowser(`steam://open/settings`)
-  }
-
-  // Base Classes
   const cBase = 'space-y-4'
 
   const willNetworkText = 'Networking allowed.'
