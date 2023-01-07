@@ -6,6 +6,7 @@
     activeCategoriesToFilterBy,
     enabledMods,
     searchTerm,
+    showConflictingView,
     typeToShow,
     visibleFilterPanel
   } from '../stores/library'
@@ -42,7 +43,7 @@
   <Alert
     background="bg-warning-500"
     border="border-warning-400"
-    visible={presetContainsVScriptMods}
+    visible={presetContainsVScriptMods && !$showConflictingView}
   >
     <svelte:fragment slot="lead"><AlertTriangle size={32} /></svelte:fragment>
     <svelte:fragment slot="title">VScript mods enabled!</svelte:fragment>
