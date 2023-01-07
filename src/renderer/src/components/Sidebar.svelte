@@ -122,8 +122,8 @@
     padding: 1em;
     padding-top: 0;
     padding-bottom: 0;
-    min-width: 360px;
-    max-width: 360px;
+    min-width: 320px;
+    max-width: 320px;
     height: 100%;
 
     display: flex;
@@ -153,6 +153,7 @@
   .panel-hovers {
     width: 64px;
     margin-right: 0.5em;
+    z-index: 2;
   }
 
   .filter-panels {

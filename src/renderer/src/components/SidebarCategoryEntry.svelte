@@ -23,7 +23,7 @@
   }
 </script>
 
-<div class="entry" class:invisible={!isVisible}>
+<div class="entry" class:list_hidden={!isVisible}>
   {#if label || categoryName}
     <h5 class="uppercase font-semibold">{label || categoryName}</h5>
   {/if}
@@ -38,7 +38,7 @@
         {@const isSelected = $activeCategoriesToFilterBy.includes(entry)}
 
         <button
-          class="category-entry flex gap-2 items-center py-1 bg-surface-700/50  pl-4 cursor-pointer hover:bg-surface-500"
+          class="category-entry flex gap-2 items-center py-1 bg-surface-700/50 pl-4 cursor-pointer hover:bg-surface-500"
           class:selected={isSelected}
           on:click={(e) => selectThisCategory(e, entry)}
         >
@@ -58,6 +58,11 @@
   .entry {
     grid-column: 1;
     grid-row: 1;
+
+    transition: all 0.15s ease-in-out;
+    opacity: 1;
+    pointer-events: all;
+    translate: 0 0;
   }
 
   .category-entry {
@@ -66,5 +71,12 @@
 
   .category-entry.selected {
     @apply bg-primary-500;
+  }
+
+  .list_hidden {
+    opacity: 0;
+    pointer-events: none;
+
+    translate: -42px 0;
   }
 </style>
