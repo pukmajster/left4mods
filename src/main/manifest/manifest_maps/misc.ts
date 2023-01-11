@@ -27,7 +27,7 @@ export const loading_screens_official: CategoryFiles = [
 
 export const miscFiles: ICategoryMap = {
   ui: ['resource/ui/hud/'],
-  vgui: ['vgui/hud/'],
+  vgui: ['materials/vgui/'],
   vscript: ['vscripts'],
   color_correction: ['/correction/'],
   skybox: ['materials/skybox'],

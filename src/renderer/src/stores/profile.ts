@@ -16,6 +16,7 @@ export const darkMode = writable(true)
 export const hasFinishedFirstTimeSetup = writable(false)
 export const grayscaleDisabledMods = writable(false)
 export const hiddenMods = writable<ModId[]>([])
+export const ignoreAllVguiIconConflicts = writable(false)
 
 // --------------------------------------------------------------------
 // Unsafe methods for mods.

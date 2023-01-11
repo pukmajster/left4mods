@@ -12,6 +12,7 @@
     grayscaleDisabledMods,
     hasFinishedFirstTimeSetup,
     hiddenMods,
+    ignoreAllVguiIconConflicts,
     launchParameters,
     presets
   } from './stores/profile'
@@ -38,7 +39,8 @@
       launchParameters: '-novid +exec autoexec.cfg +exec left4mods.cfg',
       customCfg: '// Left4Mods Custom Config\n',
       hasFinishedFirstTimeSetup: false,
-      hiddenMods: []
+      hiddenMods: [],
+      ignoreAllVguiIconConflicts: false
     }
 
     try {
@@ -60,6 +62,7 @@
     hasFinishedFirstTimeSetup.set(profile.hasFinishedFirstTimeSetup)
     grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods)
     hiddenMods.set(profile.hiddenMods)
+    ignoreAllVguiIconConflicts.set(profile.ignoreAllVguiIconConflicts)
 
     // The user config has been read.
     ready = true
@@ -81,7 +84,8 @@
         launchParameters: $launchParameters,
         customCfg: $customCfg,
         hasFinishedFirstTimeSetup: $hasFinishedFirstTimeSetup,
-        hiddenMods: $hiddenMods
+        hiddenMods: $hiddenMods,
+        ignoreAllVguiIconConflicts: $ignoreAllVguiIconConflicts
       }
 
       try {

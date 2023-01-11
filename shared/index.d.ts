@@ -50,6 +50,7 @@ export interface IUserProfile {
   launchParameters: string
   hasFinishedFirstTimeSetup: boolean
   hiddenMods: ModId[]
+  ignoreAllVguiIconConflicts: boolean
 }
 
 export interface IPreset {

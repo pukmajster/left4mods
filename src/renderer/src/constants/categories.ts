@@ -1,5 +1,5 @@
 const misc: ICategoryToLabelMap = {
-  vgui: 'VGUI Icons',
+  vgui: 'VGUI',
   ui: 'UI',
   vscript: 'VScript',
   color_correction: 'Colour Correction',

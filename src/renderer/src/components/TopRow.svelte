@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SlideToggle } from '@skeletonlabs/skeleton'
   import classnames from 'classnames'
   import { pickCollection } from '../functions/modals'
   import {
@@ -15,6 +16,7 @@
     batchEnableModsInCurrentPreset,
     batchRemoveModsFromCollection,
     darkMode,
+    ignoreAllVguiIconConflicts,
     selectedCollectionName
   } from '../stores/profile'
   import ToggleViewButton from './ToggleViewButton.svelte'
@@ -132,6 +134,10 @@
             {/if}
           </div>
         </div>
+      {/if}
+
+      {#if $showConflictingView}
+        <SlideToggle bind:checked={$ignoreAllVguiIconConflicts}>Ignore VGUI Conflicts</SlideToggle>
       {/if}
     </div>
 

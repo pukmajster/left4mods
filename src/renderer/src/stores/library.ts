@@ -2,7 +2,13 @@ import type { IMod, ModId } from 'shared'
 import { derived, writable } from 'svelte/store'
 import { arraysShareValues } from '../utils'
 import { modManifest } from './manifest'
-import { activePreset, collections, presets, selectedCollectionName } from './profile'
+import {
+  activePreset,
+  collections,
+  ignoreAllVguiIconConflicts,
+  presets,
+  selectedCollectionName
+} from './profile'
 
 type SortingType =
   | 'name_asc'
@@ -179,8 +185,8 @@ export const paginatedSortedFilteredMods = derived(
 
 // Group enabled mods that share indentical files
 export const groupedEnabledMods = derived(
-  [enabledMods, modManifest],
-  ([$enabledMods, $modManifest]) => {
+  [enabledMods, modManifest, ignoreAllVguiIconConflicts],
+  ([$enabledMods, $modManifest, $ignoreAllVguiIconConflicts]) => {
     let tempStorage: IMod[][] = []
 
     $enabledMods.map((modId) => {
@@ -189,7 +195,15 @@ export const groupedEnabledMods = derived(
       let foundGroup = false
 
       tempStorage.map((group) => {
-        if (arraysShareValues(group[0].files, thisMod.files)) {
+        let files = thisMod.files
+
+        if ($ignoreAllVguiIconConflicts) {
+          console.log('ignoring vgui conflicts')
+
+          files = files.filter((file) => !file.includes('materials/vgui/'))
+        }
+
+        if (arraysShareValues(group[0].files, files)) {
           group.push(thisMod)
           foundGroup = true
         }
