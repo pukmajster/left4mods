@@ -99,65 +99,76 @@
   }
 </script>
 
-<nav class=" p-2 px-2 card w-64 shadow-xl mt-14 ml-2" data-menu="example">
-  <div class="!flex flex-col gap-2  ">
-    <button on:click={triggerCustomModal} class="flex-1 btn btn-sm text-left">
-      <Settings size={16} /> <span>Settings</span></button
-    >
-
-    <button
-      on:click={() => attemptRequestManifest(false)}
-      disabled={$isBuildingModManifest}
-      class="btn btn-sm "
-    >
-      <RefreshCw size={16} />
-      <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
-    >
-
-    <button on:click={() => writeAddonlist()} disabled={$isWritingAddonlist} class="btn btn-sm  ">
-      <Import size={16} />
-      <span>{$isWritingAddonlist ? 'Writing List...' : 'Save Changes'}</span></button
-    >
-
-    <Divider />
-
-    <button class="btn btn-sm" on:click={triggerHelpDialog}
-      ><HelpCircle size={16} />
-      <span>Help</span>
-    </button>
-  </div>
-</nav>
-
-<nav class=" p-2 px-2 card shadow-xl mt-14 ml-24" data-menu="view">
-  <div class="!flex flex-col gap-2  ">
-    <!-- <button on:click={triggerCustomModal} class="flex-1 btn text-left">
-      <EyeOff size={16} /> <span>Show/hide hidden mods</span></button
-    > -->
-
-    <button on:click={toggleOnlyShowModsNotInAnyCollection} class="flex-1 btn btn-sm text-left">
-      <Album size={16} />
-
-      {#if $onlyShowModsNotInAnyCollection}
-        <span>Show all mods</span>
-      {:else}
-        <span>Only show mods in no collection</span>
-      {/if}
-    </button>
-  </div>
-</nav>
-
 <AppBar padding="px-4 py-2">
   <svelte:fragment slot="lead">
-    <div class=" space-x-1">
-      <button use:menu={{ menu: 'example' }} class=" menubutton btn btn-sm btn-filled-surface">
-        <Menu size={16} />
-        <span> Menu</span>
-      </button>
+    <div class=" space-x-1 ">
+      <span class="relative">
+        <button use:menu={{ menu: 'example' }} class=" menubutton btn btn-sm btn-filled-surface">
+          <Menu size={16} />
+          <span> Menu</span>
+        </button>
 
-      <button use:menu={{ menu: 'view' }} class=" menubutton btn btn-sm btn-filled-surface">
-        <Eye size={16} />
-        <span> View</span>
-      </button>
+        <nav class=" p-2 px-2 card w-64 shadow-xl " data-menu="example">
+          <div class="!flex flex-col gap-2">
+            <button on:click={triggerCustomModal} class="flex-1 btn btn-sm text-left">
+              <Settings size={16} /> <span>Settings</span></button
+            >
+
+            <button
+              on:click={() => attemptRequestManifest(false)}
+              disabled={$isBuildingModManifest}
+              class="btn btn-sm "
+            >
+              <RefreshCw size={16} />
+              <span>{$isBuildingModManifest ? 'Refreshing mods...' : 'Refresh Mods'}</span></button
+            >
+
+            <button
+              on:click={() => writeAddonlist()}
+              disabled={$isWritingAddonlist}
+              class="btn btn-sm  "
+            >
+              <Import size={16} />
+              <span>{$isWritingAddonlist ? 'Writing List...' : 'Save Changes'}</span></button
+            >
+
+            <Divider />
+
+            <button class="btn btn-sm" on:click={triggerHelpDialog}
+              ><HelpCircle size={16} />
+              <span>Help</span>
+            </button>
+          </div>
+        </nav>
+      </span>
+
+      <span class="relative">
+        <button use:menu={{ menu: 'view' }} class=" menubutton btn btn-sm btn-filled-surface">
+          <Eye size={16} />
+          <span> View</span>
+        </button>
+
+        <nav class=" p-2 px-2 card shadow-xl " data-menu="view">
+          <div class="!flex flex-col gap-2  ">
+            <!-- <button on:click={triggerCustomModal} class="flex-1 btn text-left">
+        <EyeOff size={16} /> <span>Show/hide hidden mods</span></button
+      > -->
+
+            <button
+              on:click={toggleOnlyShowModsNotInAnyCollection}
+              class="flex-1 btn btn-sm text-left"
+            >
+              <Album size={16} />
+
+              {#if $onlyShowModsNotInAnyCollection}
+                <span>Show all mods</span>
+              {:else}
+                <span>Only show mods in no collection</span>
+              {/if}
+            </button>
+          </div>
+        </nav>
+      </span>
 
       <!--       <button on:click={triggerCustomModal} class="btn-icon btn-icon-sm   ">
         <Settings size={16} /></button
