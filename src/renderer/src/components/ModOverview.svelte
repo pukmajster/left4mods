@@ -196,6 +196,6 @@
   }
 
   .blurred-bg {
-    opacity: 0.05 !important;
+    opacity: 0.08 !important;
   }
 </style>
