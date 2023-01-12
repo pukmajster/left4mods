@@ -26,8 +26,6 @@
     window.api.exportVpkFiles($gameDir, exportDir, $modIdToExtractFrom!, filesToExport)
   }
 
-  let selectedFiles = []
-
   function selectAllFiles() {
     filesToExport = mod.files
   }
@@ -60,7 +58,7 @@
         />
         <label for="selectcheckbox" class="pt-1 flex items-center">
           <span class="font-bold">
-            {#if selectedFiles.length === mod.files.length}
+            {#if filesToExport.length === mod.files.length}
               Deselect all
             {:else}
               Select all
