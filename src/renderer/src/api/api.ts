@@ -1,6 +1,7 @@
-import type { IModManifest, IPreset, IUserProfile, RequestManifestOptions } from 'shared'
+import type { IModManifest, IPreset, IUserProfile, ModId, RequestManifestOptions } from 'shared'
 import { get } from 'svelte/store'
 import { emptyManifest } from '../constants/manifest'
+import { triggerAlertToast } from '../functions/toast'
 import { customCfg, gameDir } from '../stores/profile'
 
 async function requestManifest(options: RequestManifestOptions) {
@@ -69,6 +70,22 @@ function getPath() {
 
 function getPathJoin(file: string) {
   return window.api.getPathJoin(file)
+}
+
+export async function exportVpkFiles(
+  gameDir: string,
+  exportDir: string,
+  modId: ModId,
+  files: string[]
+) {
+  try {
+    await window.api.exportVpkFiles(gameDir, exportDir, modId, files)
+    triggerAlertToast('Exported files successfully')
+  } catch (e) {
+    const err = e as Error
+    triggerAlertToast('Failed to extract vpk')
+    console.log(err)
+  }
 }
 
 export const bridgedApi = {

@@ -1,6 +1,6 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer, shell } from 'electron'
-import { BridgedAPI, IUserProfile, RequestManifestOptions } from 'shared'
+import { BridgedAPI, IUserProfile, ModId, RequestManifestOptions } from 'shared'
 
 console.log('preload')
 
@@ -19,7 +19,9 @@ const api: BridgedAPI = {
     ipcRenderer.invoke('profile:writeCustomCfg', gameDir, customCfg),
   openDirectory: (directory: string) => ipcRenderer.invoke('profile:openDirectory', directory),
   getPath: () => ipcRenderer.invoke('getPath'),
-  getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file)
+  getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file),
+  exportVpkFiles: (gameDir: string, extractDir: string, modId: ModId, filesToExtract: string[]) =>
+    ipcRenderer.invoke('exportVpkFiles', gameDir, extractDir, modId, filesToExtract)
 }
 
 function openLinkInBrowser(url: string) {

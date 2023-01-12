@@ -4,6 +4,7 @@
   import type { IMod } from 'shared'
   import { combinedCategoryToLabelMap } from '../constants/categories'
   import thumbnailFallback from '../constants/thumbnailFallback'
+  import { openVpkExtractionModal } from '../functions/modals'
   import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
   import { collections, gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
@@ -90,6 +91,12 @@
         >
       </div>
     {/if}
+
+    <div class="mt-4">
+      <button class="btn btn-sm btn-filled-surface" on:click={() => openVpkExtractionModal(mod.id)}
+        >Extract files</button
+      >
+    </div>
 
     {#if mod.addonauthor}
       <h4>

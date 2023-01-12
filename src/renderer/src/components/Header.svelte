@@ -17,6 +17,7 @@
     HelpCircle,
     Import,
     Library,
+    Link,
     Menu,
     MessageCircle,
     RefreshCw,
@@ -38,6 +39,14 @@
 
   async function attemptRequestManifest(forceNewBuild: boolean = false) {
     requestManifest(forceNewBuild)
+  }
+
+  function openWorkshopInBrowser() {
+    window.api.openLinkInBrowser('https://steamcommunity.com/app/550/workshop/')
+  }
+
+  function openWorkshopInSteam() {
+    window.api.openLinkInBrowser('https://steamcommunity.com/app/550/workshop/')
   }
 
   function triggerCustomModal(): void {
@@ -165,6 +174,16 @@
               {:else}
                 <span>Only show mods in no collection</span>
               {/if}
+            </button>
+
+            <button on:click={openWorkshopInBrowser} class="flex-1 btn btn-sm text-left">
+              <Link size={16} />
+              <span>Open workshop in browser</span>
+            </button>
+
+            <button disabled on:click={openWorkshopInSteam} class="flex-1 btn btn-sm text-left">
+              <Link size={16} />
+              <span>Open Workshop in Steam</span>
             </button>
           </div>
         </nav>

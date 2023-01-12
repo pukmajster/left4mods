@@ -25,6 +25,12 @@ export interface BridgedAPI {
   openDirectory: (directory: string) => void
   getPath: () => Promise<string>
   getPathJoin: (file: string) => Promise<string>
+  exportVpkFiles: (
+    gameDir: string,
+    exportDir: string,
+    modId: ModId,
+    files: string[]
+  ) => Promise<void>
 }
 
 export interface IModManifest {

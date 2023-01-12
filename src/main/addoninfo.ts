@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-var path = require('path')
+const path = require('path')
 
 export async function writeAddonList(gameDir: string, addons: string) {
   console.log('Writing addonlist.txt to disk...')

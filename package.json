@@ -17,6 +17,9 @@
     },
     "nsis": {
       "runAfterFinish": false
+    },
+    "linux": {
+      "target": "AppImage"
     }
   },
   "scripts": {

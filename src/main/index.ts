@@ -2,7 +2,7 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron'
 import { release } from 'os'
 import * as path from 'path'
-import { IUserProfile, RequestManifestOptions } from 'shared'
+import { IUserProfile, ModId, RequestManifestOptions } from 'shared'
 import { writeAddonList } from './addoninfo'
 import { requestManifest } from './manifest/manifest_v5'
 import {
@@ -12,6 +12,7 @@ import {
   writeCustomCfg,
   writeProfile
 } from './profile'
+import { exportVpkFiles } from './vpkexport'
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -60,6 +61,12 @@ ipcMain.handle('profile:openDirectory', (_e, directory: string) => {
 ipcMain.handle('getPath', () => app.getPath('appData'))
 
 ipcMain.handle('getPathJoin', (_e, file: string) => path.join(app.getPath('appData'), file))
+
+ipcMain.handle(
+  'exportVpkFiles',
+  (_e, gameDir: string, extractDir: string, modId: ModId, filesToExtract: string[]) =>
+    exportVpkFiles(gameDir, extractDir, modId, filesToExtract)
+)
 
 let firstPassFinished = false
 let mainWindow: BrowserWindow | null = null
