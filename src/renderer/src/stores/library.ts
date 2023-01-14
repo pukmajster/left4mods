@@ -54,7 +54,6 @@ export const filteredMods = derived(
   [
     searchTerm,
     activeCategoriesToFilterBy,
-
     modManifest,
     typeToShow,
     enabledMods,
@@ -198,8 +197,6 @@ export const groupedEnabledMods = derived(
         let files = thisMod.files
 
         if ($ignoreAllVguiIconConflicts) {
-          console.log('ignoring vgui conflicts')
-
           files = files.filter((file) => !file.includes('materials/vgui/'))
         }
 
