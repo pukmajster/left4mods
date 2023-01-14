@@ -1,6 +1,6 @@
 {
   "name": "shared",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A local package for shared types between main and the renderer",
   "types": "index.d.ts",
   "main": "index.js",

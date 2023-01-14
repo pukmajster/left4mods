@@ -4,31 +4,27 @@ import { emptyManifest } from '../constants/manifest'
 import { triggerAlertToast } from '../functions/toast'
 import { customCfg, gameDir } from '../stores/profile'
 
-async function requestManifest(options: RequestManifestOptions) {
-  console.log('manifest')
-
+async function requestManifest(options: RequestManifestOptions): Promise<IModManifest> {
   try {
-    let manifest = await window.api.requestManifest(options)
-    return manifest
+    return await window.api.requestManifest(options)
   } catch (e) {
-    let err = e as Error
+    const err = e as Error
     console.log(err)
     return emptyManifest
   }
 }
 
-export async function readProfile() {
+export async function readProfile(): Promise<IUserProfile | object> {
   try {
-    let profile = await window.api.readProfile()
-    return profile
+    return await window.api.readProfile()
   } catch (e) {
-    let err = e as Error
+    const err = e as Error
     console.log(err)
     return {}
   }
 }
 
-export async function writeProfile(profile: IUserProfile) {
+export async function writeProfile(profile: IUserProfile): Promise<void> {
   try {
     await window.api.writeProfile(profile)
   } catch (e) {
@@ -37,13 +33,17 @@ export async function writeProfile(profile: IUserProfile) {
   }
 }
 
-async function writeAddonList(gameDir: string, manifest: IModManifest, preset: IPreset) {
+async function writeAddonList(
+  gameDir: string,
+  manifest: IModManifest,
+  preset: IPreset
+): Promise<void> {
   let outputVdfString = `"AddonList"\n{\n`
-  let enabledMods = preset.enabledMods
+  const enabledMods = preset.enabledMods
 
-  for (let mod in manifest.mods) {
-    let modId = manifest.mods[mod].id
-    let enabled = enabledMods.includes(modId) ? '1' : '0'
+  for (const mod in manifest.mods) {
+    const modId = manifest.mods[mod].id
+    const enabled = enabledMods.includes(modId) ? '1' : '0'
 
     if (manifest.mods[mod].fromworkshop)
       outputVdfString += `\t"workshop\\${modId}.vpk"\t\t\t"${enabled}"\n`
@@ -52,23 +52,22 @@ async function writeAddonList(gameDir: string, manifest: IModManifest, preset: I
 
   outputVdfString += '}'
 
-  let res = await window.api.writeAddonList(gameDir, outputVdfString)
-  return res
+  await window.api.writeAddonList(gameDir, outputVdfString)
 }
 
-async function writeCustomCfg() {
+async function writeCustomCfg(): Promise<void> {
   await window.api.writeCustomCfg(get(gameDir), get(customCfg))
 }
 
-async function openGameDirectory() {
+async function openGameDirectory(): Promise<void> {
   await window.api.openDirectory(get(gameDir))
 }
 
-function getPath() {
+function getPath(): Promise<string> {
   return window.api.getPath()
 }
 
-function getPathJoin(file: string) {
+function getPathJoin(file: string): Promise<string> {
   return window.api.getPathJoin(file)
 }
 
@@ -77,7 +76,7 @@ export async function exportVpkFiles(
   exportDir: string,
   modId: ModId,
   files: string[]
-) {
+): Promise<void> {
   try {
     await window.api.exportVpkFiles(gameDir, exportDir, modId, files)
     triggerAlertToast('Exported files successfully')
@@ -91,7 +90,7 @@ export async function exportVpkFiles(
 export const bridgedApi = {
   writeAddonList,
   requestManifest,
-  openWorkingDirectory: () => window.api.openWorkingDirectory(),
+  openWorkingDirectory: (): void => window.api.openWorkingDirectory(),
   writeCustomCfg,
   openGameDirectory,
   getPath,

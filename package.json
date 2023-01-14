@@ -46,7 +46,6 @@
     "lucide-svelte": "^0.104.0",
     "nanoid": "^4.0.0",
     "node-vdf": "^0.0.3",
-    "shared": "file:./shared",
     "vpk": "^0.2.0"
   },
   "devDependencies": {
@@ -75,6 +74,7 @@
     "tailwindcss": "^3.1.5",
     "tslib": "^2.4.1",
     "typescript": "^4.9.3",
+    "shared": "file:./shared",
     "vite": "^3.2.4"
   }
 }
