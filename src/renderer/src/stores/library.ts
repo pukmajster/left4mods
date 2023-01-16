@@ -19,7 +19,7 @@ type SortingType =
   | 'size_biggest'
 type TypeOfMod = 'any' | 'enabled' | 'disabled'
 export const typeToShow = writable<TypeOfMod>('any')
-export const sortingType = writable<SortingType>('name_asc')
+export const sortingType = writable<SortingType>('time_newest')
 export const perPageCount = writable('50')
 
 export const showConflictingView = writable(false)
