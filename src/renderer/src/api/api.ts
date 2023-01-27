@@ -5,11 +5,8 @@ import { triggerAlertToast } from '../functions/toast'
 import { addToList, customCfg, gameDir, uninstalledMods } from '../stores/profile'
 
 async function requestManifest(options: RequestManifestOptions): Promise<IModManifest> {
-  console.log('manifest')
-
   try {
-    const manifest = await window.api.requestManifest(options)
-    return manifest
+    return await window.api.requestManifest(options)
   } catch (e) {
     const err = e as Error
     console.log(err)
@@ -17,10 +14,9 @@ async function requestManifest(options: RequestManifestOptions): Promise<IModMan
   }
 }
 
-export async function readProfile(): Promise<IUserProfile> {
+export async function readProfile(): Promise<IUserProfile | object> {
   try {
-    const profile = await window.api.readProfile()
-    return profile
+    return await window.api.readProfile()
   } catch (e) {
     const err = e as Error
     console.log(err)
@@ -41,7 +37,7 @@ async function writeAddonList(
   gameDir: string,
   manifest: IModManifest,
   preset: IPreset
-): Promise<boolean> {
+): Promise<void> {
   let outputVdfString = `"AddonList"\n{\n`
   const enabledMods = preset.enabledMods
 
@@ -56,8 +52,7 @@ async function writeAddonList(
 
   outputVdfString += '}'
 
-  const res = await window.api.writeAddonList(gameDir, outputVdfString)
-  return res
+  await window.api.writeAddonList(gameDir, outputVdfString)
 }
 
 async function writeCustomCfg(): Promise<void> {
@@ -118,7 +113,7 @@ export async function unsubscribeFromMod(modId: ModId): Promise<boolean> {
 export const bridgedApi = {
   writeAddonList,
   requestManifest,
-  openWorkingDirectory: () => window.api.openWorkingDirectory(),
+  openWorkingDirectory: (): void => window.api.openWorkingDirectory(),
   writeCustomCfg,
   openGameDirectory,
   getPath,

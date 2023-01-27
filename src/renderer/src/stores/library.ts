@@ -22,8 +22,8 @@ type SortingType =
 type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'hidden' | 'uninstalled'
 
 export const typeToShow = writable<TypeOfMod>('any')
-export const sortingType = writable<SortingType>('name_asc')
-export const perPageCount = writable('100')
+export const sortingType = writable<SortingType>('time_newest')
+export const perPageCount = writable('50')
 
 export const showConflictingView = writable(false)
 export const onlyShowModsNotInAnyCollection = writable(false)
@@ -57,7 +57,6 @@ export const filteredMods = derived(
   [
     searchTerm,
     activeCategoriesToFilterBy,
-
     modManifest,
     typeToShow,
     enabledMods,
@@ -221,8 +220,6 @@ export const groupedEnabledMods = derived(
         let files = thisMod.files
 
         if ($ignoreAllVguiIconConflicts) {
-          console.log('ignoring vgui conflicts')
-
           files = files.filter((file) => !file.includes('materials/vgui/'))
         }
 

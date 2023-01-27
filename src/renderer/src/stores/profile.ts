@@ -51,17 +51,17 @@ export function isInList(list: SimpleModListStore, id: ModId): boolean {
 // are sure that the mod is not already enabled/disabled in the current preset.
 // --------------------------------------------------------------------
 
-function enableModInCurrentPresetUnsafe(modId: ModId) {
+function enableModInCurrentPresetUnsafe(modId: ModId): void {
   const workingPresets = get(presets)
   const workingActivePreset = get(activePreset)
   workingPresets.find((preset) => preset.id == workingActivePreset).enabledMods.push(modId)
   presets.set(workingPresets)
 }
 
-function disableModInCurrentPresetUnsafe(modId: ModId) {
+function disableModInCurrentPresetUnsafe(modId: ModId): void {
   const workingPresets = get(presets)
   const workingActivePreset = get(activePreset)
-  let tempEnabledMods = workingPresets
+  const tempEnabledMods = workingPresets
     .find((preset) => preset.id == workingActivePreset)
     .enabledMods.filter((id) => id != modId)
 
@@ -76,7 +76,7 @@ function disableModInCurrentPresetUnsafe(modId: ModId) {
 // current preset.
 // --------------------------------------------------------------------
 
-export function isModEnabledInCurrentPreset(modId: ModId) {
+export function isModEnabledInCurrentPreset(modId: ModId): void {
   const workingPresets = get(presets)
   const workingActivePreset = get(activePreset)
 
@@ -85,28 +85,28 @@ export function isModEnabledInCurrentPreset(modId: ModId) {
     .enabledMods.includes(modId)
 }
 
-export function enableModInCurrentPresetSafe(modId: ModId) {
+export function enableModInCurrentPresetSafe(modId: ModId): void {
   if (!isModEnabledInCurrentPreset(modId)) enableModInCurrentPresetUnsafe(modId)
 }
 
-export function disableModInCurrentPresetSafe(modId: ModId) {
+export function disableModInCurrentPresetSafe(modId: ModId): void {
   if (isModEnabledInCurrentPreset(modId)) disableModInCurrentPresetUnsafe(modId)
 }
 
-export function toggleModInCurrentPresetSafe(modId: ModId) {
+export function toggleModInCurrentPresetSafe(modId: ModId): void {
   if (isModEnabledInCurrentPreset(modId)) disableModInCurrentPresetUnsafe(modId)
   else enableModInCurrentPresetUnsafe(modId)
 }
 
-export function batchEnableModsInCurrentPreset(modIds: ModId[]) {
+export function batchEnableModsInCurrentPreset(modIds: ModId[]): void {
   modIds.forEach((modId) => enableModInCurrentPresetSafe(modId))
 }
 
-export function batchDisableModsInCurrentPreset(modIds: ModId[]) {
+export function batchDisableModsInCurrentPreset(modIds: ModId[]): void {
   modIds.forEach((modId) => disableModInCurrentPresetSafe(modId))
 }
 
-export const renameCurrentPreset = (newName: string) => {
+export const renameCurrentPreset = (newName: string): void => {
   const workingPresets = get(presets)
   let workingPreset = workingPresets.find((preset) => preset.id == get(activePreset))
   if (!workingPreset) return
@@ -120,21 +120,21 @@ export const renameCurrentPreset = (newName: string) => {
 // Same idea as with mods
 // --------------------------------------------------------------------
 
-function addModToCurrentCollectionUnsafe(modId: ModId) {
+function addModToCurrentCollectionUnsafe(modId: ModId): void {
   const workingCollectionName = get(selectedCollectionName)
   addModToCollectionUnsafe(modId, workingCollectionName)
 }
 
-function removeModFromCurrentCollectionUnsafe(modId: ModId) {
+function removeModFromCurrentCollectionUnsafe(modId: ModId): void {
   const workingCollectionName = get(selectedCollectionName)
   removeModFromCollectionUnsafe(modId, workingCollectionName)
 }
 
-function addModToCollectionUnsafe(modId: ModId, workingCollectionName: string) {
+function addModToCollectionUnsafe(modId: ModId, workingCollectionName: string): void {
   const workingCollections = get(collections)
   if (workingCollections === undefined) return
 
-  let workingCollection = workingCollections.find(
+  const workingCollection = workingCollections.find(
     (collection) => collection.id == workingCollectionName
   )
   if (workingCollection === undefined) return
@@ -142,10 +142,10 @@ function addModToCollectionUnsafe(modId: ModId, workingCollectionName: string) {
   collections.set(workingCollections)
 }
 
-function removeModFromCollectionUnsafe(modId: ModId, workingCollectionName: string) {
+function removeModFromCollectionUnsafe(modId: ModId, workingCollectionName: string): void {
   const workingCollections = get(collections)!
 
-  let tempMods = workingCollections
+  const tempMods = workingCollections
     .find((collection) => collection.id == workingCollectionName)
     .mods.filter((id) => id != modId)
 
@@ -159,10 +159,10 @@ function removeModFromCollectionUnsafe(modId: ModId, workingCollectionName: stri
 // You get the idea :D
 // --------------------------------------------------------------------
 
-export function isModInCollection(modId: ModId, workingCollectionName: string) {
+export function isModInCollection(modId: ModId, workingCollectionName: string): boolean {
   const workingCollections = get(collections)
 
-  let workingCollection = workingCollections.find(
+  const workingCollection = workingCollections.find(
     (collection) => collection.id == workingCollectionName
   )
 
@@ -171,33 +171,36 @@ export function isModInCollection(modId: ModId, workingCollectionName: string) {
   return workingCollection.mods.includes(modId)
 }
 
-export function isModInCurrentCollection(modId: ModId) {
+export function isModInCurrentCollection(modId: ModId): boolean {
   const workingCollectionName = get(selectedCollectionName)
 
   return isModInCollection(modId, workingCollectionName)
 }
 
-export function addModToCollectionSafe(modId: ModId, workingCollectionName: string) {
+export function addModToCollectionSafe(modId: ModId, workingCollectionName: string): void {
   if (!isModInCollection(modId, workingCollectionName))
     addModToCollectionUnsafe(modId, workingCollectionName)
 }
 
-export function removeModFromCollectionSafe(modId: ModId, workingCollectionName: string) {
+export function removeModFromCollectionSafe(modId: ModId, workingCollectionName: string): void {
   if (isModInCollection(modId, workingCollectionName))
     removeModFromCollectionUnsafe(modId, workingCollectionName)
 }
 
-export function batchAddModsToCollection(modIds: ModId[], workingCollectionName: string) {
+export function batchAddModsToCollection(modIds: ModId[], workingCollectionName: string): void {
   modIds.forEach((modId) => addModToCollectionSafe(modId, workingCollectionName))
 }
 
-export function batchRemoveModsFromCollection(modIds: ModId[], workingCollectionName: string) {
+export function batchRemoveModsFromCollection(
+  modIds: ModId[],
+  workingCollectionName: string
+): void {
   modIds.forEach((modId) => removeModFromCollectionSafe(modId, workingCollectionName))
 }
 
-export const renameCurrentCollection = (newName: string) => {
+export const renameCurrentCollection = (newName: string): void => {
   const workingCollections = get(collections)
-  let workingCollection = workingCollections.find(
+  const workingCollection = workingCollections.find(
     (collection) => collection.id == get(selectedCollectionName)
   )
   if (!workingCollection) return
