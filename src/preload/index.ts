@@ -21,7 +21,9 @@ const api: BridgedAPI = {
   getPath: () => ipcRenderer.invoke('getPath'),
   getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file),
   exportVpkFiles: (gameDir: string, extractDir: string, modId: ModId, filesToExtract: string[]) =>
-    ipcRenderer.invoke('exportVpkFiles', gameDir, extractDir, modId, filesToExtract)
+    ipcRenderer.invoke('exportVpkFiles', gameDir, extractDir, modId, filesToExtract),
+  removeVpkFile: (gameDir: string, modId: ModId) =>
+    ipcRenderer.invoke('removeVpkFile', gameDir, modId)
 }
 
 function openLinkInBrowser(url: string) {

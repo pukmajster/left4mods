@@ -1,7 +1,13 @@
 <script lang="ts">
   import type { IMod } from 'shared'
   import { enabledMods, groupedEnabledMods, modIdToOverview, selectedMods } from '../stores/library'
-  import { gameDir, grayscaleDisabledMods, toggleModInCurrentPresetSafe } from '../stores/profile'
+  import {
+    gameDir,
+    grayscaleDisabledMods,
+    isInList,
+    toggleModInCurrentPresetSafe,
+    uninstalledMods
+  } from '../stores/profile'
 
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   import { CheckCircle2, Slash } from 'lucide-svelte'
@@ -39,6 +45,8 @@
   function handleMouseEnter(e: MouseEvent) {
     showHoverbox = true
 
+    if (uninstalled) return
+
     if (!e.shiftKey) return
     if (!e.ctrlKey) return
 
@@ -60,6 +68,7 @@
   $: enabled = $enabledMods.includes(mod.id)
   $: otherModsSelectedButNotThisOne = $selectedMods.some((id) => id != mod.id)
   $: userIsSelecting = $selectedMods.length > 0
+  $: uninstalled = isInList(uninstalledMods, mod.id) ?? uninstalledMods
 
   $: isGroupEnabled = $groupedEnabledMods.some((group) =>
     group.some((conflictingMod) => conflictingMod.id == mod.id)
@@ -81,6 +90,7 @@
   class:selected
   class:unselected={otherModsSelectedButNotThisOne && !selected}
   class:enabled
+  class:uninstalled
   class:conflicting={isGroupEnabled}
   class:grayscale={!enabled && $grayscaleDisabledMods}
   on:click={handleClick}
@@ -124,6 +134,16 @@
     >
       <div class="backdrop-blur-lg rounded-full">
         <CheckCircle2 size={64} />
+      </div>
+    </div>
+  {/if}
+
+  {#if uninstalled}
+    <div
+      class="selected-overlay absolute inset-0 bg w-full h-full right-0 justify-center items-center flex  "
+    >
+      <div class="backdrop-blur-lg rounded-full">
+        <Slash size={64} />
       </div>
     </div>
   {/if}
@@ -183,6 +203,10 @@
 
   .mod.enabled .mod-status-text {
     display: flex;
+  }
+
+  .mod.uninstalled {
+    opacity: 0.5;
   }
 
   .mod.grayscale {

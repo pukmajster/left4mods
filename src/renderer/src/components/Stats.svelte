@@ -1,12 +1,13 @@
 <script>
   import { enabledMods } from '../stores/library'
   import { modManifest } from '../stores/manifest'
+  import { uninstalledMods } from '../stores/profile'
 </script>
 
 <div class="pb-2">
   <div class="stats card">
     <div class="stat">
-      <p>{Object.keys($modManifest.mods).length}</p>
+      <p>{Object.keys($modManifest.mods).length - $uninstalledMods.length}</p>
       <h5>Total Mods</h5>
     </div>
 

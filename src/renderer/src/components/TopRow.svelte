@@ -1,6 +1,7 @@
 <script lang="ts">
   import { SlideToggle } from '@skeletonlabs/skeleton'
   import classnames from 'classnames'
+  import { bridgedApi } from '../api/api'
   import { pickCollection } from '../functions/modals'
   import {
     paginatedSortedFilteredMods,
@@ -11,12 +12,15 @@
     typeToShow
   } from '../stores/library'
   import {
+    addToList,
     batchAddModsToCollection,
     batchDisableModsInCurrentPreset,
     batchEnableModsInCurrentPreset,
     batchRemoveModsFromCollection,
     darkMode,
+    hiddenMods,
     ignoreAllVguiIconConflicts,
+    removeFromList,
     selectedCollectionName
   } from '../stores/profile'
   import ToggleViewButton from './ToggleViewButton.svelte'
@@ -63,6 +67,29 @@
       unselectAll()
     } else selectAll()
   }
+
+  function _batchOpenModsInBrowser() {
+    for (let modId of $selectedMods)
+      window.api.openLinkInBrowser(
+        `https://steamcommunity.com/sharedfiles/filedetails/?id=${modId}`
+      )
+    clearSelection()
+  }
+
+  function _batchUnsubscribeMods() {
+    for (let modId of $selectedMods) bridgedApi.unsubscribeFromMod(modId)
+    clearSelection()
+  }
+
+  function _batchHideMods() {
+    for (let modId of $selectedMods) addToList(hiddenMods, modId)
+    clearSelection()
+  }
+
+  function _batchUnhideMods() {
+    for (let modId of $selectedMods) removeFromList(hiddenMods, modId)
+    clearSelection()
+  }
 </script>
 
 <div
@@ -80,6 +107,7 @@
             <option value={'100'}>100</option>
             <option value={'300'}>300</option>
             <option value={'500'}>500</option>
+            <option value={'9999'}>All</option>
           </select>
 
           <select style="max-width: 210px;  w-full" bind:value={$sortingType}>
@@ -95,6 +123,8 @@
             <option value="any">Any</option>
             <option value="enabled">Enabled</option>
             <option value="disabled">Disabled</option>
+            <option value="hidden">Hidden</option>
+            <option value="uninstalled">Uninstalled</option>
           </select>
         </div>
 
@@ -108,10 +138,14 @@
 
             {#if $selectedMods.length > 0}
               <button on:click={_batchEnableSelectedMods} class="btn btn-sm btn-filled-primary"
-                >enable selected</button
+                >Enable selected</button
               >
               <button on:click={_batchDisableSelectedMods} class="btn btn-sm btn-filled-primary"
-                >disable selected</button
+                >Disable selected</button
+              >
+
+              <button on:click={_batchUnsubscribeMods} class="btn btn-sm btn-filled-primary"
+                >Unsubscribe</button
               >
               <!-- <select bind:value={batchCollectionName}>
             {#each $collections as collection}
@@ -121,14 +155,27 @@
 
               {#if $selectedCollectionName == ''}
                 <button on:click={_batchAddModsToCollection} class="btn btn-sm btn-filled-primary"
-                  >add selected to collection</button
+                  >Add to collection</button
                 >
               {/if}
 
               {#if $selectedCollectionName != ''}
                 <button
                   on:click={_batchRemoveModsFromCollection}
-                  class="btn btn-sm btn-filled-primary">remove selected from collection</button
+                  class="btn btn-sm btn-filled-primary">Remove from collection</button
+                >
+              {/if}
+
+              <button on:click={_batchOpenModsInBrowser} class="btn btn-sm btn-filled-primary"
+                >Open in browser</button
+              >
+
+              {#if $typeToShow == 'hidden'}
+                <button on:click={_batchUnhideMods} class="btn btn-sm btn-filled-primary"
+                  >Unhide</button
+                >
+              {:else}
+                <button on:click={_batchHideMods} class="btn btn-sm btn-filled-primary">hide</button
                 >
               {/if}
             {/if}

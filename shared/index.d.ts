@@ -31,6 +31,7 @@ export interface BridgedAPI {
     modId: ModId,
     files: string[]
   ) => Promise<void>
+  removeVpkFile: (gameDir: string, modId: ModId) => Promise<boolean>
 }
 
 export interface IModManifest {
@@ -57,6 +58,7 @@ export interface IUserProfile {
   hasFinishedFirstTimeSetup: boolean
   hiddenMods: ModId[]
   ignoreAllVguiIconConflicts: boolean
+  uninstalledMods: ModId[]
 }
 
 export interface IPreset {

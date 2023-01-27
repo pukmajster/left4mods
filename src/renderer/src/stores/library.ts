@@ -5,9 +5,11 @@ import { modManifest } from './manifest'
 import {
   activePreset,
   collections,
+  hiddenMods,
   ignoreAllVguiIconConflicts,
   presets,
-  selectedCollectionName
+  selectedCollectionName,
+  uninstalledMods
 } from './profile'
 
 type SortingType =
@@ -17,10 +19,11 @@ type SortingType =
   | 'time_newest'
   | 'size_smallest'
   | 'size_biggest'
-type TypeOfMod = 'any' | 'enabled' | 'disabled'
+type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'hidden' | 'uninstalled'
+
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('name_asc')
-export const perPageCount = writable('50')
+export const perPageCount = writable('100')
 
 export const showConflictingView = writable(false)
 export const onlyShowModsNotInAnyCollection = writable(false)
@@ -61,7 +64,9 @@ export const filteredMods = derived(
     onlyShowModsNotInAnyCollection,
     collections,
     selectedCollectionName,
-    visibleFilterPanel
+    visibleFilterPanel,
+    hiddenMods,
+    uninstalledMods
   ],
   ([
     $searchTerm,
@@ -72,7 +77,9 @@ export const filteredMods = derived(
     $onlyShowModsNotInAnyCollection,
     $collections,
     $selectedCollectionName,
-    $visibleFilterPanel
+    $visibleFilterPanel,
+    $hiddenMods,
+    $uninstalledMods
   ]) => {
     const tempStorage: IMod[] = []
 
@@ -85,6 +92,14 @@ export const filteredMods = derived(
         $modManifest.mods[keyName].id
       const thisMod = $modManifest.mods[keyName] as IMod
 
+      if ($typeToShow !== 'hidden') {
+        if ($hiddenMods.includes(thisMod.id)) return
+      }
+
+      if ($typeToShow !== 'uninstalled' && $typeToShow !== 'hidden') {
+        if ($uninstalledMods.includes(thisMod.id)) return
+      }
+
       // Check for mod type
       switch ($typeToShow) {
         case 'any':
@@ -94,6 +109,14 @@ export const filteredMods = derived(
           break
         case 'disabled':
           if ($enabledMods.includes(thisMod.id)) return
+          break
+        case 'hidden':
+          if (!$hiddenMods.includes(thisMod.id)) return
+          break
+        case 'uninstalled':
+          if (!$uninstalledMods.includes(thisMod.id)) return
+          break
+        default:
           break
       }
 

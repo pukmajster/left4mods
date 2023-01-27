@@ -2,48 +2,52 @@ import type { IModManifest, IPreset, IUserProfile, ModId, RequestManifestOptions
 import { get } from 'svelte/store'
 import { emptyManifest } from '../constants/manifest'
 import { triggerAlertToast } from '../functions/toast'
-import { customCfg, gameDir } from '../stores/profile'
+import { addToList, customCfg, gameDir, uninstalledMods } from '../stores/profile'
 
-async function requestManifest(options: RequestManifestOptions) {
+async function requestManifest(options: RequestManifestOptions): Promise<IModManifest> {
   console.log('manifest')
 
   try {
-    let manifest = await window.api.requestManifest(options)
+    const manifest = await window.api.requestManifest(options)
     return manifest
   } catch (e) {
-    let err = e as Error
+    const err = e as Error
     console.log(err)
     return emptyManifest
   }
 }
 
-export async function readProfile() {
+export async function readProfile(): Promise<IUserProfile> {
   try {
-    let profile = await window.api.readProfile()
+    const profile = await window.api.readProfile()
     return profile
   } catch (e) {
-    let err = e as Error
+    const err = e as Error
     console.log(err)
-    return {}
+    return {} as IUserProfile
   }
 }
 
-export async function writeProfile(profile: IUserProfile) {
+export async function writeProfile(profile: IUserProfile): Promise<void> {
   try {
     await window.api.writeProfile(profile)
   } catch (e) {
-    let err = e as Error
+    const err = e as Error
     console.log(err)
   }
 }
 
-async function writeAddonList(gameDir: string, manifest: IModManifest, preset: IPreset) {
+async function writeAddonList(
+  gameDir: string,
+  manifest: IModManifest,
+  preset: IPreset
+): Promise<boolean> {
   let outputVdfString = `"AddonList"\n{\n`
-  let enabledMods = preset.enabledMods
+  const enabledMods = preset.enabledMods
 
-  for (let mod in manifest.mods) {
-    let modId = manifest.mods[mod].id
-    let enabled = enabledMods.includes(modId) ? '1' : '0'
+  for (const mod in manifest.mods) {
+    const modId = manifest.mods[mod].id
+    const enabled = enabledMods.includes(modId) ? '1' : '0'
 
     if (manifest.mods[mod].fromworkshop)
       outputVdfString += `\t"workshop\\${modId}.vpk"\t\t\t"${enabled}"\n`
@@ -52,23 +56,23 @@ async function writeAddonList(gameDir: string, manifest: IModManifest, preset: I
 
   outputVdfString += '}'
 
-  let res = await window.api.writeAddonList(gameDir, outputVdfString)
+  const res = await window.api.writeAddonList(gameDir, outputVdfString)
   return res
 }
 
-async function writeCustomCfg() {
+async function writeCustomCfg(): Promise<void> {
   await window.api.writeCustomCfg(get(gameDir), get(customCfg))
 }
 
-async function openGameDirectory() {
+async function openGameDirectory(): Promise<void> {
   await window.api.openDirectory(get(gameDir))
 }
 
-function getPath() {
+function getPath(): Promise<string> {
   return window.api.getPath()
 }
 
-function getPathJoin(file: string) {
+function getPathJoin(file: string): Promise<string> {
   return window.api.getPathJoin(file)
 }
 
@@ -77,7 +81,7 @@ export async function exportVpkFiles(
   exportDir: string,
   modId: ModId,
   files: string[]
-) {
+): Promise<void> {
   try {
     await window.api.exportVpkFiles(gameDir, exportDir, modId, files)
     triggerAlertToast('Exported files successfully')
@@ -88,6 +92,29 @@ export async function exportVpkFiles(
   }
 }
 
+export async function removeVpkFile(gameDir: string, modId: ModId): Promise<boolean> {
+  try {
+    window.api.removeVpkFile(gameDir, modId)
+    addToList(uninstalledMods, modId)
+    //removeFromList(enabledMods, modId)
+    triggerAlertToast('Removed vpk successfully')
+    return true
+  } catch (e) {
+    const err = e as Error
+    triggerAlertToast(e + 'Failed to remove vpk')
+    console.log(err)
+    return false
+  }
+}
+
+export async function unsubscribeFromMod(modId: ModId): Promise<boolean> {
+  window.api.openLinkInBrowser(
+    `https://steamcommunity.com/sharedfiles/filedetails/?id=${modId}&l4m_unsubscribe=true`
+  )
+
+  return await removeVpkFile(get(gameDir), modId)
+}
+
 export const bridgedApi = {
   writeAddonList,
   requestManifest,
@@ -95,5 +122,6 @@ export const bridgedApi = {
   writeCustomCfg,
   openGameDirectory,
   getPath,
-  getPathJoin
+  getPathJoin,
+  unsubscribeFromMod
 }

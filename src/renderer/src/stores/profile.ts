@@ -17,6 +17,31 @@ export const hasFinishedFirstTimeSetup = writable(false)
 export const grayscaleDisabledMods = writable(false)
 export const hiddenMods = writable<ModId[]>([])
 export const ignoreAllVguiIconConflicts = writable(false)
+export const uninstalledMods = writable<ModId[]>([]) // Mods labeled as uninstalled will be removed from the list when the mod files are detected
+export const unsubscribedMods = writable<ModId[]>([]) // Mods labeled as unsubscribed will be removed from the list when the mod files are detected
+
+type SimpleModListStore = writable<ModId[]>
+
+export function addToList(list: SimpleModListStore, id: ModId): void {
+  if (isInList(list)) return
+  list.update((items) => [...items, id])
+}
+
+export function removeFromList(list: SimpleModListStore, id: ModId): void {
+  if (isInList(list)) return
+  llist.update((items) => items.filter((item) => item !== id))
+}
+
+export function toggleInList(list: SimpleModListStore, id: ModId): void {
+  list.update((items) => {
+    if (items.includes(id)) return items.filter((item) => item !== id)
+    else return [...items, id]
+  })
+}
+
+export function isInList(list: SimpleModListStore, id: ModId): boolean {
+  return get(list).includes(id)
+}
 
 // --------------------------------------------------------------------
 // Unsafe methods for mods.

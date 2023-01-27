@@ -2,12 +2,21 @@
   import { CodeBlock, Divider } from '@skeletonlabs/skeleton'
   import classnames from 'classnames'
   import type { IMod } from 'shared'
+  import { unsubscribeFromMod } from '../api/api'
   import { combinedCategoryToLabelMap } from '../constants/categories'
   import thumbnailFallback from '../constants/thumbnailFallback'
   import { openVpkExtractionModal } from '../functions/modals'
   import { enabledMods, groupedEnabledMods, modIdToOverview } from '../stores/library'
   import { modManifest } from '../stores/manifest'
-  import { collections, gameDir, toggleModInCurrentPresetSafe } from '../stores/profile'
+  import {
+    collections,
+    gameDir,
+    hiddenMods,
+    isInList,
+    toggleInList,
+    toggleModInCurrentPresetSafe,
+    uninstalledMods
+  } from '../stores/profile'
   import CategoryChip from './CategoryChip.svelte'
 
   $: mod = $modManifest.mods[$modIdToOverview] as IMod
@@ -43,6 +52,13 @@
     toggleModInCurrentPresetSafe(mod.id)
   }
 
+  function handleHide() {
+    toggleInList(hiddenMods, mod.id)
+  }
+
+  $: hideLabel = isInList(hiddenMods, mod.id) ? 'Unhide' : 'Hide' || $hiddenMods
+  $: isInstalled = !isInList(uninstalledMods, mod.id) || $uninstalledMods
+
   $: fileSizeMb = mod.vpksize / (1024 * 1024)
   $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`
 
@@ -70,15 +86,21 @@
       {/each}
     </div>
 
-    <button
-      class={classnames(' w-full btn btn-sm  mt-4', {
-        'btn-filled-surface': !isEnabled,
-        'btn-filled-tertiary': isEnabled && !isGroupEnabled,
-        'btn-filled-warning': isGroupEnabled
-      })}
-      on:click={toggleModEnabled}
-      >{isEnabled ? (isGroupEnabled ? 'Enabled (Conflicting)' : 'Enabled') : 'Disabled'}</button
-    >
+    {#if isInstalled}
+      <button
+        class={classnames(' w-full btn btn-sm  mt-4', {
+          'btn-filled-surface': !isEnabled,
+          'btn-filled-tertiary': isEnabled && !isGroupEnabled,
+          'btn-filled-warning': isGroupEnabled
+        })}
+        on:click={toggleModEnabled}
+        >{isEnabled ? (isGroupEnabled ? 'Enabled (Conflicting)' : 'Enabled') : 'Disabled'}</button
+      >
+    {:else}
+      <div class="mt-4">
+        <h4>Uninstalled</h4>
+      </div>
+    {/if}
 
     {#if mod.fromworkshop}
       <div class="flex gap-3">
@@ -96,7 +118,21 @@
       <button class="btn btn-sm btn-filled-surface" on:click={() => openVpkExtractionModal(mod.id)}
         >Extract files</button
       >
+
+      <button class="btn btn-sm btn-filled-surface" on:click={() => handleHide()}
+        >{hideLabel}</button
+      >
+
+      <button
+        disabled={!isInstalled}
+        class="btn btn-sm btn-filled-surface"
+        on:click={() => unsubscribeFromMod(mod.id)}>Unsubscribe</button
+      >
     </div>
+
+    <h4>
+      Id <div class="text-xs">{mod.id}</div>
+    </h4>
 
     {#if mod.addonauthor}
       <h4>

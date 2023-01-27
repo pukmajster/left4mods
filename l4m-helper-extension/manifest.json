@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Left4Mods Helper",
+  "version": "1.0",
+
+  "description": "Left4Mods Helper",
+
+  "icons": {
+    "48": "icons.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://steamcommunity.com/sharedfiles/filedetails/?id=*"],
+      "js": ["index.js"]
+    }
+  ],
+
+  "permissions": ["tabs"],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "l4m-helper@pukmajster.com"
+    }
+  }
+}

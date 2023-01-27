@@ -12,6 +12,7 @@ import {
   writeCustomCfg,
   writeProfile
 } from './profile'
+import { removeVpkFile } from './vpk'
 import { exportVpkFiles } from './vpkexport'
 
 // Disable GPU Acceleration for Windows 7
@@ -66,6 +67,10 @@ ipcMain.handle(
   'exportVpkFiles',
   (_e, gameDir: string, extractDir: string, modId: ModId, filesToExtract: string[]) =>
     exportVpkFiles(gameDir, extractDir, modId, filesToExtract)
+)
+
+ipcMain.handle('removeVpkFile', (_e, gameDir: string, modId: ModId) =>
+  removeVpkFile(gameDir, modId)
 )
 
 let firstPassFinished = false
