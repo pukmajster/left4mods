@@ -175,7 +175,7 @@
                   >Unhide</button
                 >
               {:else}
-                <button on:click={_batchHideMods} class="btn btn-sm btn-filled-primary">hide</button
+                <button on:click={_batchHideMods} class="btn btn-sm btn-filled-primary">Hide</button
                 >
               {/if}
             {/if}
