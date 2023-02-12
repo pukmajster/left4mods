@@ -4,7 +4,7 @@ import { isWritingAddonlist, modManifest } from '../stores/manifest'
 import { activePreset, gameDir, presets } from '../stores/profile'
 import { triggerAlertToast } from './toast'
 
-export async function writeAddonlist() {
+export async function writeAddonlist(): Promise<void> {
   if (get(isWritingAddonlist)) {
     triggerAlertToast('Already writing addonlist')
     return
@@ -12,7 +12,7 @@ export async function writeAddonlist() {
 
   isWritingAddonlist.set(true)
 
-  let values = {
+  const values = {
     modManifest: get(modManifest),
     presets: get(presets),
     activePreset: get(activePreset),

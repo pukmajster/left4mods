@@ -104,6 +104,7 @@ export interface IMod {
   timemodified: string
   vpksize: number
   uninstalled: boolean
+  fullonlinemeta: unknown
 }
 
 export type CategoryKey = string

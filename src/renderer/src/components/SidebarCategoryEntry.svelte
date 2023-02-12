@@ -1,7 +1,8 @@
 <script lang="ts">
   import { CheckCircle, Circle } from 'lucide-svelte'
   import type { ICategoryToLabelMap } from '../constants/categories'
-  import { activeCategoriesToFilterBy } from '../stores/library'
+  import { activeCategoriesToFilterBy, enabledMods } from '../stores/library'
+  import { modManifest } from '../stores/manifest'
   export let categoryName: string = ''
   export let categoryEntries: ICategoryToLabelMap
   export let label: string | undefined = undefined
@@ -36,18 +37,30 @@
     <div class="flex flex-col rounded-md overflow-hidden">
       {#each categoryEntriesList as entry}
         {@const isSelected = $activeCategoriesToFilterBy.includes(entry)}
+        {@const modsWithCategory = Object.keys($modManifest.mods)
+          .map((enabledModId) => $modManifest.mods[enabledModId].categories.includes(entry))
+          .filter((fitsCategory) => fitsCategory).length}
+        {@const enabledModsWithCategory = $enabledMods
+          .map((enabledModId) => $modManifest.mods[enabledModId].categories.includes(entry))
+          .filter((fitsCategory) => fitsCategory).length}
 
         <button
-          class="category-entry flex gap-2 items-center py-1 bg-surface-700/50 pl-4 cursor-pointer hover:bg-surface-500"
+          class="category-entry flex justify-between items-center py-1 bg-surface-700/50 pl-4 cursor-pointer hover:bg-surface-500"
           class:selected={isSelected}
           on:click={(e) => selectThisCategory(e, entry)}
         >
-          {#if isSelected}
-            <CheckCircle size={14} />
-          {:else}
-            <Circle size={14} />
+          <div class="flex items-center gap-2">
+            {#if isSelected}
+              <CheckCircle size={14} />
+            {:else}
+              <Circle size={14} />
+            {/if}
+            {categoryEntries[entry]}
+          </div>
+
+          {#if modsWithCategory > 0}
+            <span class="text-xs ">{enabledModsWithCategory} / {modsWithCategory}</span>
           {/if}
-          {categoryEntries[entry]}
         </button>
       {/each}
     </div>

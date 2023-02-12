@@ -122,8 +122,8 @@
     padding: 1em;
     padding-top: 0;
     padding-bottom: 0;
-    min-width: 320px;
-    max-width: 320px;
+    min-width: 360px;
+    max-width: 360px;
     height: 100%;
 
     display: flex;

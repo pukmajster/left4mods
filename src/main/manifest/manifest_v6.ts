@@ -139,7 +139,6 @@ async function buildManifest(options: RequestManifestOptions): Promise<IModManif
       const res = await fetch(
         'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1',
         {
-          // @ts-ignore
           body: fd,
           method: 'POST'
         }
@@ -152,7 +151,6 @@ async function buildManifest(options: RequestManifestOptions): Promise<IModManif
           tempManifest.mods[id].addontitle = publishedFile.title
 
         // TODO: get rid of this
-        // @ts-ignore:
         tempManifest.mods[id].fullonlinemeta = publishedFile
       }
 
