@@ -170,7 +170,7 @@ async function buildManifest(options: RequestManifestOptions): Promise<IModManif
   // ----------------------------------------------------------------
 
   // TODO: remove indent for final version
-  fsp.writeFile(MANIFEST_PATH, JSON.stringify(tempManifest))
+  fsp.writeFile(MANIFEST_PATH, JSON.stringify(tempManifest, null, 2))
 
   return tempManifest
 }
@@ -199,26 +199,30 @@ async function getModsFromDirectory(
       // 2. Open up the vpk and read the addoninfo.txt
       // ----------------------------------------------------------------
 
+      const modInfo: IMod = {
+        id: id,
+        files: [],
+        categories: [],
+        timemodified: '',
+        vpksize: 0,
+        pureId: id,
+        fromworkshop: mode === 'workshop' ? true : false,
+        uninstalled: false
+      }
+
+      const pakPath = path.join(directory, file)
+      console.log(' ----------- parsing ' + pakPath + ' ----------')
+
       try {
-        const pakPath = path.join(directory, file)
-        console.log(' ----------- parsing ' + pakPath + ' ----------')
-
-        const modInfo: IMod = {
-          id: id,
-          files: [],
-          categories: [],
-          timemodified: '',
-          vpksize: 0,
-          pureId: id,
-          fromworkshop: mode === 'workshop' ? true : false
-        }
-
         function addCategory(category: string) {
           if (modInfo.categories!.includes(category)) return
           modInfo.categories!.push(category)
         }
 
         const stats = await fsp.stat(pakPath)
+
+        stats.size == 0 && console.log(stats)
+
         modInfo.timemodified = stats.mtime.toDateString()
         modInfo.vpksize = stats.size // in bytes
 
@@ -281,6 +285,11 @@ async function getModsFromDirectory(
 
         mods[id] = modInfo
       } catch (e) {
+        // If the mod is present in the manifest, label it as uninstalled
+        if (existingIds.includes(id)) {
+          mods[id].uninstalled = true
+        }
+
         console.log(e as Error)
         console.log('error could not open vpk')
         return {}

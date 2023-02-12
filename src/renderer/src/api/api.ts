@@ -2,7 +2,7 @@ import type { IModManifest, IPreset, IUserProfile, ModId, RequestManifestOptions
 import { get } from 'svelte/store'
 import { emptyManifest } from '../constants/manifest'
 import { triggerAlertToast } from '../functions/toast'
-import { addToList, customCfg, gameDir, uninstalledMods } from '../stores/profile'
+import { customCfg, gameDir } from '../stores/profile'
 
 async function requestManifest(options: RequestManifestOptions): Promise<IModManifest> {
   try {
@@ -90,7 +90,7 @@ export async function exportVpkFiles(
 export async function removeVpkFile(gameDir: string, modId: ModId): Promise<boolean> {
   try {
     window.api.removeVpkFile(gameDir, modId)
-    addToList(uninstalledMods, modId)
+    //addToList(uninstalledMods, modId)
     //removeFromList(enabledMods, modId)
     triggerAlertToast('Removed vpk successfully')
     return true

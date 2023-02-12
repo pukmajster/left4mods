@@ -58,7 +58,6 @@ export interface IUserProfile {
   hasFinishedFirstTimeSetup: boolean
   hiddenMods: ModId[]
   ignoreAllVguiIconConflicts: boolean
-  uninstalledMods: ModId[]
 }
 
 export interface IPreset {
@@ -104,6 +103,7 @@ export interface IMod {
   categories: string[]
   timemodified: string
   vpksize: number
+  uninstalled: boolean
 }
 
 export type CategoryKey = string

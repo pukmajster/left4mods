@@ -14,8 +14,7 @@
     hiddenMods,
     isInList,
     toggleInList,
-    toggleModInCurrentPresetSafe,
-    uninstalledMods
+    toggleModInCurrentPresetSafe
   } from '../stores/profile'
   import CategoryChip from './CategoryChip.svelte'
 
@@ -57,7 +56,7 @@
   }
 
   $: hideLabel = isInList(hiddenMods, mod.id) ? 'Unhide' : 'Hide' || $hiddenMods
-  $: isInstalled = !isInList(uninstalledMods, mod.id) || $uninstalledMods
+  $: isInstalled = !!$modManifest.mods[mod.id].uninstalled
 
   $: fileSizeMb = mod.vpksize / (1024 * 1024)
   $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`

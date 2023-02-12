@@ -1,18 +1,13 @@
 <script lang="ts">
   import type { IMod } from 'shared'
   import { enabledMods, groupedEnabledMods, modIdToOverview, selectedMods } from '../stores/library'
-  import {
-    gameDir,
-    grayscaleDisabledMods,
-    isInList,
-    toggleModInCurrentPresetSafe,
-    uninstalledMods
-  } from '../stores/profile'
+  import { gameDir, grayscaleDisabledMods, toggleModInCurrentPresetSafe } from '../stores/profile'
 
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   import { CheckCircle2, Slash } from 'lucide-svelte'
   import { combinedCategoryToLabelMap } from '../constants/categories'
   import thumbnailFallback from '../constants/thumbnailFallback'
+  import { modManifest } from '../stores/manifest'
   export let mod: IMod
 
   let showHoverbox = false
@@ -68,7 +63,7 @@
   $: enabled = $enabledMods.includes(mod.id)
   $: otherModsSelectedButNotThisOne = $selectedMods.some((id) => id != mod.id)
   $: userIsSelecting = $selectedMods.length > 0
-  $: uninstalled = isInList(uninstalledMods, mod.id) ?? uninstalledMods
+  $: uninstalled = !!$modManifest[mod.id]?.uninstalled
 
   $: isGroupEnabled = $groupedEnabledMods.some((group) =>
     group.some((conflictingMod) => conflictingMod.id == mod.id)

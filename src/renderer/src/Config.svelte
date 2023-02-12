@@ -14,8 +14,7 @@
     hiddenMods,
     ignoreAllVguiIconConflicts,
     launchParameters,
-    presets,
-    uninstalledMods
+    presets
   } from './stores/profile'
 
   let ready = false
@@ -41,8 +40,7 @@
       customCfg: '// Left4Mods Custom Config\n',
       hasFinishedFirstTimeSetup: false,
       hiddenMods: [],
-      ignoreAllVguiIconConflicts: false,
-      uninstalledMods: []
+      ignoreAllVguiIconConflicts: false
     }
 
     try {
@@ -65,7 +63,6 @@
     grayscaleDisabledMods.set(profile.preferences.grayscaleDisabledMods)
     hiddenMods.set(profile.hiddenMods)
     ignoreAllVguiIconConflicts.set(profile.ignoreAllVguiIconConflicts)
-    uninstalledMods.set(profile.uninstalledMods)
 
     // The user config has been read.
     ready = true
@@ -88,8 +85,7 @@
         customCfg: $customCfg,
         hasFinishedFirstTimeSetup: $hasFinishedFirstTimeSetup,
         hiddenMods: $hiddenMods,
-        ignoreAllVguiIconConflicts: $ignoreAllVguiIconConflicts,
-        uninstalledMods: $uninstalledMods
+        ignoreAllVguiIconConflicts: $ignoreAllVguiIconConflicts
       }
 
       try {

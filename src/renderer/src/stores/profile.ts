@@ -17,8 +17,8 @@ export const hasFinishedFirstTimeSetup = writable(false)
 export const grayscaleDisabledMods = writable(false)
 export const hiddenMods = writable<ModId[]>([])
 export const ignoreAllVguiIconConflicts = writable(false)
-export const uninstalledMods = writable<ModId[]>([]) // Mods labeled as uninstalled will be removed from the list when the mod files are detected
-export const unsubscribedMods = writable<ModId[]>([]) // Mods labeled as unsubscribed will be removed from the list when the mod files are detected
+//export const uninstalledMods = writable<ModId[]>([]) // Mods labeled as uninstalled will be removed from the list when the mod files are detected
+//export const unsubscribedMods = writable<ModId[]>([]) // Mods labeled as unsubscribed will be removed from the list when the mod files are detected
 
 type SimpleModListStore = writable<ModId[]>
 

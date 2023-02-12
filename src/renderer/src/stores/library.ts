@@ -8,8 +8,7 @@ import {
   hiddenMods,
   ignoreAllVguiIconConflicts,
   presets,
-  selectedCollectionName,
-  uninstalledMods
+  selectedCollectionName
 } from './profile'
 
 type SortingType =
@@ -50,6 +49,18 @@ export const enabledMods = derived(
     return tempStorage
   }
 )
+
+export const uninstalledMods = derived([modManifest], ([$modManifest]) => {
+  const tempStorage: ModId[] = []
+
+  Object.keys($modManifest.mods).map((modId) => {
+    if ($modManifest.mods[modId]?.uninstalled) {
+      tempStorage.push(modId)
+    }
+  })
+
+  return tempStorage
+})
 
 export const selectedMods = writable<ModId[]>([])
 

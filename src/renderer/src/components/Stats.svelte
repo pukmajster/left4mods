@@ -1,7 +1,6 @@
 <script>
-  import { enabledMods } from '../stores/library'
+  import { enabledMods, uninstalledMods } from '../stores/library'
   import { modManifest } from '../stores/manifest'
-  import { uninstalledMods } from '../stores/profile'
 </script>
 
 <div class="pb-2">
